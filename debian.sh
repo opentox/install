@@ -9,9 +9,8 @@ then
 fi
 apt-get update -y
 apt-get upgrade -y
-apt-get install binutils gcc g++ gfortran -y
-apt-get install sun-java6-jdk # needs interaction to confirm license
-apt-get install wget hostname pwgen git-core raptor-utils r-base -y # xvfb 
+apt-get install binutils gcc g++ gfortran sun-java6-jdk -y
+apt-get install wget hostname pwgen git-core raptor-utils r-base -y
 . ./config
 echo mysql-server-5.1 mysql-server/root_password password $mysql_root | debconf-set-selections
 echo mysql-server-5.1 mysql-server/root_password_again password $mysql_root | debconf-set-selections
