@@ -1,0 +1,42 @@
+:base_dir: /var/www/opentox/
+
+:database: 
+# sqlite3 is not recommended (councurrent write)
+  :adapter:  mysql
+  :database: production
+  :username: production
+  :password: PASSWORD
+  :host:     localhost
+
+:services:
+# make sure to enter a full uri (including training slash)
+  opentox-compound:      "http://SERVERNAME/compound/"
+  opentox-dataset:       "http://SERVERNAME/dataset/"
+  opentox-algorithm:     "http://SERVERNAME/algorithm/"
+  opentox-model:         "http://SERVERNAME/model/"
+  opentox-task:          "http://SERVERNAME/task/"
+  opentox-toxcreate:     "http://SERVERNAME/toxcreate/"
+  opentox-validation:    "http://SERVERNAME/validation/"
+
+:yaml_hosts:
+  - "localhost"
+  - "SERVERNAME"
+  - "webservices.in-silico.ch"
+  - "opentox.informatik.uni-freiburg.de"
+
+# Uncomment for verbose logging
+LOGGER
+# :logger: debug
+
+# OpenSSO Authorization
+# set ":server: nil" to disable A&A
+:authorization:
+  :server: AA
+  :free_request: #not controlled by A&A
+    - "GET"  
+  :authenticate_request: #only for authenticated user
+    - "POST"
+  :authorize_request:  #only for authenticated and authorizeduser
+    - "DELETE"
+    - "PUT"
+ 

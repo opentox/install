@@ -1,0 +1,17 @@
+#!/bin/sh
+
+. $distribution.sh
+. ruby.sh
+. nginx.sh
+. kernlab.sh
+. opentox-ruby.sh
+. ./config
+if [ $install = "all" ]
+then
+    . opentox-webservices.sh
+    . mysql-setup.sh
+    echo "Starting Nginx"
+    echo "Please inspect and tune /opt/nginx/conf/nginx.conf and /home/opentox/.opentox/config/production.yaml"
+    /opt/nginx/sbin/nginx
+fi
+
