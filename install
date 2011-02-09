@@ -4,6 +4,7 @@
 . ./$distribution.sh
 . ./ruby.sh
 . ./nginx.sh
+. ./openbabel.sh
 . ./kernlab.sh
 . ./opentox-ruby.sh
 if [ $install = "all" ]
