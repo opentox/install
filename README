@@ -1,8 +1,8 @@
 Installer for OpenTox IST/ALU Services
 
-Usage (currently for Debian only):
+Usage (currently only for Debian):
 
   git clone http://github.com/helma/opentox-install.git
   cd opentox-install
   vi config
-  sh install
+  sudo ./install
