@@ -31,6 +31,7 @@ sed -e "s/PASSWORD/$password/;s/SERVERNAME/$servername/;s/LOGGER/$logger/;s/AA/$
 # checkout development version and link lib to opentox-ruby gem
 if [ $branch = "development" ]
 then
+    mkdir -p /var/www/opentox
     cd /var/www/opentox
     git clone http://github.com/mguetlein/opentox-ruby.git 
     cd opentox-ruby

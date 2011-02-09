@@ -27,4 +27,6 @@ cd -
 cd /var/www/opentox/algorithm
 rake fminer:install
 chown -R opentox /var/www/opentox
+cp -r $HOME/.opentox /home/opentox/
+chown -R opentox /home/opentox/.opentox
 cd $dir
