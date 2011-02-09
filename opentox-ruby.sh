@@ -4,6 +4,7 @@ echo "Installing opentox-ruby gem"
 . /etc/profile
 . ./config
 gem install opentox-ruby
+gem install builder # not included by spreadsheet gem
 
 dir=`pwd`
 
