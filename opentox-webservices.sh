@@ -9,6 +9,7 @@ then
    adduser --system opentox
 fi
 
+dir=`pwd`
 mkdir -p /var/www/opentox
 cd /var/www/opentox
 for s in compound dataset algorithm model toxcreate task; do
@@ -26,4 +27,4 @@ cd -
 cd /var/www/opentox/algorithm
 rake fminer:install
 chown -R opentox /var/www/opentox
-cd -
+cd $dir

@@ -5,6 +5,8 @@ echo "Installing opentox-ruby gem"
 . ./config
 gem install opentox-ruby
 
+dir=`pwd`
+
 # create config file
 password=`pwgen 8 1`
 servername=`hostname`.`dnsdomainname`
@@ -26,7 +28,7 @@ mkdir -p $HOME/.opentox/config
 mkdir -p $HOME/.opentox/log
 sed -e "s/PASSWORD/$password/;s/SERVERNAME/$servername/;s/LOGGER/$logger/;s/AA/$aa/" production.yaml > $HOME/.opentox/config/production.yaml
 
- checkout development version and link lib to opentox-ruby gem
+# checkout development version and link lib to opentox-ruby gem
 if [ $branch = "development" ]
 then
     cd /var/www/opentox
@@ -38,3 +40,4 @@ then
     mv $gem_lib $gem_lib~
     ln -s /var/www/opentox/opentox-ruby/lib $gem_lib
 fi
+cd $dir

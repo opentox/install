@@ -11,3 +11,4 @@ gem sources -a http://gemcutter.org
 gem sources -r http://rubygems.org/
 echo "gem: --no-ri --no-rdoc" | tee -a ~/.gemrc
 gem install passenger
+cd -
