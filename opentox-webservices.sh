@@ -23,9 +23,8 @@ done
 git clone http://github.com/mguetlein/opentox-validation.git validation
 cd validation
 git checkout -t origin/$branch
-cd -
-cd /var/www/opentox/algorithm
-rake fminer:install
+cd $dir
+. opentox-fminer.sh
 chown -R opentox /var/www/opentox
 cp -r $HOME/.opentox /home/opentox/
 chown -R opentox /home/opentox/.opentox
