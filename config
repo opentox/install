@@ -19,8 +19,7 @@ install=all
 # Options:
 # local   local installation
 # server  inter or intranet server
-#type=local
-type=server
+type=local
 
 # Git branch of services
 # Options: master test development
