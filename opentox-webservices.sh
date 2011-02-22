@@ -20,9 +20,16 @@ for s in compound dataset algorithm model toxcreate task; do
     ln -s /var/www/opentox/$s/public /var/www/$s
     cd -
 done
+
+# validation service
 git clone http://github.com/mguetlein/opentox-validation.git validation
-cd validation
-git checkout -t origin/$branch
+cd /var/www/opentox/validation
+git checkout -t origin/test
+gem install ruby-plot
+mkdir -p public
+ln -s /var/www/opentox/validation/public /var/www/validation
+
+# fminer etc
 cd /var/www/opentox/algorithm
 updatedb
 rake fminer:install
