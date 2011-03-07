@@ -1,13 +1,5 @@
 :base_dir: /var/www/opentox/
 
-:database: 
-# sqlite3 is not recommended (councurrent write)
-  :adapter:  mysql
-  :database: production
-  :username: production
-  :password: PASSWORD
-  :host:     localhost
-
 :services:
 # make sure to enter a full uri (including training slash)
   opentox-compound:      "http://SERVERNAME/compound/"

@@ -9,7 +9,6 @@ gem install builder # not included by spreadsheet gem
 dir=`pwd`
 
 # create config file
-password=`pwgen 8 1`
 servername=`hostname`.`dnsdomainname`
 if [ $branch = "development" ]
 then
@@ -27,7 +26,7 @@ fi
 
 mkdir -p $HOME/.opentox/config
 mkdir -p $HOME/.opentox/log
-sed -e "s/PASSWORD/$password/;s/SERVERNAME/$servername/;s/LOGGER/$logger/;s/AA/$aa/" production.yaml > $HOME/.opentox/config/production.yaml
+sed -e "s/SERVERNAME/$servername/;s/LOGGER/$logger/;s/AA/$aa/" production.yaml > $HOME/.opentox/config/production.yaml
 
 # checkout development version and link lib to opentox-ruby gem
 if [ $branch = "development" ]
