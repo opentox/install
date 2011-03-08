@@ -39,6 +39,7 @@ then
     git clone http://github.com/helma/opentox-ruby.git 
     cd opentox-ruby
     git checkout -t origin/$branch
+    gem install jeweler
     rake install
     gem_lib=`gem which opentox-ruby`
     gem_lib=`echo $gem_lib | sed 's/\/opentox-ruby.rb//'`
