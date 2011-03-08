@@ -8,7 +8,7 @@
   opentox-model:         "http://SERVERNAME/model/"
   opentox-task:          "http://SERVERNAME/task/"
   opentox-toxcreate:     "http://SERVERNAME/toxcreate/"
-  opentox-validation:    "http://SERVERNAME/validation/"
+  opentox-validation:    "http://opentox.informatik.uni-freiburg.de/validation/"
 
 :yaml_hosts:
   - "localhost"

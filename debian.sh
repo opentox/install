@@ -17,7 +17,7 @@ apt-get install binutils gcc g++ gfortran wget hostname pwgen git-core raptor-ut
 echo sun-java6-jdk shared/accepted-sun-dlj-v1-1 select true | /usr/bin/debconf-set-selections
 apt-get install --yes sun-java6-jdk -y
 . ./config
-apt-get install xsltproc gnuplot -y # for validation
+#apt-get install xsltproc gnuplot -y # for validation
 apt-get install libssl-dev zlib1g-dev libreadline-dev libmysqlclient-dev libmysqlclient-dev libcurl4-openssl-dev libxml2-dev libxslt1-dev libgsl0-dev -y
 sed -i '/^JAVA_HOME=/d' /etc/profile
 echo 'export JAVA_HOME=/usr/lib/jvm/java-6-sun' | tee -a /etc/profile

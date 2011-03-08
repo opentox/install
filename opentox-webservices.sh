@@ -22,12 +22,12 @@ for s in compound dataset algorithm model toxcreate task; do
 done
 
 # validation service
-git clone http://github.com/mguetlein/opentox-validation.git validation
-cd /var/www/opentox/validation
-git checkout -t origin/test
-gem install ruby-plot
-mkdir -p public
-ln -s /var/www/opentox/validation/public /var/www/validation
+#git clone http://github.com/mguetlein/opentox-validation.git validation
+#cd /var/www/opentox/validation
+#git checkout -t origin/test
+#gem install ruby-plot
+#mkdir -p public
+#ln -s /var/www/opentox/validation/public /var/www/validation
 
 # fminer etc
 cd /var/www/opentox/algorithm
