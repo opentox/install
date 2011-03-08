@@ -14,7 +14,7 @@ mysql_root=opentox
 # gem	  installs only the opentox-ruby gem (useful, if you want to use external services with the opentox-ruby DSL)
 # local   local installation (authentication and authorisation disabled)
 # server  inter or intranet server (authentication and authorisation enabled)
-type=server
+install=server
 
 # Git branch of services
 # Options: master test development

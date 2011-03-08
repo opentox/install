@@ -18,7 +18,7 @@ else
     logger=""
 fi
 
-if [ $type = "server" ]
+if [ $install = "server" ]
 then
     aa="https:\/\/opensso.in-silico.ch"
 else
@@ -29,7 +29,7 @@ mkdir -p $HOME/.opentox/config
 mkdir -p $HOME/.opentox/log
 #sed -e "s/SERVERNAME/$servername/;s/LOGGER/$logger/;s/AA/$aa/" production.yaml > $HOME/.opentox/config/production.yaml
 sed -e "s/PASSWORD/$password/;s/SERVERNAME/$servername/;s/ESCAPEDSERVERNAME/$escapedservername/;s/LOGGER/$logger/;s/AA/$aa/" production.yaml > $HOME/.opentox/config/production.yaml
-sed -e "s/PASSWORD/$password/;s/SERVERNAME/$servername/;s/ESCAPEDSERVERNAME/$escapedservername/;s/LOGGER/$logger/;s/AA/$aa/" aa-$type.yaml >> $HOME/.opentox/config/production.yaml
+sed -e "s/PASSWORD/$password/;s/SERVERNAME/$servername/;s/ESCAPEDSERVERNAME/$escapedservername/;s/LOGGER/$logger/;s/AA/$aa/" aa-$install.yaml >> $HOME/.opentox/config/production.yaml
 
 # checkout development version and link lib to opentox-ruby gem
 if [ $branch = "development" ]
