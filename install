@@ -6,7 +6,7 @@
 . ./openbabel.sh
 . ./kernlab.sh
 . ./opentox-ruby.sh
-if [ $install = "all" ]
+if [ $install != "gem" ]
 then
     . ./nginx.sh
     . ./redis.sh

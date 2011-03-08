@@ -5,14 +5,18 @@
 # Linux distribution (currently only debian)
 distribution=debian
 
+# Choose a root password for the MySQL database
+# Please insert the correct password if mysql-server is already installed
+mysql_root=opentox
+
 # Installation type
 # Options:
-# gem	Installs only the opentox-ruby gem (useful, if you want to use external services with the opentox-ruby DSL)
-# local   local installation
-# server  inter or intranet server
-type=local
+# gem	  installs only the opentox-ruby gem (useful, if you want to use external services with the opentox-ruby DSL)
+# local   local installation (authentication and authorisation disabled)
+# server  inter or intranet server (authentication and authorisation enabled)
+type=server
 
 # Git branch of services
 # Options: master test development
 # "master" is the current stable version
-branch=master
+branch=development
