@@ -1,6 +1,9 @@
 #!/bin/sh
 
 echo "Downloading and updating Debian packages"
+echo "deb http://ftp.de.debian.org/debian squeeze main contrib
+deb http://ftp.de.debian.org/debian/ squeeze non-free" > /etc/apt/sources.list
+
 apt-get install lsb-release
 codename=`lsb_release -a|grep Codename|cut -f2`
 if ! grep "^deb.*debian\.org.*non-free" /etc/apt/sources.list
