@@ -2,10 +2,10 @@
 
 echo "Installing Ruby Enterprise"
 cd /tmp
-wget -O - "http://rubyforge.org/frs/download.php/71096/ruby-enterprise-1.8.7-2010.02.tar.gz" | tar zxv
-ruby-enterprise-1.8.7-2010.02/installer  --dont-install-useful-gems --no-dev-docs --auto=/opt/ruby-enterprise-1.8.7-2010.02
+wget -O - "http://rubyenterpriseedition.googlecode.com/files/ruby-enterprise-1.8.7-2011.03.tar.gz" | tar zxv
+ruby-enterprise-1.8.7-2010.03/installer  --dont-install-useful-gems --no-dev-docs --auto=/opt/ruby-enterprise-1.8.7-2010.03
 sed -i '/^PATH=.*ruby-enterprise/d' /etc/profile
-echo 'PATH=$PATH:/opt/ruby-enterprise-1.8.7-2010.02/bin' | tee -a /etc/profile
+echo 'PATH=$PATH:/opt/ruby-enterprise-1.8.7-2010.03/bin' | tee -a /etc/profile
 . /etc/profile
 gem sources -a http://gemcutter.org 
 gem sources -r http://rubygems.org/

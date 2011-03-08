@@ -12,10 +12,10 @@ apt-get upgrade -y
 apt-get install binutils gcc g++ gfortran sun-java6-jdk -y
 apt-get install wget hostname pwgen git-core raptor-utils r-base -y
 . ./config
-echo mysql-server-5.1 mysql-server/root_password password $mysql_root | debconf-set-selections
-echo mysql-server-5.1 mysql-server/root_password_again password $mysql_root | debconf-set-selections
-apt-get install mysql-server -y
-apt-get install xsltproc gnuplot -y
+#echo mysql-server-5.1 mysql-server/root_password password $mysql_root | debconf-set-selections
+#echo mysql-server-5.1 mysql-server/root_password_again password $mysql_root | debconf-set-selections
+#apt-get install mysql-server -y
+apt-get install xsltproc gnuplot -y # for validation
 apt-get install libssl-dev zlib1g-dev libreadline-dev libmysqlclient-dev libmysqlclient-dev libcurl4-openssl-dev libxml2-dev libxslt1-dev libgsl0-dev -y
 sed -i '/^JAVA_HOME=/d' /etc/profile
 echo 'export JAVA_HOME=/usr/lib/jvm/java-6-sun' | tee -a /etc/profile

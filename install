@@ -3,14 +3,15 @@
 . ./config
 . ./$distribution.sh
 . ./ruby.sh
-. ./nginx.sh
 . ./openbabel.sh
 . ./kernlab.sh
 . ./opentox-ruby.sh
 if [ $install != "gem" ]
 then
+    . ./nginx.sh
+    . ./redis.sh
     . ./opentox-webservices.sh
-    . ./mysql-setup.sh
+    #. ./mysql-setup.sh
     echo "Starting Nginx"
     echo "Please inspect and tune /opt/nginx/conf/nginx.conf and /home/opentox/.opentox/config/production.yaml"
     /opt/nginx/sbin/nginx
