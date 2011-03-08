@@ -26,45 +26,6 @@
 
 # Uncomment for verbose logging
 LOGGER
-#:logger: debug
-#:backtrace: true
+:logger: debug
+:backtrace: true
 
-# OpenSSO Authorization
-# set ":server: " to disable A&A
-:authorization:
-  :server: AA
-  :free_request: #request-method not controlled by A&A
-    - "GET"
-    - "POST"
-    - "HEAD"
-    - "DELETE"
-    - "PUT"
-  :authenticate_request: #only for authenticated user
-    - ""
-  :authorize_request:  #only for authenticated and authorizeduser
-    - ""
-# Exceptions:
-  :free_uris: #request-method for uri not controlled by A&A
-    ? - :GET
-    : - !ruby/regexp /http:\/\/ot\-dev\.in\-silico\.ch\/algorithm/
-      - "http://in-silico.ch/dataset"
-      - "http://ot-dev.in-silico.ch/model"
-      - "http://ot-dev.in-silico.ch/validation"
-      - !ruby/regexp /http:\/\/ot\-dev\.in-silico\.ch\/validation\/[a-z,A-Z,\/,_\-]*$/
-    ? - :GET
-      - :POST
-    : - !ruby/regexp /http:\/\/ot\-dev\.in\-silico\.ch\/toxcreate/
-      - !ruby/regexp /http:\/\/ot\-dev\.in\-silico\.ch\/task/
-      - !ruby/regexp /http:\/\/ot\-dev\.in\-silico\.ch\/compound/
-
-    ? - :PUT
-    : - !ruby/regexp /http:\/\/ot\-dev\.in\-silico\.ch\/task/
-
-  :authorize_exceptions: #request-method for uri only authenticated, no authorization
-    ? - :POST
-    : - !ruby/regexp /http:\/\/ot\-dev\.in\-silico\.ch\/algorithm/
-      - "http://ot-dev.in-silico.ch/dataset"
-      - "http://ot-dev.in-silico.ch/model"
-      - "http://ot-dev.in-silico.ch/validation"
-      - !ruby/regexp /http\:\/\/ot-dev\.in\-silico\.ch\/validation\/[a-z,A-Z,\/,_\-]*$/
- 

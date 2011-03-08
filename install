@@ -7,7 +7,7 @@
 . ./openbabel.sh
 . ./kernlab.sh
 . ./opentox-ruby.sh
-if [ $install = "all" ]
+if [ $install != "gem" ]
 then
     . ./opentox-webservices.sh
     . ./mysql-setup.sh
