@@ -13,7 +13,7 @@ dir=`pwd`
 mkdir -p /var/www/opentox
 cd /var/www/opentox
 for s in compound dataset algorithm model toxcreate task; do
-    git clone git://github.com/helma/opentox-$s.git $s
+    git clone git://github.com/opentox/$s.git $s
     cd $s
     git checkout -t origin/$branch
     mkdir -p public
