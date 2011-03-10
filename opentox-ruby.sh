@@ -36,7 +36,7 @@ if [ $branch = "development" ]
 then
     mkdir -p /var/www/opentox
     cd /var/www/opentox
-    git clone http://github.com/helma/opentox-ruby.git 
+    git clone http://github.com/opentox/opentox-ruby.git 
     cd opentox-ruby
     git checkout -t origin/$branch
     gem install jeweler
