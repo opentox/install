@@ -17,6 +17,7 @@ mysql_root=opentox
 install=server
 
 # Git branch of services
-# Options: master test development
-# "master" is the current stable version
-branch=development
+# Options: master development
+# "master" installs the current stable version
+branch=master
+
