@@ -96,17 +96,17 @@ echo
 echo "Preparing Openbabel..."
 if [ ! -f $OB_CONF ]; then
   echo "PATH=$PREFIX/bin:\$PATH" >> "$OB_CONF"
-  echo "if [ -z \"$LD_LIBRARY_PATH\" ]; then \
+  echo "if [ -z \"\$LD_LIBRARY_PATH\" ]; then \
           export LD_LIBRARY_PATH=\"$PREFIX/lib\"; \
         else \
-          export LD_LIBRARY_PATH=\"$PREFIX/lib:$LD_LIBRARY_PATH\"; \
+          export LD_LIBRARY_PATH=\"$PREFIX/lib:\$LD_LIBRARY_PATH\"; \
         fi" >> "$OB_CONF"
-  echo "if [ -z \"$BABEL_LIBDIR\" ]; then \
+  echo "if [ -z \"\$BABEL_LIBDIR\" ]; then \
           export BABEL_LIBDIR=\"$PREFIX/lib/openbabel/2.3.0\"; \
         fi" >> "$OB_CONF"
-  echo "if [ -z \"$BABEL_DATADIR\" ]; then \
+  echo "if [ -z \"\$BABEL_DATADIR\" ]; then \
           export BABEL_DATADIR=\"$PREFIX/share/openbabel/2.3.0\"; \
-         fi" >> "$OB_CONF"
+         fi" >> "\$OB_CONF"
   echo "if [ -z \"$RUBYLIB\" ]; then \
           export RUBYLIB=\"$PREFIX_BINDINGS\"; \
         fi" >> "$RUBY_CONF"
