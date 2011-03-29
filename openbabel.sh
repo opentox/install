@@ -67,6 +67,7 @@ echo -n "Enter 's' to skip this step: "
 read RBB_SKIP 
 if [ "$RBB_SKIP" != "s" ]; then
 
+  OB_DONE=false
   mkdir "$PREFIX_BINDINGS">/dev/null 2>&1
   if [ ! -d "$PREFIX_BINDINGS" ]; then
     echo "Install directory '$PREFIX_BINDINGS' is not available! Aborting..."
@@ -79,7 +80,7 @@ if [ "$RBB_SKIP" != "s" ]; then
   fi
 
   if ! $OB_DONE ; then
-    cd scripts/ruby/
+    cd "/tmp/$OBVER/scripts/ruby/"
     ruby extconf.rb --with-openbabel-include="$PREFIX/include/openbabel-2.0"
     if make ; then
       cp openbabel.so $PREFIX_BINDINGS
