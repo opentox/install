@@ -1,49 +1,55 @@
-#!/bin/sh
+#!/bin/bash
+#
+# Installs Opentox-ruby gem.
+# Author: Christoph Helma, Andreas Maunz.
+#
 
-echo "Installing opentox-ruby gem"
-. /etc/profile
-. ./config
+if [ "$(id -u)" = "0" ]; then
+  echo "This script must be run as non-root." 1>&2
+  exit 1
+fi
+
+# Utils
+GIT="`which git`"
+if [ ! -e "$GIT" ]; then
+  echo "'git' missing. Install 'git' first. Aborting..."
+  exit 1
+fi
+
+# Pkg
+source ./config.sh
+
+
+echo "This installs the Opentox-ruby gem."
+echo "Press <Return> to continue, or <Ctrl+C> to abort."
+read
+
+DIR="`pwd`"
+
 gem install opentox-ruby
 gem install builder # not included by spreadsheet gem
 
-dir=`pwd`
+SERVERNAME="`hostname`"
+ESCAPED_SERVERNAME="`echo $SERVERNAME | sed 's/\/\\\//'`"
+LOGGER=":logger: backtrace"
+AA="nil"
 
-# create config file
-servername=`hostname`.`dnsdomainname`
-escapedservername=`echo $servername|sed 's/\/\\\//'`
-if [ $branch = "development" ]
-then
-    logger=":logger: backtrace"
-else
-    logger=""
-fi
-
-if [ $install = "server" ]
-then
-    aa="https:\/\/opensso.in-silico.ch"
-else
-    aa=nil
-fi
-
-mkdir -p $HOME/.opentox/config
-mkdir -p $HOME/.opentox/log
-#sed -e "s/SERVERNAME/$servername/;s/LOGGER/$logger/;s/AA/$aa/" production.yaml > $HOME/.opentox/config/production.yaml
-sed -e "s/PASSWORD/$password/;s/SERVERNAME/$servername/;s/ESCAPEDSERVERNAME/$escapedservername/;s/LOGGER/$logger/;s/AA/$aa/" production.yaml > $HOME/.opentox/config/production.yaml
-sed -e "s/PASSWORD/$password/;s/SERVERNAME/$servername/;s/ESCAPEDSERVERNAME/$escapedservername/;s/LOGGER/$logger/;s/AA/$aa/" aa-$install.yaml >> $HOME/.opentox/config/production.yaml
+mkdir -p "$HOME/.opentox/config"
+mkdir -p "$HOME/.opentox/log"
+sed -e "s/SERVERNAME/$servername/;s/ESCAPEDSERVERNAME/$escapedservername/;s/LOGGER/$logger/;s/AA/$aa/" production.yaml > $HOME/.opentox/config/production.yaml
+sed -e "s/SERVERNAME/$servername/;s/ESCAPEDSERVERNAME/$escapedservername/;s/LOGGER/$logger/;s/AA/$aa/" aa-$install.yaml >> $HOME/.opentox/config/production.yaml
 
 # checkout development version and link lib to opentox-ruby gem
 if [ $branch = "development" ]
 then
-    mkdir -p /var/www/opentox
-    cd /var/www/opentox
-    git clone http://github.com/opentox/opentox-ruby.git 
+    mkdir -p $WWW_DEST/opentox
+    cd $WWW_DEST/opentox
+    $GIT clone http://github.com/opentox/opentox-ruby.git 
     cd opentox-ruby
-    git checkout -t origin/$branch
+    $GIT checkout -t origin/development
     gem install jeweler
     rake install
-    gem_lib=`gem which opentox-ruby`
-    gem_lib=`echo $gem_lib | sed 's/\/opentox-ruby.rb//'`
-    mv $gem_lib $gem_lib~
-    ln -s /var/www/opentox/opentox-ruby/lib $gem_lib
+    GEM_LIB=`gem which opentox-ruby | sed 's/\/opentox-ruby.rb//'`
+    mv "$GEM_LIB" "$GEM_LIB~"
+    ln -s "$WWW_DEST/opentox/opentox-ruby/lib" "$GEM_LIB"
 fi
-cd $dir

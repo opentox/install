@@ -48,8 +48,7 @@ cd $WWW_DEST/opentox/algorithm
 echo "Need root password:"
 sudo updatedb
 rake fminer:install
-cp -r "$HOME/.opentox" "$HOME"
 
 cd "$DIR"
 echo
-echo "Opentox installation finished."
+echo "Opentox webservices installation finished."
