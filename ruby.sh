@@ -38,12 +38,13 @@ else
   fi
 fi
 
+DIR="`pwd`"
 if [ ! $RUBY_DONE ]; then
   echo "This installs Ruby Enterprise edition."
   echo "Your installation directory is '$PREFIX'."
   echo "A configuration file is created and you are given the option to have it included in your '~.bashrc'."
   echo "Press <Return> to continue, or <Ctrl+C> to abort."
-  DIR="`pwd`"
+  read
   cd /tmp
   if ! $WGET -O - "http://rubyenterpriseedition.googlecode.com/files/$RUBYVER.tar.gz" | tar zxv >/dev/null 2>&1 ; then
     echo "Download failed! Aborting..."
