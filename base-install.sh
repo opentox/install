@@ -99,8 +99,8 @@ if [ ! -f $JAVA_CONF ]; then
     exit 1
   fi
 
-  echo "JAVA_HOME=$JAVA_HOME" >> "$JAVA_CONF"
-  echo "PATH=$JAVA_HOME:\$PATH" >> "$JAVA_CONF"
+  echo "export JAVA_HOME=$JAVA_HOME" >> "$JAVA_CONF"
+  echo "export PATH=$JAVA_HOME:\$PATH" >> "$JAVA_CONF"
 
   echo "Java configuration has been stored in '$JAVA_CONF'."
   echo -n "Answer 'y' if Java configuration should be linked to your .bashrc: "

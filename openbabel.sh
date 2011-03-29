@@ -95,22 +95,11 @@ cd "$DIR"
 echo 
 echo "Preparing Openbabel..."
 if [ ! -f $OB_CONF ]; then
-  echo "PATH=$OB_DEST/bin:\$PATH" >> "$OB_CONF"
-  echo "if [ -z \"\$LD_LIBRARY_PATH\" ]; then \
-          export LD_LIBRARY_PATH=\"$OB_DEST/lib\"; \
-        else \
-          export LD_LIBRARY_PATH=\"$OB_DEST/lib:\$LD_LIBRARY_PATH\"; \
-        fi" >> "$OB_CONF"
-  echo "if [ -z \"\$BABEL_LIBDIR\" ]; then \
-          export BABEL_LIBDIR=\"$OB_DEST/lib/openbabel/2.3.0\"; \
-        fi" >> "$OB_CONF"
-  echo "if [ -z \"\$BABEL_DATADIR\" ]; then \
-          export BABEL_DATADIR=\"$OB_DEST/share/openbabel/2.3.0\"; \
-         fi" >> "\$OB_CONF"
-  echo "if [ -z \"\$RUBYLIB\" ]; then \
-          export RUBYLIB=\"$OB_DEST_BINDINGS\"; \
-        fi" >> "$RUBY_CONF"
-
+  echo "export PATH=$OB_DEST/bin:\$PATH" >> "$OB_CONF"
+  echo "if [ -z \"\$LD_LIBRARY_PATH\" ]; then export LD_LIBRARY_PATH=\"$OB_DEST/lib\"; else export LD_LIBRARY_PATH=\"$OB_DEST/lib:\$LD_LIBRARY_PATH\"; fi" >> "$OB_CONF"
+  echo "if [ -z \"\$BABEL_LIBDIR\" ]; then export BABEL_LIBDIR=\"$OB_DEST/lib/openbabel/2.3.0\"; fi" >> "$OB_CONF"
+  echo "if [ -z \"\$BABEL_DATADIR\" ]; then export BABEL_DATADIR=\"$OB_DEST/share/openbabel/2.3.0\"; fi" >> "$OB_CONF"
+  echo "if [ -z \"\$RUBYLIB\" ]; then export RUBYLIB=\"$OB_DEST_BINDINGS\"; fi" >> "$RUBY_CONF"
   echo "Openbabel configuration has been stored in '$OB_CONF'."
   echo -n "Decide if Openbabel configuration should be linked to your .bashrc ('y/n'): "
   read ANSWER_OB_CONF

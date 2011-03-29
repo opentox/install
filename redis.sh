@@ -55,7 +55,7 @@ if ! $REDIS_DONE; then
   echo 
   echo "Preparing Redis..."
   if [ ! -f $REDIS_CONF ]; then
-    echo "PATH=$REDIS_DEST/bin:\$PATH" >> "$REDIS_CONF"
+    echo "export PATH=$REDIS_DEST/src:\$PATH" >> "$REDIS_CONF"
     echo "Redis configuration has been stored in '$REDIS_CONF'."
     echo -n "Decide if Redis configuration should be linked to your .bashrc ('y/n'): "
     read ANSWER_REDIS_CONF

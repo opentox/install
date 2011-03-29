@@ -70,7 +70,7 @@ cd "$DIR"
 echo 
 echo "Preparing RUBY..."
 if [ ! -f $RUBY_CONF ]; then
-  echo "PATH=$RUBY_DEST/bin:\$PATH" >> "$RUBY_CONF"
+  echo "export PATH=$RUBY_DEST/bin:\$PATH" >> "$RUBY_CONF"
   echo "Ruby configuration has been stored in '$RUBY_CONF'."
   echo -n "Decide if Ruby configuration should be linked to your .bashrc ('y/n'): "
   read ANSWER_RUBY_CONF
