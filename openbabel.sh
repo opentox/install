@@ -96,19 +96,19 @@ echo
 echo "Preparing Openbabel..."
 if [ ! -f $OB_CONF ]; then
   echo "PATH=$PREFIX/bin:\$PATH" >> "$OB_CONF"
-  echo "if [ -z \"$LD_LIBRARY_PATH\" ]; then \n \
-          export LD_LIBRARY_PATH=\"$BABEL_INST/lib\" \n \
+  echo "if [ -z \"$LD_LIBRARY_PATH\" ]; then \
+          export LD_LIBRARY_PATH=\"$PREFIX/lib\" \
         else  \n\
-          export LD_LIBRARY_PATH=\"$BABEL_INST/lib:$LD_LIBRARY_PATH\"  \n\
+          export LD_LIBRARY_PATH=\"$PREFIX/lib:$LD_LIBRARY_PATH\" \
         fi \n" >> "$OB_CONF"
-  echo "if [ -z \"$BABEL_LIBDIR\" ]; then \n \
-          export BABEL_LIBDIR=\"$BABEL_INST/lib/openbabel/2.3.0\" \n \
+  echo "if [ -z \"$BABEL_LIBDIR\" ]; then \
+          export BABEL_LIBDIR=\"$PREFIX/lib/openbabel/2.3.0\" \
         fi \n" >> "$OB_CONF"
-  echo "if [ -z \"$BABEL_DATADIR\" ]; then  \n\
-          export BABEL_DATADIR=\"$BABEL_INST/share/openbabel/2.3.0\"  \n\
+  echo "if [ -z \"$BABEL_DATADIR\" ]; then \
+          export BABEL_DATADIR=\"$PREFIX/share/openbabel/2.3.0\" \
          fi \n" >> "$OB_CONF"
-  echo "if [ -z \"$RUBYLIB\" ]; then  \n\
-          export RUBYLIB=\"$PREFIX_BINDINGS\"  \n\
+  echo "if [ -z \"$RUBYLIB\" ]; then \
+          export RUBYLIB=\"$PREFIX_BINDINGS\" \
         fi \n" >> "$RUBY_CONF"
 
   echo "Openbabel configuration has been stored in '$OB_CONF'."
