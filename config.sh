@@ -19,3 +19,5 @@ REDIS_VER="2.2.2"
 REDIS_SERVER_CONF="$HOME/.redis.conf"
 REDIS_CONF="$HOME/.bash_redis_ot"
 REDIS_DEST="$HOME/redis-$REDIS_VER"
+
+WWW_DEST="$HOME/www"

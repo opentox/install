@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Installs Passenger.
+# Installs Redis.
 # Author: Christoph Helma, Andreas Maunz.
 #
 
@@ -67,3 +67,6 @@ else
   echo "It seems Redis is already configured ('$RUBY_CONF' exists)."
 fi
 
+cd "$DIR"
+echo
+echo "Redis installation finished."
