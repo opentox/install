@@ -26,7 +26,7 @@ fi
 VER="0.9-11"
 
 # Dest
-R_CONF=$HOME/.bash_R_ot
+R_CONF="$HOME/.bash_R_ot"
 DEST="$HOME/r-packages"
 if [ -n "$1" ]; then
   DEST="$1"
@@ -63,7 +63,7 @@ fi
 echo 
 echo "Preparing R..."
 if [ ! -f $R_CONF ]; then
-  echo "R_LIBS=\"$DEST\"" >> "$R_CONF"
+  echo "export R_LIBS=\"$DEST\"" >> "$R_CONF"
   echo "R package destination has been stored in '$R_CONF'."
   echo -n "Decide if R configuration should be linked to your .bashrc ('y/n'): "
   read ANSWER_R_CONF
