@@ -41,8 +41,8 @@ if ! $NGINX_DONE; then
   cd "$RUBY_DEST/lib/ruby/gems/1.8/gems/"
   passenger=`ls -d passenger*`;
   cd -
-  servername=`hostname`.`dnsdomainname`
-  sed -e "s/PASSENGER/$passenger/;s/SERVERNAME/$servername/" ./nginx.conf > $NGINX_DEST/nginx.conf
+  servername=`hostname`
+  sed -e "s/PASSENGER/$passenger/;s/SERVERNAME/$servername/;s/RUBY_DEST/$RUBY_DEST/" ./nginx.conf > $NGINX_DEST/nginx.conf
 fi
 
 cd "$DIR"
