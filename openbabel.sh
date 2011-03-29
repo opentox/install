@@ -43,7 +43,7 @@ fi
 
 DIR="`pwd`"
 if [ ! $OB_DONE ]; then
-  echo "This installs Openbabel Enterprise edition."
+  echo "This installs Openbabel."
   echo "Your installation directory is '$PREFIX'."
   echo "A configuration file is created and you are given the option to have it included in your '~.bashrc'."
   echo "Press <Return> to continue, or <Ctrl+C> to abort."
