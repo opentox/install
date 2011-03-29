@@ -28,7 +28,7 @@ DIR="`pwd`"
 NGINX_DONE=false
 mkdir "$NGINX_DEST" >/dev/null 2>&1
 if [ ! -d "$NGINX_DEST" ]; then
-  echo "Install directory '$KL_DEST' is not available! Aborting..."
+  echo "Install directory '$NGINX_DEST' is not available! Aborting..."
   exit 1
 else
   if ! rmdir "$KL_DEST" >/dev/null 2>&1; then # if not empty this will fail
