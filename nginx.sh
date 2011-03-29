@@ -1,11 +1,26 @@
-#!/bin/sh
+#!/bin/bash
+#
+# Installs Passenger.
+# Author: Christoph Helma, Andreas Maunz.
+#
 
-. /etc/profile
-passenger-install-nginx-module --auto-download --auto --prefix=/opt/nginx
+if [ "$(id -u)" = "0" ]; then
+  echo "This script must be run as non-root." 1>&2
+  exit 1
+fi
 
-cd /opt/ruby-enterprise-1.8.7-2010.03/lib/ruby/gems/1.8/gems/
+# Utils
+PIN="`which passenger-install-nginx-module`"
+if [ ! -e "$PIN" ]; then
+  echo "'passenger-install-nginx-module' missing. Install 'passenger-install-nginx-module' first. Aborting..."
+  exit 1
+fi
+
+source ./config.sh
+$PIN --auto-download --auto --prefix="$NGINX_DEST"
+
+cd $RUBY_DEST/lib/ruby/gems/1.8/gems/
 passenger=`ls -d passenger*`;
 cd -
 servername=`hostname`.`dnsdomainname`
-echo $passenger
-sed -e "s/PASSENGER/$passenger/;s/SERVERNAME/$servername/" nginx.conf > /opt/nginx/conf/nginx.conf
+sed -e "s/PASSENGER/$passenger/;s/SERVERNAME/$servername/" ./nginx.conf > $NGINX_DEST/nginx.conf

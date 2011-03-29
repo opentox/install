@@ -18,13 +18,11 @@ if [ ! -e "$WGET" ]; then
 fi
 
 # Pkg
-VER="2.2.3"
-OBVER="openbabel-$VER"
-PREFIX="$HOME/$OBVER"
+source ./config
 if [ -n "$1" ]; then
-  PREFIX="$1"
+  OB_DEST="$1"
 fi
-PREFIX_BINDINGS="$HOME/openbabel-ruby-install"
+OB_DEST_BINDINGS="$HOME/openbabel-ruby-install"
 
 # Dest
 OB_CONF=$HOME/.bash_OB_ot
@@ -32,31 +30,31 @@ RUBY_CONF=$HOME/.bash_ruby_ot
 
 
 echo "This installs Openbabel."
-echo "Your installation directory is '$PREFIX'."
+echo "Your installation directory is '$OB_DEST'."
 echo "A configuration file is created and you are given the option to have it included in your '~.bashrc'."
 echo "Press <Return> to continue, or <Ctrl+C> to abort."
 read
 
 DIR="`pwd`"
 
-mkdir "$PREFIX" >/dev/null 2>&1
-if [ ! -d "$PREFIX" ]; then
-  echo "Install directory '$PREFIX' is not available! Aborting..."
+mkdir "$OB_DEST" >/dev/null 2>&1
+if [ ! -d "$OB_DEST" ]; then
+  echo "Install directory '$OB_DEST' is not available! Aborting..."
   exit 1
 else
-  if ! rmdir "$PREFIX" >/dev/null 2>&1; then # if not empty this will fail
-    echo "Install directory '$PREFIX' is not empty. Skipping openbabel base installation..."
+  if ! rmdir "$OB_DEST" >/dev/null 2>&1; then # if not empty this will fail
+    echo "Install directory '$OB_DEST' is not empty. Skipping openbabel base installation..."
     OB_DONE=true
   fi
 fi
 if [ ! $OB_DONE ]; then
   cd /tmp
-  if ! $WGET -O - "http://downloads.sourceforge.net/project/openbabel/openbabel/$VER/$OBVER.tar.gz?use_mirror=kent" | tar zxv >/dev/null 2>&1; then
+  if ! $WGET -O - "http://downloads.sourceforge.net/project/openbabel/openbabel/$OB_NUM_VER/$OB_VER.tar.gz?use_mirror=kent" | tar zxv >/dev/null 2>&1; then
     echo "Download failed! Aborting..."
     exit 1
   fi
-  cd "/tmp/$OBVER"
- ./configure --prefix="$PREFIX"
+  cd "/tmp/$OB_VER"
+ ./configure --prefix="$OB_DEST"
   make
   make install
 fi
@@ -69,21 +67,21 @@ echo -n "Enter 's' to skip this step: "
 read RBB_SKIP 
 if [ "$RBB_SKIP" != "s" ]; then
   OB_DONE=false
-  mkdir "$PREFIX_BINDINGS">/dev/null 2>&1
-  if [ ! -d "$PREFIX_BINDINGS" ]; then
-    echo "Install directory '$PREFIX_BINDINGS' is not available! Aborting..."
+  mkdir "$OB_DEST_BINDINGS">/dev/null 2>&1
+  if [ ! -d "$OB_DEST_BINDINGS" ]; then
+    echo "Install directory '$OB_DEST_BINDINGS' is not available! Aborting..."
     exit 1
   else
-    if [ "`ls $PREFIX_BINDINGS | wc -l`" -gt 0 ]; then
-      echo "Install directory '$PREFIX_BINDINGS' is not empty. Skipping Openbabel Binding installation..."
+    if [ "`ls $OB_DEST_BINDINGS | wc -l`" -gt 0 ]; then
+      echo "Install directory '$OB_DEST_BINDINGS' is not empty. Skipping Openbabel Binding installation..."
       OB_DONE=true
     fi
   fi
   if ! $OB_DONE ; then
-    cd "/tmp/$OBVER/scripts/ruby/"
-    ruby extconf.rb --with-openbabel-include="$PREFIX/include/openbabel-2.0"
+    cd "/tmp/$OB_VER/scripts/ruby/"
+    ruby extconf.rb --with-openbabel-include="$OB_DEST/include/openbabel-2.0"
     if make ; then
-      cp openbabel.so $PREFIX_BINDINGS
+      cp openbabel.so $OB_DEST_BINDINGS
     else
       echo
       echo "Make failed! Aborting..."
@@ -97,20 +95,20 @@ cd "$DIR"
 echo 
 echo "Preparing Openbabel..."
 if [ ! -f $OB_CONF ]; then
-  echo "PATH=$PREFIX/bin:\$PATH" >> "$OB_CONF"
+  echo "PATH=$OB_DEST/bin:\$PATH" >> "$OB_CONF"
   echo "if [ -z \"\$LD_LIBRARY_PATH\" ]; then \
-          export LD_LIBRARY_PATH=\"$PREFIX/lib\"; \
+          export LD_LIBRARY_PATH=\"$OB_DEST/lib\"; \
         else \
-          export LD_LIBRARY_PATH=\"$PREFIX/lib:\$LD_LIBRARY_PATH\"; \
+          export LD_LIBRARY_PATH=\"$OB_DEST/lib:\$LD_LIBRARY_PATH\"; \
         fi" >> "$OB_CONF"
   echo "if [ -z \"\$BABEL_LIBDIR\" ]; then \
-          export BABEL_LIBDIR=\"$PREFIX/lib/openbabel/2.3.0\"; \
+          export BABEL_LIBDIR=\"$OB_DEST/lib/openbabel/2.3.0\"; \
         fi" >> "$OB_CONF"
   echo "if [ -z \"\$BABEL_DATADIR\" ]; then \
-          export BABEL_DATADIR=\"$PREFIX/share/openbabel/2.3.0\"; \
+          export BABEL_DATADIR=\"$OB_DEST/share/openbabel/2.3.0\"; \
          fi" >> "\$OB_CONF"
   echo "if [ -z \"\$RUBYLIB\" ]; then \
-          export RUBYLIB=\"$PREFIX_BINDINGS\"; \
+          export RUBYLIB=\"$OB_DEST_BINDINGS\"; \
         fi" >> "$RUBY_CONF"
 
   echo "Openbabel configuration has been stored in '$OB_CONF'."
