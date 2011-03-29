@@ -10,6 +10,12 @@ if [ "$(id -u)" = "0" ]; then
 fi
 
 # Utils
+WGET="`which wget`"
+if [ ! -e "$WGET" ]; then
+  echo "'wget' missing. Install 'wget' first. Aborting..."
+  exit 1
+fi
+
 R="`which R`"
 if [ ! -e "$R" ]; then
   echo "'R' missing. Install 'R' first. Aborting..."
