@@ -54,7 +54,7 @@ if [ ! $OB_DONE ]; then
     exit 1
   fi
   cd "/tmp/$OBVER"
- ./configure
+ ./configure --prefix="$PREFIX"
   make
   make install
 fi
