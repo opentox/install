@@ -18,7 +18,7 @@ if [ ! -e "$WGET" ]; then
 fi
 
 # Pkg
-source ./config
+source ./config.sh
 if [ -n "$1" ]; then
   OB_DEST="$1"
 fi
