@@ -26,7 +26,7 @@ read
 
 DIR=`pwd`
 
-REDIS_DONE=FALSE
+REDIS_DONE=false
 mkdir "$REDIS_DEST" >/dev/null 2>&1
 if [ ! -d "$REDIS_DEST" ]; then
   echo "Install directory '$REDIS_DEST' is not available! Aborting..."

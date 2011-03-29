@@ -23,6 +23,14 @@ if [ -n "$1" ]; then
   RUBY_DEST="$1"
 fi
 
+echo "This installs Ruby Enterprise edition."
+echo "Your installation directory is '$RUBY_DEST'."
+echo "A configuration file is created and you are given the option to have it included in your '~.bashrc'."
+echo "Press <Return> to continue, or <Ctrl+C> to abort."
+read
+
+DIR="`pwd`"
+
 mkdir "$RUBY_DEST" >/dev/null 2>&1
 if [ ! -d "$RUBY_DEST" ]; then
   echo "Install directory '$RUBY_DEST' is not available! Aborting..."
@@ -34,13 +42,7 @@ else
   fi
 fi
 
-DIR="`pwd`"
 if [ ! $RUBY_DONE ]; then
-  echo "This installs Ruby Enterprise edition."
-  echo "Your installation directory is '$RUBY_DEST'."
-  echo "A configuration file is created and you are given the option to have it included in your '~.bashrc'."
-  echo "Press <Return> to continue, or <Ctrl+C> to abort."
-  read
   cd /tmp
   if ! $WGET -O - "http://rubyenterpriseedition.googlecode.com/files/$RUBY_VER.tar.gz" | tar zxv >/dev/null 2>&1 ; then
     echo "Download failed! Aborting..."
