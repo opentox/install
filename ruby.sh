@@ -71,8 +71,8 @@ if [ ! -f $RUBY_CONF ]; then
   echo "PATH=$RUBY_DEST/bin:\$PATH" >> "$RUBY_CONF"
   echo "Ruby configuration has been stored in '$RUBY_CONF'."
   echo -n "Decide if Ruby configuration should be linked to your .bashrc ('y/n'): "
-  read ANSWER_JAVA_CONF
-  if [ $ANSWER_JAVA_CONF = "y" ]; then
+  read ANSWER_RUBY_CONF
+  if [ $ANSWER_RUBY_CONF = "y" ]; then
     echo "source \"$RUBY_CONF\"" >> $HOME/.bashrc
   fi
 else
