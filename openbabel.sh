@@ -18,7 +18,8 @@ if [ ! -e "$WGET" ]; then
 fi
 
 # Pkg
-OBVER="openbabel-2.2.3"
+VER="2.2.3"
+OBVER="openbabel-$VER"
 PREFIX="$HOME/$OBVER"
 if [ -n "$1" ]; then
   PREFIX="$1"
@@ -46,8 +47,9 @@ if [ ! $OB_DONE ]; then
   echo "Your installation directory is '$PREFIX'."
   echo "A configuration file is created and you are given the option to have it included in your '~.bashrc'."
   echo "Press <Return> to continue, or <Ctrl+C> to abort."
+  read
   cd /tmp
-  if ! $WGET -O - "http://downloads.sourceforge.net/project/openbabel/openbabel/2.2.3/$OBVER.tar.gz?use_mirror=kent" | tar zxv >/dev/null 2>&1; then
+  if ! $WGET -O - "http://downloads.sourceforge.net/project/openbabel/openbabel/$VER/$OBVER.tar.gz?use_mirror=kent" | tar zxv >/dev/null 2>&1; then
     echo "Download failed! Aborting..."
     exit 1
   fi
