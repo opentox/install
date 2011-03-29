@@ -49,7 +49,7 @@ else
   fi
 fi
 if ! $R_DONE; then
-cd /tmp
+  cd /tmp
   if ! $WGET -O - "http://cran.r-project.org/src/contrib/Archive/kernlab/kernlab_$KL_VER.tar.gz">/dev/null 2>&1; then
     echo "Download failed! Aborting..."
     exit 1

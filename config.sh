@@ -3,7 +3,7 @@ JAVA_CONF=$HOME/.bash_java_ot
 
 RUBY_VER="ruby-enterprise-1.8.7-2011.03"
 RUBY_CONF=$HOME/.bash_ruby_ot
-RUBY_DEST="$HOME/$RUB_YVER"
+RUBY_DEST="$HOME/$RUBY_VER"
 
 OB_NUM_VER="2.2.3"
 OB_VER="openbabel-$OB_NUM_VER"
