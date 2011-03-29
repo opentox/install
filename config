@@ -5,10 +5,6 @@
 # Linux distribution (currently only debian)
 distribution=debian
 
-# Choose a root password for the MySQL database
-# Please insert the correct password if mysql-server is already installed
-mysql_root=opentox
-
 # Installation type
 # Options:
 # gem	  installs only the opentox-ruby gem (useful, if you want to use external services with the opentox-ruby DSL)
