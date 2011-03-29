@@ -30,24 +30,26 @@ PREFIX_BINDINGS="$HOME/openbabel-ruby-install"
 OB_CONF=$HOME/.bash_OB_ot
 RUBY_CONF=$HOME/.bash_ruby_ot
 
+
+echo "This installs Openbabel."
+echo "Your installation directory is '$PREFIX'."
+echo "A configuration file is created and you are given the option to have it included in your '~.bashrc'."
+echo "Press <Return> to continue, or <Ctrl+C> to abort."
+read
+
+DIR="`pwd`"
+
 mkdir "$PREFIX" >/dev/null 2>&1
 if [ ! -d "$PREFIX" ]; then
   echo "Install directory '$PREFIX' is not available! Aborting..."
   exit 1
 else
   if ! rmdir "$PREFIX" >/dev/null 2>&1; then # if not empty this will fail
-    echo "Install directory '$PREFIX' is not empty. Skipping Openbabel installation..."
+    echo "Install directory '$PREFIX' is not empty. Skipping openbabel base installation..."
     OB_DONE=true
   fi
 fi
-
-DIR="`pwd`"
 if [ ! $OB_DONE ]; then
-  echo "This installs Openbabel."
-  echo "Your installation directory is '$PREFIX'."
-  echo "A configuration file is created and you are given the option to have it included in your '~.bashrc'."
-  echo "Press <Return> to continue, or <Ctrl+C> to abort."
-  read
   cd /tmp
   if ! $WGET -O - "http://downloads.sourceforge.net/project/openbabel/openbabel/$VER/$OBVER.tar.gz?use_mirror=kent" | tar zxv >/dev/null 2>&1; then
     echo "Download failed! Aborting..."
@@ -66,7 +68,6 @@ echo "Press <Return> to continue, or <Ctrl+C> to abort."
 echo -n "Enter 's' to skip this step: "
 read RBB_SKIP 
 if [ "$RBB_SKIP" != "s" ]; then
-
   OB_DONE=false
   mkdir "$PREFIX_BINDINGS">/dev/null 2>&1
   if [ ! -d "$PREFIX_BINDINGS" ]; then
@@ -78,7 +79,6 @@ if [ "$RBB_SKIP" != "s" ]; then
       OB_DONE=true
     fi
   fi
-
   if ! $OB_DONE ; then
     cd "/tmp/$OBVER/scripts/ruby/"
     ruby extconf.rb --with-openbabel-include="$PREFIX/include/openbabel-2.0"
@@ -91,6 +91,7 @@ if [ "$RBB_SKIP" != "s" ]; then
     fi
   fi
 fi
+
 cd "$DIR"
 
 echo 
