@@ -1,7 +1,13 @@
-#!/bin/sh
+#!/bin/bash
+# Main Opentox-ruby install script
+# Author: Christoph Helma, Andreas Maunz
+
+echo "Opentox-ruby installation"
+echo "Press <Enter> to continue..."
+read
 
 . ./config
-. ./$distribution.sh
+. ./base-install.sh $distribution # Pass as parameter
 . ./ruby.sh
 . ./openbabel.sh
 . ./kernlab.sh
