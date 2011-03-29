@@ -72,7 +72,7 @@ if [ "$RBB_SKIP" != "s" ]; then
     echo "Install directory '$PREFIX_BINDINGS' is not available! Aborting..."
     exit 1
   else
-    if [ `ls "$PREFIX_BINDINGS" | wc` -gt 0 ]; then
+    if [ "`ls $PREFIX_BINDINGS | wc -l`" -gt 0 ]; then
       echo "Install directory '$PREFIX_BINDINGS' is not empty. Skipping Openbabel Binding installation..."
       OB_DONE=true
     fi
