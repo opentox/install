@@ -18,7 +18,6 @@ fi
 
 source ./config.sh
 
-
 echo "This installs Nginx."
 echo "Press <Return> to continue, or <Ctrl+C> to abort."
 read
@@ -31,8 +30,8 @@ if [ ! -d "$NGINX_DEST" ]; then
   echo "Install directory '$NGINX_DEST' is not available! Aborting..."
   exit 1
 else
-  if ! rmdir "$KL_DEST" >/dev/null 2>&1; then # if not empty this will fail
-    echo "Install directory '$KL_DEST' is not empty. Skipping kernlab installation..."
+  if ! rmdir "$NGINX_DEST" >/dev/null 2>&1; then # if not empty this will fail
+    echo "Install directory '$NGINX_DEST' is not empty. Skipping kernlab installation..."
     NGINX_DONE=true
   fi
 fi
