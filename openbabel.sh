@@ -107,7 +107,7 @@ if [ ! -f $OB_CONF ]; then
   echo "if [ -z \"\$BABEL_DATADIR\" ]; then \
           export BABEL_DATADIR=\"$PREFIX/share/openbabel/2.3.0\"; \
          fi" >> "\$OB_CONF"
-  echo "if [ -z \"$RUBYLIB\" ]; then \
+  echo "if [ -z \"\$RUBYLIB\" ]; then \
           export RUBYLIB=\"$PREFIX_BINDINGS\"; \
         fi" >> "$RUBY_CONF"
 
