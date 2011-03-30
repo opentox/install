@@ -6,6 +6,7 @@
 
 # 1) Where all binaries are installed.
 PREFIX="$HOME/opentox"
+JAVA_HOME="/usr/lib/java-6-sun"
 
 # 2) What versions to install.
 RUBY_NUM_VER="1.8.7-2011.03"
@@ -13,7 +14,7 @@ OB_NUM_VER="2.2.3"
 KL_NUM_VER="0.9-11"
 REDIS_NUM_VER="2.2.2"
 
-# 3) What server settings.
+# 3) Server settings.
 NGINX_SERVERNAME="localhost"
 WWW_DEST="$PREFIX/www"
 

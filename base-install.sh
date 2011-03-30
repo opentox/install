@@ -21,6 +21,7 @@ fi
 
 # Dest
 source ./config.sh
+source ./utils.sh
 
 # Pkgs
 packs="lsb-release binutils gcc g++ gfortran wget hostname pwgen git-core raptor-utils r-base sun-java6-jdk libssl-dev zlib1g-dev libreadline-dev libmysqlclient-dev libcurl4-openssl-dev libxml2-dev libxslt1-dev libgsl0-dev sun-java6-jdk"
@@ -89,10 +90,6 @@ echo
 echo "Preparing JAVA..."
 if [ ! -f $JAVA_CONF ]; then
 
-  echo -n "Please provide a path for JAVA_HOME (hint: type echo \$JAVA_HOME as normal user): "
-  read USER_SUBMITTED_JAVA_HOME
-  JAVA_HOME="$USER_SUBMITTED_JAVA_HOME"
-
   if [ ! -d "$JAVA_HOME" ]; then
     echo "Directory '$JAVA_HOME' does not exist! Aborting..."
     exit 1
@@ -102,9 +99,7 @@ if [ ! -f $JAVA_CONF ]; then
   echo "export PATH=$JAVA_HOME:\$PATH" >> "$JAVA_CONF"
 
   echo "Java configuration has been stored in '$JAVA_CONF'."
-  echo -n "Answer 'y' if Java configuration should be linked to your .bashrc: "
-  read ANSWER_JAVA_CONF
-  if [ $ANSWER_JAVA_CONF = "y" ]; then
+  if ! grep "$JAVA_CONF" $HOME/.bashrc; then
     echo "source \"$JAVA_CONF\"" >> $HOME/.bashrc
   fi
 
