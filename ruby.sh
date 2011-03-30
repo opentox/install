@@ -97,12 +97,12 @@ fi
 
 if [ "$PASSENGER_SKIP" != "s" ]; then
   export PATH="$RUBY_DEST/bin:$PATH"
-  if ! $GEM sources -a "http://gemcutter.org " >>$LOG 2>&1 ; then
+  if ! $GEM sources -a "http://gemcutter.org" >>$LOG 2>&1 ; then
     printf "%25s%15s\n" "'Add Gemcutter'" "FAIL"
     exit 1
   fi
   printf "%25s%15s\n" "'Add Gemcutter'" "DONE"
-  if ! $GEM sources -r "http://rubygems.org/" >>$LOG 2>&1 ; then
+  if ! $GEM sources -r "http://rubygems.org" >>$LOG 2>&1 ; then
     printf "%25s%15s\n" "'Add Rubygems'" "FAIL"
     exit 1
   fi
