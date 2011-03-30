@@ -52,19 +52,15 @@ mkdir -p "$HOME/.opentox/log"
 sed -e "s/SERVERNAME/$servername/;s/ESCAPEDSERVERNAME/$escapedservername/;s/LOGGER/$logger/;s/AA/$aa/" production.yaml > $HOME/.opentox/config/production.yaml
 sed -e "s/SERVERNAME/$servername/;s/ESCAPEDSERVERNAME/$escapedservername/;s/LOGGER/$logger/;s/AA/$aa/" aa-$install.yaml >> $HOME/.opentox/config/production.yaml
 
-# checkout development version and link lib to opentox-ruby gem
-if [ $branch = "development" ]
-then
-    mkdir -p $WWW_DEST/opentox
-    cd $WWW_DEST/opentox
-    $GIT clone "http://github.com/opentox/opentox-ruby.git "
-    cd opentox-ruby
-    $GIT checkout -t "origin/development"
-    $GEM install jeweler
-    $RAKE install
-    GEM_LIB=`$GEM which opentox-ruby | sed 's/\/opentox-ruby.rb//'`
-    mv "$GEM_LIB" "$GEM_LIB~"
-    ln -s "$WWW_DEST/opentox/opentox-ruby/lib" "$GEM_LIB"
-fi
+mkdir -p $WWW_DEST/opentox
+cd $WWW_DEST/opentox
+$GIT clone "http://github.com/opentox/opentox-ruby.git "
+cd opentox-ruby
+$GIT checkout -t "origin/development"
+$GEM install jeweler
+$RAKE install
+GEM_LIB=`$GEM which opentox-ruby | sed 's/\/opentox-ruby.rb//'`
+mv "$GEM_LIB" "$GEM_LIB~"
+ln -s "$WWW_DEST/opentox/opentox-ruby/lib" "$GEM_LIB"
 
 cd "$DIR"
