@@ -19,10 +19,7 @@ fi
 
 # Pkg
 source ./config.sh
-if [ -n "$1" ]; then
-  RUBY_DEST="$1"
-fi
-
+source ./utils.sh
 LOG="/tmp/`basename $0`-log.txt"
 
 
@@ -30,7 +27,7 @@ echo "This installs Ruby Enterprise edition."
 echo "Your installation directory is '$RUBY_DEST'."
 echo "A configuration file is created and you are given the option to have it included in your '~.bashrc'."
 echo "When compilation fails, see '$LOG' for details."
-echo "Press <Return> to continue, or <Ctrl+C> to abort."
+echo -n "Press <Return> to continue, or <Ctrl+C> to abort."
 read
 
 DIR="`pwd`"
@@ -61,6 +58,28 @@ if [ ! $RUBY_DONE ]; then
   printf "%25s%15s\n" "'Install'" "DONE"
 fi
 
+cd "$DIR"
+
+echo 
+echo "Preparing RUBY..."
+
+if ! [ -f "$RUBY_CONF" ]; then
+
+  echo "export PATH=$RUBY_DEST/bin:\$PATH" >> "$RUBY_CONF"
+
+  echo "Ruby configuration has been stored in '$RUBY_CONF'."
+  if ! grep "$RUBY_CONF" $HOME/.bashrc >/dev/null 2>&1 ; then
+    echo "source \"$RUBY_CONF\"" >> $HOME/.bashrc
+  fi
+
+else
+  echo "It seems RUBY is already configured ('$RUBY_CONF' exists)."
+fi
+
+
+
+
+
 echo
 echo "Ruby installation done."
 echo "Next 'Passenger' should be installed."
@@ -69,6 +88,7 @@ echo "Press <Return> to continue, or <Ctrl+C> to abort."
 echo -n "Enter 's' to skip this step: "
 read PASSENGER_SKIP 
 
+source "$RUBY_CONF"
 GEM="`which gem`"
 if [ ! -e "$GEM" ]; then
   echo "'gem' missing. Install 'gem' first. Aborting..."
@@ -87,7 +107,10 @@ if [ "$PASSENGER_SKIP" != "s" ]; then
     exit 1
   fi
   printf "%25s%15s\n" "'Add Rubygems'" "DONE"
-  echo "gem: --no-ri --no-rdoc" | tee -a $HOME/.gemrc >>$LOG 2>&1 
+  GEMCONF="gem: --no-ri --no-rdoc"
+  if ! grep "$GEMCONF" $HOME/.gemrc >>$LOG 2>&1; then
+    echo "$GEMCONF" | tee -a $HOME/.gemrc >>$LOG 2>&1 
+  fi
   if ! $GEM install passenger >>$LOG 2>&1 ; then
     printf "%25s%15s\n" "'Install Passenger'" "FAIL"
     exit 1
@@ -96,21 +119,8 @@ if [ "$PASSENGER_SKIP" != "s" ]; then
 
   
 fi
-cd "$DIR"
-
-echo 
-echo "Preparing RUBY..."
-if [ ! -f $RUBY_CONF ]; then
-  echo "export PATH=$RUBY_DEST/bin:\$PATH" >> "$RUBY_CONF"
-  echo "Ruby configuration has been stored in '$RUBY_CONF'."
-  echo -n "Decide if Ruby configuration should be linked to your .bashrc ('y/n'): "
-  read ANSWER_RUBY_CONF
-  if [ $ANSWER_RUBY_CONF = "y" ]; then
-    echo "source \"$RUBY_CONF\"" >> $HOME/.bashrc
-  fi
-else
-  echo "It seems RUBY is already configured ('$RUBY_CONF' exists)."
-fi
 
 echo
 echo "Ruby Installation finished."
+
+
