@@ -57,6 +57,8 @@ cd $WWW_DEST/opentox
 $GIT clone "http://github.com/opentox/opentox-ruby.git "
 cd opentox-ruby
 pwd
+$GIT remote show origin
+$GIT fetch
 $GIT checkout -t origin/development
 $GEM install jeweler
 $RAKE install
