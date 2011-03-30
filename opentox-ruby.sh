@@ -16,6 +16,19 @@ if [ ! -e "$GIT" ]; then
   exit 1
 fi
 
+GEM="`which gem`"
+if [ ! -e "$GEM" ]; then
+  echo "'gem' missing. Install 'gem' first. Aborting..."
+  exit 1
+fi
+
+RAKE="`which rake`"
+if [ ! -e "$RAKE" ]; then
+  echo "'rake' missing. Install 'rake' first. Aborting..."
+  exit 1
+fi
+
+
 # Pkg
 source ./config.sh
 
@@ -26,8 +39,8 @@ read
 
 DIR="`pwd`"
 
-gem install opentox-ruby
-gem install builder # not included by spreadsheet gem
+$GEM install opentox-ruby
+$GEM install builder # not included by spreadsheet gem
 
 SERVERNAME="`hostname`"
 ESCAPED_SERVERNAME="`echo $SERVERNAME | sed 's/\/\\\//'`"
@@ -44,12 +57,14 @@ if [ $branch = "development" ]
 then
     mkdir -p $WWW_DEST/opentox
     cd $WWW_DEST/opentox
-    $GIT clone http://github.com/opentox/opentox-ruby.git 
+    $GIT clone "http://github.com/opentox/opentox-ruby.git "
     cd opentox-ruby
-    $GIT checkout -t origin/development
-    gem install jeweler
-    rake install
-    GEM_LIB=`gem which opentox-ruby | sed 's/\/opentox-ruby.rb//'`
+    $GIT checkout -t "origin/development"
+    $GEM install jeweler
+    $RAKE install
+    GEM_LIB=`$GEM which opentox-ruby | sed 's/\/opentox-ruby.rb//'`
     mv "$GEM_LIB" "$GEM_LIB~"
     ln -s "$WWW_DEST/opentox/opentox-ruby/lib" "$GEM_LIB"
 fi
+
+cd "$DIR"
