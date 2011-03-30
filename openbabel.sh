@@ -22,11 +22,6 @@ source ./config.sh
 if [ -n "$1" ]; then
   OB_DEST="$1"
 fi
-OB_DEST_BINDINGS="$HOME/openbabel-ruby-install"
-
-# Dest
-OB_CONF=$HOME/.bash_OB_ot
-RUBY_CONF=$HOME/.bash_ruby_ot
 
 
 echo "This installs Openbabel."
