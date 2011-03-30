@@ -54,7 +54,7 @@ sed -e "s/SERVERNAME/$servername/;s/ESCAPEDSERVERNAME/$escapedservername/;s/LOGG
 
 mkdir -p $WWW_DEST/opentox
 cd $WWW_DEST/opentox
-$GIT clone "http://github.com/opentox/opentox-ruby.git "
+$GIT clone "git://github.com/opentox/opentox-ruby.git "
 cd opentox-ruby
 pwd
 $GIT remote show origin
