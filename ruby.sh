@@ -17,15 +17,25 @@ if [ ! -e "$WGET" ]; then
   exit 1
 fi
 
+GEM="`which gem`"
+if [ ! -e "$GEM" ]; then
+  echo "'gem' missing. Install 'gem' first. Aborting..."
+  exit 1
+fi
+
 # Pkg
 source ./config.sh
 if [ -n "$1" ]; then
   RUBY_DEST="$1"
 fi
 
+LOG="/tmp/`basename $0`-log.txt"
+
+
 echo "This installs Ruby Enterprise edition."
 echo "Your installation directory is '$RUBY_DEST'."
 echo "A configuration file is created and you are given the option to have it included in your '~.bashrc'."
+echo "When compilation fails, see '$LOG' for details."
 echo "Press <Return> to continue, or <Ctrl+C> to abort."
 read
 
@@ -44,11 +54,17 @@ fi
 
 if [ ! $RUBY_DONE ]; then
   cd /tmp
-  if ! $WGET -O - "http://rubyenterpriseedition.googlecode.com/files/$RUBY_VER.tar.gz" | tar zxv >/dev/null 2>&1 ; then
-    echo "Download failed! Aborting..."
+  URI="http://rubyenterpriseedition.googlecode.com/files/$RUBY_VER.tar.gz"
+  if ! $WGET -O - "$URI" | tar zxv >>$LOG 2>&1 ; then
+  printf "%25s%15s\n" "'Download'" "FAIL"
     exit 1
   fi
-  sh /tmp/$RUBY_VER/installer  --dont-install-useful-gems --no-dev-docs --auto="$RUBY_DEST"
+  printf "%25s%15s\n" "'Download'" "DONE"
+  if ! sh /installer  --dont-install-useful-gems --no-dev-docs --auto="$RUBY_DEST" >>$LOG 2>&1 ; then
+      printf "%25s%15s\n" "'Install'" "FAIL"
+      exit 1
+  fi
+  printf "%25s%15s\n" "'Install'" "DONE"
 fi
 
 echo
@@ -60,10 +76,24 @@ echo -n "Enter 's' to skip this step: "
 read PASSENGER_SKIP 
 if [ "$PASSENGER_SKIP" != "s" ]; then
   export PATH="$RUBY_DEST/bin:$PATH"
-  gem sources -a "http://gemcutter.org "
-  gem sources -r "http://rubygems.org/"
-  echo "gem: --no-ri --no-rdoc" | tee -a $HOME/.gemrc
-  gem install passenger
+  if ! $GEM sources -a "http://gemcutter.org " >>$LOG 2>&1 ; then
+    printf "%25s%15s\n" "'Add Gemcutter'" "FAIL"
+    exit 1
+  fi
+  printf "%25s%15s\n" "'Add Gemcutter'" "DONE"
+  if ! $GEM sources -r "http://rubygems.org/" >>$LOG 2>&1 ; then
+    printf "%25s%15s\n" "'Add Rubygems'" "FAIL"
+    exit 1
+  fi
+  printf "%25s%15s\n" "'Add Rubygems'" "DONE"
+  echo "gem: --no-ri --no-rdoc" | tee -a $HOME/.gemrc >>$LOG 2>&1 
+  if ! $GEM install passenger >>$LOG 2>&1 ; then
+    printf "%25s%15s\n" "'Install Passenger'" "FAIL"
+    exit 1
+  fi
+  printf "%25s%15s\n" "'Install Passenger'" "DONE"
+
+  
 fi
 cd "$DIR"
 

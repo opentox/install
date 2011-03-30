@@ -6,17 +6,17 @@ echo "Opentox-ruby installation"
 echo "Press <Enter> to continue..."
 read
 
-. "./config"
-. "./base-install.sh" $distribution # Pass as parameter
-. "./ruby.sh"
-. "./openbabel.sh"
-. "./kernlab.sh"
-. "./opentox-ruby.sh"
+source "./config"
+source "./base-install.sh"
+source "./ruby.sh"
+source "./openbabel.sh"
+source "./kernlab.sh"
+source "./opentox-ruby.sh"
 
 if [ $install != "gem" ]
 then
-    . "./nginx.sh"
-    . "./redis.sh"
-    . "./opentox-webservices.sh"
+    source "./nginx.sh"
+    source "./redis.sh"
+    source "./opentox-webservices.sh"
 fi
 

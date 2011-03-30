@@ -10,12 +10,11 @@ if [ "$(id -u)" = "0" ]; then
 fi
 
 # Utils
-APTITUDE="sudo `which aptitude`"
+APTITUDE="`which aptitude`"
 APT_CACHE="`which apt-cache`"
-DCSS="sudo `which debconf-set-selections`"
 DPKG="`which dpkg`"
 
-if [ ! -e $APTITUDE ]; then
+if [ ! -e "$APTITUDE" ]; then
   echo "Aptitude missing. Install aptitude first." 1>&2
   exit 1
 fi
@@ -47,8 +46,8 @@ if [ -n "$pack_arr" ]; then
   echo 
   echo "Checking availablity of missing packages..."
   echo -n "Updating package indices:					"
-  $APTITUDE update -y >/dev/null 2>&1
-  $APTITUDE upgrade -y >/dev/null 2>&1
+  sudo $APTITUDE update -y >/dev/null 2>&1
+  sudo $APTITUDE upgrade -y >/dev/null 2>&1
   echo "done."
 fi
 
@@ -73,7 +72,7 @@ echo "Installing missing packages, please wait..."
 pack_fail=""
 for p in $pack_arr; do
   echo -n "'$p':					"
-  if $APTITUDE install "$p" -y >/dev/null 2>&1; then
+  if sudo $APTITUDE install "$p" -y >/dev/null 2>&1; then
     printf "%25s%15s\n" "'$p'" "DONE"
   else
     printf "%25s%15s\n" "'$p'" "FAIL"
