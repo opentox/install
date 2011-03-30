@@ -59,7 +59,7 @@ cd opentox-ruby
 pwd
 $GIT remote show origin
 $GIT fetch
-$GIT checkout -t origin/development
+$GIT checkout -b development origin/development
 $GEM install jeweler
 $RAKE install
 GEM_LIB=`$GEM which opentox-ruby | sed 's/\/opentox-ruby.rb//'`
