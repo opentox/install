@@ -75,20 +75,10 @@ if ! [ -f "$RUBY_CONF" ]; then
 else
   echo "It seems RUBY is already configured ('$RUBY_CONF' exists)."
 fi
-
-
-
-
-
-echo
-echo "Ruby installation done."
-echo "Next 'Passenger' should be installed."
-echo "This will modify your '~/.gemrc'."
-echo "Press <Return> to continue, or <Ctrl+C> to abort."
-echo -n "Enter 's' to skip this step: "
-read PASSENGER_SKIP 
-
 source "$RUBY_CONF"
+
+
+
 GEM="`which gem`"
 if [ ! -e "$GEM" ]; then
   echo "'gem' missing. Install 'gem' first. Aborting..."
