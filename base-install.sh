@@ -99,7 +99,7 @@ if [ ! -f $JAVA_CONF ]; then
   echo "export PATH=$JAVA_HOME:\$PATH" >> "$JAVA_CONF"
 
   echo "Java configuration has been stored in '$JAVA_CONF'."
-  if ! grep "$JAVA_CONF" $HOME/.bashrc; then
+  if ! grep "$JAVA_CONF" $HOME/.bashrc >/dev/null 2>&1; then
     echo "source \"$JAVA_CONF\"" >> $HOME/.bashrc
   fi
 

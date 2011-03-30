@@ -17,12 +17,6 @@ if [ ! -e "$WGET" ]; then
   exit 1
 fi
 
-GEM="`which gem`"
-if [ ! -e "$GEM" ]; then
-  echo "'gem' missing. Install 'gem' first. Aborting..."
-  exit 1
-fi
-
 # Pkg
 source ./config.sh
 if [ -n "$1" ]; then
@@ -74,6 +68,13 @@ echo "This will modify your '~/.gemrc'."
 echo "Press <Return> to continue, or <Ctrl+C> to abort."
 echo -n "Enter 's' to skip this step: "
 read PASSENGER_SKIP 
+
+GEM="`which gem`"
+if [ ! -e "$GEM" ]; then
+  echo "'gem' missing. Install 'gem' first. Aborting..."
+  exit 1
+fi
+
 if [ "$PASSENGER_SKIP" != "s" ]; then
   export PATH="$RUBY_DEST/bin:$PATH"
   if ! $GEM sources -a "http://gemcutter.org " >>$LOG 2>&1 ; then
