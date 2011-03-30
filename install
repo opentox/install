@@ -6,21 +6,17 @@ echo "Opentox-ruby installation"
 echo "Press <Enter> to continue..."
 read
 
-. ./config
-. ./base-install.sh $distribution # Pass as parameter
-. ./ruby.sh
-. ./openbabel.sh
-. ./kernlab.sh
-. ./opentox-ruby.sh
+. "./config"
+. "./base-install.sh" $distribution # Pass as parameter
+. "./ruby.sh"
+. "./openbabel.sh"
+. "./kernlab.sh"
+. "./opentox-ruby.sh"
 
 if [ $install != "gem" ]
 then
-    . ./nginx.sh
-    . ./redis.sh
-    . ./opentox-webservices.sh
-    #. ./mysql-setup.sh
-    echo "Starting Nginx"
-    echo "Please inspect and tune /opt/nginx/conf/nginx.conf and /home/opentox/.opentox/config/production.yaml"
-    /opt/nginx/sbin/nginx
+    . "./nginx.sh"
+    . "./redis.sh"
+    . "./opentox-webservices.sh"
 fi
 
