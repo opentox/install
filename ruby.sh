@@ -46,12 +46,12 @@ fi
 if [ ! $RUBY_DONE ]; then
   cd /tmp
   URI="http://rubyenterpriseedition.googlecode.com/files/$RUBY_VER.tar.gz"
-  if ! $WGET -O - "$URI" | tar zxv >>$LOG 2>&1 ; then
+  if ! $WGET -O - "$URI" 2>$LOG |  tar zxv >>$LOG 2>&1 ; then
   printf "%25s%15s\n" "'Download'" "FAIL"
     exit 1
   fi
   printf "%25s%15s\n" "'Download'" "DONE"
-  if ! sh /installer  --dont-install-useful-gems --no-dev-docs --auto="$RUBY_DEST" >>$LOG 2>&1 ; then
+  if ! sh "/tmp/$RUBY_VER/installer"  --dont-install-useful-gems --no-dev-docs --auto="$RUBY_DEST" >>$LOG 2>&1 ; then
       printf "%25s%15s\n" "'Install'" "FAIL"
       exit 1
   fi
