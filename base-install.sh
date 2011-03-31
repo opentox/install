@@ -73,11 +73,7 @@ fi
 pack_fail=""
 for p in $pack_arr; do
   echo -n "'$p':					"
-  if sudo $APTITUDE install "$p" -y >/dev/null 2>&1; then
-    printf "%25s%15s\n" "'$p'" "DONE"
-  else
-    printf "%25s%15s\n" "'$p'" "FAIL"
-  fi
+  cmd="sudo $APTITUDE install $p" && run_cmd "$cmd" "$p"
 done
 
 if [ -n "$pack_fail" ]; then

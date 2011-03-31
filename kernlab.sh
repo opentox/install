@@ -4,6 +4,9 @@
 # Author: Christoph Helma, Andreas Maunz.
 #
 
+source ./config.sh
+source ./utils.sh
+
 if [ "$(id -u)" = "0" ]; then
   echo "This script must be run as non-root." 1>&2
   exit 1
@@ -23,8 +26,6 @@ if [ ! -e "$R" ]; then
 fi
 
 # Pkg
-source ./config.sh
-source ./utils.sh
 LOG="/tmp/`basename $0`-log.txt"
 
 echo "Kernlab ('$LOG')."

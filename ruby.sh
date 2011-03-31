@@ -1,6 +1,7 @@
 #!/bin/bash
 #
 # Installs Ruby enterprise edition and passenger gem.
+# A configuration file is created and included in your '~.bashrc'.
 # Pass a ruby version string as first argument to install a specific version (blank for default).
 # Author: Christoph Helma, Andreas Maunz.
 #
@@ -22,11 +23,8 @@ source ./config.sh
 source ./utils.sh
 LOG="/tmp/`basename $0`-log.txt"
 
-
-echo "This installs Ruby Enterprise edition."
-echo "Your installation directory is '$RUBY_DEST'."
-echo "A configuration file is created and you are given the option to have it included in your '~.bashrc'."
-echo "Log file is '$LOG'."
+echo
+echo "Ruby Enterprise edition ('$RUBY_DEST', '$LOG')."
 
 DIR="`pwd`"
 
@@ -42,26 +40,18 @@ else
 fi
 
 echo
-echo "Installing Ruby:"
+echo "Installing:"
 if [ ! $RUBY_DONE ]; then
   cd /tmp
   URI="http://rubyenterpriseedition.googlecode.com/files/$RUBY_VER.tar.gz"
-  if ! $WGET -O - "$URI" 2>>$LOG |  tar zxv >>$LOG 2>&1 ; then
-    printf "%25s%15s\n" "'Download'" "FAIL"
-    exit 1
-  fi
-  printf "%25s%15s\n" "'Download'" "DONE"
-  if ! sh "/tmp/$RUBY_VER/installer"  --dont-install-useful-gems --no-dev-docs --auto="$RUBY_DEST" >>$LOG 2>&1 ; then
-      printf "%25s%15s\n" "'Install'" "FAIL"
-      exit 1
-  fi
-  printf "%25s%15s\n" "'Install'" "DONE"
+  cmd="$WGET -O - $URI" && run_cmd "$cmd" "Download"
+  cmd="sh /tmp/$RUBY_VER/installer  --dont-install-useful-gems --no-dev-docs --auto=$RUBY_DEST" && run_cmd "$cmd" "Install"
 fi
 
 cd "$DIR"
 
 echo 
-echo "Preparing Ruby:"
+echo "Preparing:"
 
 if ! [ -f "$RUBY_CONF" ]; then
 
@@ -79,7 +69,7 @@ source "$RUBY_CONF"
 
 
 echo
-echo "Installing Passenger:"
+echo "Passenger:"
 GEM="`which gem`"
 if [ ! -e "$GEM" ]; then
   echo "'gem' missing. Install 'gem' first. Aborting..."
@@ -88,30 +78,13 @@ fi
 
 if [ "$PASSENGER_SKIP" != "s" ]; then
   export PATH="$RUBY_DEST/bin:$PATH"
-  if ! $GEM sources -a "http://gemcutter.org" >>$LOG 2>&1 ; then
-    printf "%25s%15s\n" "'Add Gemcutter'" "FAIL"
-    exit 1
-  fi
-  printf "%25s%15s\n" "'Add Gemcutter'" "DONE"
-  if ! $GEM sources -r "http://rubygems.org" >>$LOG 2>&1 ; then
-    printf "%25s%15s\n" "'Add Rubygems'" "FAIL"
-    exit 1
-  fi
-  printf "%25s%15s\n" "'Add Rubygems'" "DONE"
+  cmd="$GEM sources -a http://gemcutter.org" && run_cmd "$cmd" "Add Gemcutter"
+  cmd="$GEM sources -a http://rubygems.org" && run_cmd "$cmd" "Add Rubygems"
   GEMCONF="gem: --no-ri --no-rdoc"
   if ! grep "$GEMCONF" $HOME/.gemrc >>$LOG 2>&1; then
     echo "$GEMCONF" | tee -a $HOME/.gemrc >>$LOG 2>&1 
   fi
-  if ! $GEM install passenger >>$LOG 2>&1 ; then
-    printf "%25s%15s\n" "'Install Passenger'" "FAIL"
-    exit 1
-  fi
-  printf "%25s%15s\n" "'Install Passenger'" "DONE"
-
+  cmd="$GEM install passenger" && run_cmd "$cmd" "Install Passenger"
   
 fi
-
-echo
-echo "Ruby Installation finished."
-
 
