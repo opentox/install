@@ -34,13 +34,11 @@ source ./config.sh
 source ./utils.sh
 LOG="/tmp/`basename $0`-log.txt"
 
-echo "This installs the Opentox-ruby gem."
-echo "Log file is '$LOG'."
-echo "Press <Return> to continue, or <Ctrl+C> to abort."
-read
-
+echo "Opentox-ruby ('$LOG'):"
 DIR="`pwd`"
 
+echo
+echo "Installing gem to pull dependencies:"
 for mygem in opentox-ruby builder jeweler; do
   if ! $GEM install $mygem>>$LOG 2>&1; then
     printf "%25s%15s\n" "'Install $mygem'" "FAIL"
@@ -54,6 +52,9 @@ servername="`hostname`"
 escapedserver="`echo $servername | sed 's/\/\\\//'`"
 logger=":logger: backtrace"
 aa="nil"
+
+echo
+echo "Install:"
 
 mkdir -p "$HOME/.opentox/config" >>$LOG 2>&1
 mkdir -p "$HOME/.opentox/log" >>$LOG 2>&1
@@ -74,9 +75,11 @@ printf "%25s%15s\n" "'Install opentox-ruby'" "DONE"
 
 GEM_LIB=`$GEM which opentox-ruby | sed 's/\/opentox-ruby.rb//'`
 mv "$GEM_LIB" "$GEM_LIB~"
-ln -s "$WWW_DEST/opentox/opentox-ruby/lib" "$GEM_LIB"
+if ! ln -s "$WWW_DEST/opentox/opentox-ruby/lib" "$GEM_LIB"; then
+  printf "%25s%15s\n" "'Linking back'" "FAIL"
+fi
+printf "%25s%15s\n" "'Linking back'" "DONE"
+
 
 cd "$DIR"
 
-echo
-echo "Opentox-ruby gem finished."

@@ -25,12 +25,9 @@ fi
 # Pkg
 source ./config.sh
 source ./utils.sh
-LOG="/tmp`basename $0`-log.txt"
+LOG="/tmp/`basename $0`-log.txt"
 
-echo "This installs Kernlab."
-echo "Log file is '$LOG'."
-echo "Press <Return> to continue, or <Ctrl+C> to abort."
-read
+echo "Kernlab ('$LOG')."
 
 DIR="`pwd`"
 
@@ -41,7 +38,7 @@ if [ ! -d "$KL_DEST" ]; then
   exit 1
 else
   if ! rmdir "$KL_DEST" >/dev/null 2>&1; then # if not empty this will fail
-    echo "Install directory '$KL_DEST' is not empty. Skipping kernlab installation..."
+    echo "Install directory '$KL_DEST' not empty. Skipping kernlab installation."
     R_DONE=true
   else
     mkdir "$KL_DEST" >/dev/null 2>&1
@@ -49,10 +46,13 @@ else
 fi
 
 
+echo 
+echo "Installing:"
+
 if ! $R_DONE; then
   cd /tmp
   URI="http://cran.r-project.org/src/contrib/Archive/kernlab/kernlab_$KL_VER.tar.gz"
-  if ! $WGET -O - "$URI">>$LOG 2>&1; then
+  if ! $WGET "$URI" >>$LOG 2>&1; then
     printf "%25s%15s\n" "'Download'" "FAIL"
     exit 1
   fi
@@ -68,7 +68,7 @@ fi
 
 
 echo 
-echo "Preparing R..."
+echo "Preparing:"
 
 if [ ! -f $KL_CONF ]; then
 
@@ -82,9 +82,6 @@ if [ ! -f $KL_CONF ]; then
 else
   echo "It seems R is already configured ('$KL_CONF' exists)."
 fi
-source "$KL_CONF"
 
 cd "$DIR"
 
-echo
-echo "Kernlab Installation finished."

@@ -27,8 +27,6 @@ echo "This installs Ruby Enterprise edition."
 echo "Your installation directory is '$RUBY_DEST'."
 echo "A configuration file is created and you are given the option to have it included in your '~.bashrc'."
 echo "Log file is '$LOG'."
-echo -n "Press <Return> to continue, or <Ctrl+C> to abort."
-read
 
 DIR="`pwd`"
 
@@ -43,6 +41,8 @@ else
   fi
 fi
 
+echo
+echo "Installing Ruby:"
 if [ ! $RUBY_DONE ]; then
   cd /tmp
   URI="http://rubyenterpriseedition.googlecode.com/files/$RUBY_VER.tar.gz"
@@ -61,7 +61,7 @@ fi
 cd "$DIR"
 
 echo 
-echo "Preparing RUBY..."
+echo "Preparing Ruby:"
 
 if ! [ -f "$RUBY_CONF" ]; then
 
@@ -78,7 +78,8 @@ fi
 source "$RUBY_CONF"
 
 
-
+echo
+echo "Installing Passenger:"
 GEM="`which gem`"
 if [ ! -e "$GEM" ]; then
   echo "'gem' missing. Install 'gem' first. Aborting..."

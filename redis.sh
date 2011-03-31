@@ -22,8 +22,6 @@ LOG="/tmp/`basename $0`-log.txt"
 
 echo "This installs Redis."
 echo "Log file is '$LOG'."
-echo "Press <Return> to continue, or <Ctrl+C> to abort."
-read
 
 DIR=`pwd`
 
@@ -71,7 +69,7 @@ fi
 cd "$DIR"
 
 echo 
-echo "Preparing Redis..."
+echo "Preparing Redis:"
 if [ ! -f $REDIS_CONF ]; then
   echo "export PATH=$REDIS_DEST/src:\$PATH" >> "$REDIS_CONF"
   echo "Redis configuration has been stored in '$REDIS_CONF'."
@@ -85,5 +83,3 @@ else
 fi
 
 cd "$DIR"
-echo
-echo "Redis installation finished."

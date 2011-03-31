@@ -20,14 +20,12 @@ source ./config.sh
 source ./utils.sh
 LOG="/tmp/`basename $0`-log.txt"
 
-echo "This installs Opentox webservices."
-echo "Log file is '$LOG'."
-echo "Press <Return> to continue, or <Ctrl+C> to abort."
-read
+echo "Webservices ('$LOG'):"
 
 DIR=`pwd`
 
-echo "Checking out webservices..."
+echo
+echo "Clone:"
 mkdir -p "$WWW_DEST/opentox" >>$LOG 2>&1
 cd "$WWW_DEST/opentox" >>$LOG 2>&1
 for s in compound dataset algorithm model toxcreate task; do
@@ -35,11 +33,15 @@ for s in compound dataset algorithm model toxcreate task; do
 
     cd "$s" >>$LOG 2>&1
 
-    git checkout -t origin/development  >>$LOG 2>&1
-# AM: use development
+    git checkout -t origin/development  >>$LOG 2>&1 # AM: use development
+
+    rm -rf public >>$LOG 2>&1
     mkdir public >>$LOG 2>&1
 
-    if ln -s "$WWW_DEST/opentox/$s/public" "$WWW_DEST/$s" >>$LOG 2>&1; then
+    mypath_from=$WWW_DEST/opentox/$s/public
+    mypath_to=$WWW_DEST/$s
+    if ! ln -sf "$mypath_from" "$mypath_to" >>$LOG 2>&1; then
+
       printf "%25s%15s\n" "'Linking $s'" "FAIL"
       exit 1
     fi
@@ -58,13 +60,13 @@ done
 #ln -s /var/www/opentox/validation/public /var/www/validation
 
 # fminer etc
-echo "Compiling Fminer..."
+echo "Fminer:"
 
-if ! [ -f $HOME/.opentox/production.yaml ]; then
-    printf "%25s%15s\n" "'Config present'" "N"
+if ! [ -f $HOME/.opentox/config/production.yaml ]; then
+    printf "%25s%15s\n" "'Config present'" "FAIL"
     exit 1
 fi
-printf "%25s%15s\n" "'Config present'" "Y"
+printf "%25s%15s\n" "'Config present'" "DONE"
 
 cd $WWW_DEST/opentox/algorithm >>$LOG 2>&1
 echo "Need root password:"
@@ -73,8 +75,7 @@ if ! rake fminer:install >>$LOG 2>&1; then
     printf "%25s%15s\n" "'Make'" "FAIL"
     exit 1
 fi
-printf "%25s%15s\n" "'Make'" "FAIL"
+printf "%25s%15s\n" "'Make'" "DONE"
 
 cd "$DIR"
-echo
-echo "Opentox webservices installation finished."
+

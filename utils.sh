@@ -10,3 +10,4 @@ function check_dest {
 }
 
 check_dest
+source ~/.bashrc

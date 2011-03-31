@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Installs Openbabel.
-# Pass an Openbabel version string as first argument to install a specific version (blank for default).
+# A configuration file is created and included in your '~.bashrc'.
 # Author: Christoph Helma, Andreas Maunz.
 #
 
@@ -22,12 +22,8 @@ source ./config.sh
 source ./utils.sh
 LOG="/tmp/`basename $0`-log.txt"
 
-echo "This installs Openbabel."
-echo "Your installation directory is '$OB_DEST'."
-echo "A configuration file is created and you are given the option to have it included in your '~.bashrc'."
-echo "Log file is '$LOG'."
-echo "Press <Return> to continue, or <Ctrl+C> to abort."
-read
+echo "Openbabel ('$OB_DEST', '$LOG')"
+
 
 DIR="`pwd`"
 
@@ -37,11 +33,13 @@ if [ ! -d "$OB_DEST" ]; then
   exit 1
 else
   if ! rmdir "$OB_DEST" >/dev/null 2>&1; then # if not empty this will fail
-    echo "Install directory '$OB_DEST' is not empty. Skipping openbabel base installation..."
+    echo "Install directory '$OB_DEST' is not empty. Skipping openbabel base installation."
     OB_DONE=true
   fi
 fi
 
+echo
+echo "Install:"
 if [ ! $OB_DONE ]; then
   cd /tmp
   URI="http://downloads.sourceforge.net/project/openbabel/openbabel/$OB_NUM_VER/$OB_VER.tar.gz?use_mirror=kent"
@@ -71,8 +69,8 @@ if [ ! $OB_DONE ]; then
   printf "%25s%15s\n" "'Install'" "DONE"
 fi
 
-
-
+echo
+echo "Bindings:"
 OB_DONE=false
 mkdir "$OB_DEST_BINDINGS">/dev/null 2>&1
 if [ ! -d "$OB_DEST_BINDINGS" ]; then
@@ -112,7 +110,7 @@ fi
 cd "$DIR"
 
 echo 
-echo "Preparing Openbabel..."
+echo "Preparing:"
 
 if [ ! -f $OB_CONF ]; then
 
@@ -127,11 +125,5 @@ if [ ! -f $OB_CONF ]; then
     echo "source \"$OB_CONF\"" >> $HOME/.bashrc
   fi
 
-else
-  echo "It seems Openbabel is already configured ('$OB_CONF' exists)."
 fi
-source "$OB_CONF"
-source "$RUBY_CONF"
 
-echo
-echo "Openbabel Installation finished."

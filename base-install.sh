@@ -3,7 +3,8 @@
 # Installs base packages for Ubuntu
 # Author: Andreas Maunz
 #
-
+# Your installed packages are safe and will not be updated.
+# A Java configuration is created and included in your '~.bashrc'.
 if [ "$(id -u)" = "0" ]; then
   echo "This script must not be run as root" 1>&2
   exit 1
@@ -26,13 +27,9 @@ source ./utils.sh
 # Pkgs
 packs="lsb-release binutils gcc g++ gfortran wget hostname pwgen git-core raptor-utils r-base sun-java6-jdk libssl-dev zlib1g-dev libreadline-dev libmysqlclient-dev libcurl4-openssl-dev libxml2-dev libxslt1-dev libgsl0-dev sun-java6-jdk"
 
-echo "This installs missing base packages for Opentox-ruby on Ubuntu"
-echo "Your installed packages are safe and will not be updated."
-echo "A Java configuration is created and you are given the option to have it included in your '~.bashrc'."
-echo "Press <Return> to continue or <Ctrl+C> to abort."
-read
+echo
+echo "Base Packages:"
 
-echo "Checking for installed packages: "
 pack_arr=""
 for p in $packs; do
   if $DPKG -s "$p" >/dev/null 2>&1; then
@@ -45,7 +42,7 @@ done
 
 if [ -n "$pack_arr" ]; then
   echo 
-  echo "Checking availablity of missing packages..."
+  echo "Checking availablity:"
   echo -n "Updating package indices:					"
   sudo $APTITUDE update -y >/dev/null 2>&1
   sudo $APTITUDE upgrade -y >/dev/null 2>&1
@@ -69,7 +66,10 @@ if [ -n "$pack_fail" ]; then
 fi
 
 echo
-echo "Installing missing packages, please wait..."
+if [ -n $pack_arr ]; then 
+  echo "Installing missing packages:"
+fi
+
 pack_fail=""
 for p in $pack_arr; do
   echo -n "'$p':					"
@@ -87,7 +87,7 @@ if [ -n "$pack_fail" ]; then
 fi
 
 echo 
-echo "Preparing JAVA..."
+echo "Preparing JAVA:"
 if [ ! -f $JAVA_CONF ]; then
 
   if [ ! -d "$JAVA_HOME" ]; then
@@ -102,11 +102,5 @@ if [ ! -f $JAVA_CONF ]; then
   if ! grep "$JAVA_CONF" $HOME/.bashrc >/dev/null 2>&1; then
     echo "source \"$JAVA_CONF\"" >> $HOME/.bashrc
   fi
-
-else
-  echo "It seems JAVA is already configured ('$JAVA_CONF' exists)."
 fi
-source "$JAVA_CONF"
 
-echo
-echo "Installation finished."

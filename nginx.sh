@@ -20,9 +20,7 @@ source ./config.sh
 source ./utils.sh
 LOG="/tmp/`basename $0`-log.txt"
 
-echo "This installs Nginx."
-echo "Press <Return> to continue, or <Ctrl+C> to abort."
-read
+echo "Nginx ('$LOG')."
 
 DIR="`pwd`"
 
@@ -33,7 +31,7 @@ if [ ! -d "$NGINX_DEST" ]; then
   exit 1
 else
   if ! rmdir "$NGINX_DEST" >/dev/null 2>&1; then # if not empty this will fail
-    echo "Install directory '$NGINX_DEST' is not empty. Skipping kernlab installation..."
+    echo "Install directory '$NGINX_DEST' not empty. Skipping nginx installation."
     NGINX_DONE=true
   fi
 fi
@@ -53,5 +51,4 @@ if ! $NGINX_DONE; then
 fi
 
 cd "$DIR"
-echo
-echo "Nginx installation finished."
+
