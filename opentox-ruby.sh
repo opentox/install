@@ -38,8 +38,6 @@ LOG="/tmp/`basename $0`-log.txt"
 echo "Opentox-ruby ('$LOG'):"
 DIR="`pwd`"
 
-echo
-echo "Gems:"
 for mygem in opentox-ruby builder jeweler; do
   cmd="$GEM install $mygem" && run_cmd "$cmd" "$mygem"
 done
@@ -49,9 +47,6 @@ servername="`hostname`"
 escapedserver="`echo $servername | sed 's/\/\\\//'`"
 logger=":logger: backtrace"
 aa="nil"
-
-echo
-echo "Install:"
 
 mkdir -p "$HOME/.opentox/config" >>$LOG 2>&1
 mkdir -p "$HOME/.opentox/log" >>$LOG 2>&1
@@ -69,7 +64,7 @@ cmd="$RAKE install" && run_cmd "$cmd" "Install"
 GEM_LIB=`$GEM which opentox-ruby | sed 's/\/opentox-ruby.rb//'`
 mv "$GEM_LIB" "$GEM_LIB~" >>$LOG 2>&1
 
-cmd="ln -s $WWW_DEST/opentox/opentox-ruby/lib" && run_cmd "$cmd" "Linking back"
+cmd="ln -sf $WWW_DEST/opentox/opentox-ruby/lib $GEM_LIB" && run_cmd "$cmd" "Linking back"
 
 cd "$DIR"
 

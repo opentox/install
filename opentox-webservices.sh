@@ -31,8 +31,6 @@ echo "Webservices ('$LOG'):"
 
 DIR=`pwd`
 
-echo
-echo "Clone:"
 mkdir -p "$WWW_DEST/opentox" >>$LOG 2>&1
 cd "$WWW_DEST/opentox" >>$LOG 2>&1
 for s in compound dataset algorithm model toxcreate task; do
@@ -62,8 +60,6 @@ done
 #ln -s /var/www/opentox/validation/public /var/www/validation
 
 # fminer etc
-echo "Fminer:"
-
 cmd="test -f $HOME/.opentox/config/production.yaml" && run_cmd "$cmd" "Config present"
 cd $WWW_DEST/opentox/algorithm >>$LOG 2>&1
 echo "Need root password:"

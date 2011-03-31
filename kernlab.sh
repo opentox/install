@@ -47,9 +47,6 @@ else
 fi
 
 
-echo 
-echo "Installing:"
-
 if ! $R_DONE; then
   cd /tmp
   URI="http://cran.r-project.org/src/contrib/Archive/kernlab/kernlab_$KL_VER.tar.gz"
@@ -60,9 +57,6 @@ if ! $R_DONE; then
 fi
 
 
-echo 
-echo "Preparing:"
-
 if [ ! -f $KL_CONF ]; then
 
   echo "if ! [[ \"\$R_LIBS\" =~ \"$KL_DEST\" ]]; then export R_LIBS=\"$KL_DEST\"; fi" >> "$KL_CONF"
@@ -72,8 +66,6 @@ if [ ! -f $KL_CONF ]; then
     echo "source \"$KL_CONF\"" >> $HOME/.bashrc
   fi
 
-else
-  echo "It seems R is already configured ('$KL_CONF' exists)."
 fi
 
 cd "$DIR"

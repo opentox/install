@@ -21,7 +21,8 @@ fi
 
 LOG="/tmp/`basename $0`-log.txt"
 
-echo "Nginx ('$LOG')."
+echo
+echo "Nginx ('$LOG'):"
 
 DIR="`pwd`"
 

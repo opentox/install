@@ -62,8 +62,6 @@ fi
 
 cd "$DIR"
 
-echo 
-echo "Preparing Redis:"
 if [ ! -f $REDIS_CONF ]; then
   echo "export PATH=$REDIS_DEST/src:\$PATH" >> "$REDIS_CONF"
   echo "Redis configuration has been stored in '$REDIS_CONF'."
@@ -72,8 +70,6 @@ if [ ! -f $REDIS_CONF ]; then
     echo "source \"$REDIS_CONF\"" >> $HOME/.bashrc
   fi
 
-else
-  echo "It seems Redis is already configured ('$REDIS_CONF' exists)."
 fi
 
 cd "$DIR"

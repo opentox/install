@@ -39,8 +39,6 @@ else
   fi
 fi
 
-echo
-echo "Installing:"
 if [ ! $RUBY_DONE ]; then
   cd /tmp
   URI="http://rubyenterpriseedition.googlecode.com/files/$RUBY_VER.tar.gz"
@@ -51,8 +49,6 @@ fi
 
 cd "$DIR"
 
-echo 
-echo "Preparing:"
 
 if ! [ -f "$RUBY_CONF" ]; then
 
@@ -62,15 +58,10 @@ if ! [ -f "$RUBY_CONF" ]; then
   if ! grep "$RUBY_CONF" $HOME/.bashrc >/dev/null 2>&1 ; then
     echo "source \"$RUBY_CONF\"" >> $HOME/.bashrc
   fi
-
-else
-  echo "It seems RUBY is already configured ('$RUBY_CONF' exists)."
 fi
 source "$RUBY_CONF"
 
 
-echo
-echo "Passenger:"
 GEM="`which gem`"
 if [ ! -e "$GEM" ]; then
   echo "'gem' missing. Install 'gem' first. Aborting..."

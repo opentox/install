@@ -39,8 +39,6 @@ else
   fi
 fi
 
-echo
-echo "Install:"
 if [ ! $OB_DONE ]; then
   cd /tmp
   URI="http://downloads.sourceforge.net/project/openbabel/openbabel/$OB_NUM_VER/$OB_VER.tar.gz?use_mirror=kent"
@@ -75,9 +73,6 @@ if ! $OB_DONE ; then
 fi
 
 cd "$DIR"
-
-echo 
-echo "Preparing:"
 
 if [ ! -f $OB_CONF ]; then
 
