@@ -26,7 +26,7 @@ LOG="/tmp/`basename $0`-log.txt"
 echo "This installs Ruby Enterprise edition."
 echo "Your installation directory is '$RUBY_DEST'."
 echo "A configuration file is created and you are given the option to have it included in your '~.bashrc'."
-echo "When compilation fails, see '$LOG' for details."
+echo "Log file is '$LOG'."
 echo -n "Press <Return> to continue, or <Ctrl+C> to abort."
 read
 
@@ -46,8 +46,8 @@ fi
 if [ ! $RUBY_DONE ]; then
   cd /tmp
   URI="http://rubyenterpriseedition.googlecode.com/files/$RUBY_VER.tar.gz"
-  if ! $WGET -O - "$URI" 2>$LOG |  tar zxv >>$LOG 2>&1 ; then
-  printf "%25s%15s\n" "'Download'" "FAIL"
+  if ! $WGET -O - "$URI" 2>>$LOG |  tar zxv >>$LOG 2>&1 ; then
+    printf "%25s%15s\n" "'Download'" "FAIL"
     exit 1
   fi
   printf "%25s%15s\n" "'Download'" "DONE"
