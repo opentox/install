@@ -17,6 +17,8 @@ if [ ! -e "$WGET" ]; then
 fi
 
 source ./config.sh
+source ./utils.sh
+LOG="/tmp/`basename $0`-log.txt"
 
 echo "This installs Opentox webservices."
 echo "Press <Return> to continue, or <Ctrl+C> to abort."
@@ -24,7 +26,7 @@ read
 
 DIR=`pwd`
 
-mkdir -p "$WWW_DEST/opentox"
+mkdir -p "$WWW_DEST/opentox" >>$LOG 2>&1
 cd "$WWW_DEST/opentox"
 for s in compound dataset algorithm model toxcreate task; do
     git clone "git://github.com/opentox/$s.git" "$s"
@@ -44,10 +46,10 @@ done
 #ln -s /var/www/opentox/validation/public /var/www/validation
 
 # fminer etc
-cd $WWW_DEST/opentox/algorithm
+cd $WWW_DEST/opentox/algorithm >>$LOG 2>&1
 echo "Need root password:"
-sudo updatedb
-rake fminer:install
+sudo updatedb >>$LOG 2>&1
+rake fminer:install >>$LOG 2>&1
 
 cd "$DIR"
 echo
