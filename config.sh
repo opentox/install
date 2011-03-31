@@ -6,7 +6,7 @@
 
 # 1) Where all binaries are installed.
 PREFIX="$HOME/opentox"
-JAVA_HOME="/usr/lib/java-6-sun"
+JAVA_HOME="/usr/lib/jvm/java-6-sun"
 
 # 2) What versions to install.
 RUBY_NUM_VER="1.8.7-2011.03"
