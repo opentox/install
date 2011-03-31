@@ -45,7 +45,7 @@ if [ ! $OB_DONE ]; then
   cd /tmp
   URI="http://downloads.sourceforge.net/project/openbabel/openbabel/$OB_NUM_VER/$OB_VER.tar.gz?use_mirror=kent"
   cmd="$WGET $URI" && run_cmd "$cmd" "Download"
-  cmd="tar zxf $OB_VER.tar.gz" && run_cmd "$cmd" "Unpack"
+  cmd="tar zxf $OB_VER.tar.gz*" && run_cmd "$cmd" "Unpack"
   cd "/tmp/$OB_VER"
 
   cmd="./configure --prefix=$OB_DEST" && run_cmd "$cmd" "Configure"
