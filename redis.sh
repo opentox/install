@@ -21,6 +21,7 @@ source ./utils.sh
 LOG="/tmp/`basename $0`-log.txt"
 
 echo "This installs Redis."
+echo "Log file is '$LOG'."
 echo "Press <Return> to continue, or <Ctrl+C> to abort."
 read
 
