@@ -41,9 +41,10 @@ read
 
 DIR="`pwd`"
 
-for mygem in opentox-ruby builder jewler; do
+for mygem in opentox-ruby builder jeweler; do
   if ! $GEM install $mygem>>$LOG 2>&1; then
     printf "%25s%15s\n" "'Install $mygem'" "FAIL"
+    exit 1
   fi
   printf "%25s%15s\n" "'Install $mygem'" "DONE"
 done
@@ -67,6 +68,7 @@ $GIT checkout -b development origin/development>>$LOG 2>&1
 
 if ! $RAKE install >>$LOG 2>&1; then
   printf "%25s%15s\n" "'Install opentox-ruby'" "FAIL"
+  exit 1
 fi
 printf "%25s%15s\n" "'Install opentox-ruby'" "DONE"
 
