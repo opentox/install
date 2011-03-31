@@ -62,7 +62,6 @@ done
 # fminer etc
 cmd="test -f $HOME/.opentox/config/production.yaml" && run_cmd "$cmd" "Config present"
 cd $WWW_DEST/opentox/algorithm >>$LOG 2>&1
-echo "Need root password:"
 sudo updatedb >>$LOG 2>&1
 cmd="$RAKE fminer:install" && run_cmd "$cmd" "Make"
 

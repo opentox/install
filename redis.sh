@@ -41,12 +41,11 @@ else
 fi
 
 if ! $REDIS_DONE; then
-  echo  "Need root password: "
   echo "vm.overcommit_memory = 1" | sudo tee -a /etc/sysctl.conf >>$LOG 2>&1
 
   cd $PREFIX
   URI="http://redis.googlecode.com/files/redis-$REDIS_VER.tar.gz"
-  cmd="$WGET -O - $URI" && run_cmd "$cmd" "Download"
+  cmd="$WGET $URI" && run_cmd "$cmd" "Download"
   cmd="tar zxf redis-$REDIS_VER.tar.gz" && run_cmd "$cmd" "Unpack"
   cd redis-$REDIS_VER >>$LOG 2>&1
   cmd="make" && run_cmd "$cmd" "Make"

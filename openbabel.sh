@@ -67,9 +67,9 @@ fi
 
 if ! $OB_DONE ; then
   cd "/tmp/$OB_VER/scripts/ruby/"
-  cmd="ruby extconf.rb --with-openbabel-include=$OB_DEST/include/openbabel-2.0" && run_cmd "$cmd" "Bindings: Code"
+  cmd="ruby extconf.rb --with-openbabel-include=$OB_DEST/include/openbabel-2.0" && run_cmd "$cmd" "Code"
   cmd="make" && run_cmd "$cmd" "Make"
-  cmd="cp openbabel.so $OB_DEST_BINDINGS" && run_cmd "$cmd" "Bindings: Install"
+  cmd="cp openbabel.so $OB_DEST_BINDINGS" && run_cmd "$cmd" "Install"
 fi
 
 cd "$DIR"

@@ -2,9 +2,11 @@
 # Main Opentox-ruby install script
 # Author: Christoph Helma, Andreas Maunz
 
-echo "Opentox-ruby installation"
-echo "Press <Enter> to continue..."
-read
+LOG="/tmp/`basename $0`-log.txt"
+source ./utils.sh
+echo "Opentox-ruby installation."
+echo "You may need to give root password for some privileged actions right now:"
+cmd="sudo echo -n \"\"" && run_cmd "$cmd" "Acquire privileges"
 
 source "./config"
 source "./base-install.sh"
