@@ -17,6 +17,8 @@ if [ ! -e "$WGET" ]; then
 fi
 
 source ./config.sh
+source ./utils.sh
+LOG="/tmp/`basename $0`-log.txt"
 
 echo "This installs Redis."
 echo "Press <Return> to continue, or <Ctrl+C> to abort."
@@ -43,14 +45,26 @@ if ! $REDIS_DONE; then
   echo "vm.overcommit_memory = 1" | sudo tee -a /etc/sysctl.conf
 
   cd $HOME
-  $WGET -O - "http://redis.googlecode.com/files/redis-$REDIS_VER.tar.gz" | tar zxv
-  cd $REDIS_DEST 
-  if ! make; then
-    echo "Build failed! Aborting..."
+  URI="http://redis.googlecode.com/files/redis-$REDIS_VER.tar.gz"
+  if ! $WGET -O - "$URI" | tar zxv >>$LOG 2>&1; then
+    printf "%25s%15s\n" "'Download'" "FAIL"
+  fi
+  printf "%25s%15s\n" "'Download'" "DONE"
+
+  cd $REDIS_DEST >>$LOG 2>&1
+  if ! make>>$LOG 2>&1; then
+    printf "%25s%15s\n" "'Make'" "FAIL"
     exit 1
   fi
-  echo "daemonize yes" > $REDIS_SERVER_CONF
-  echo "dir `pwd`" >> $REDIS_SERVER_CONF
+  printf "%25s%15s\n" "'Make'" "DONE"
+
+  if ! grep "daemonize yes" $REDIS_SERVER_CONF >>$LOG 2>&1 ; then 
+    echo "daemonize yes" > $REDIS_SERVER_CONF 2>$LOG
+  fi
+
+  if ! grep "dir `pwd`" $REDIS_SERVER_CONF >>$LOG 2>&1 ; then 
+    echo "dir `pwd`" >> $REDIS_SERVER_CONF 2>$LOG
+  fi
 fi
 
 echo 
@@ -58,11 +72,11 @@ echo "Preparing Redis..."
 if [ ! -f $REDIS_CONF ]; then
   echo "export PATH=$REDIS_DEST/src:\$PATH" >> "$REDIS_CONF"
   echo "Redis configuration has been stored in '$REDIS_CONF'."
-  echo -n "Decide if Redis configuration should be linked to your .bashrc ('y/n'): "
-  read ANSWER_REDIS_CONF
-  if [ $ANSWER_REDIS_CONF = "y" ]; then
+
+  if ! grep "source \"$REDIS_CONF\"" $HOME/.bashrc; then
     echo "source \"$REDIS_CONF\"" >> $HOME/.bashrc
   fi
+
 else
   echo "It seems Redis is already configured ('$RUBY_CONF' exists)."
 fi
