@@ -95,8 +95,8 @@ if [ ! -f $JAVA_CONF ]; then
     exit 1
   fi
 
-  echo "export JAVA_HOME=$JAVA_HOME" >> "$JAVA_CONF"
-  echo "export PATH=$JAVA_HOME:\$PATH" >> "$JAVA_CONF"
+  echo "if ! [[ \"\$JAVA_HOME\" =~ \"$JAVA_HOME\" ]]; then export JAVA_HOME=\"$JAVA_HOME\"; fi" >> "$JAVA_CONF"
+  echo "if ! [[ \"\$PATH\" =~ \"$JAVA_HOME\" ]]; then export PATH=\"$JAVA_HOME:\$PATH\"; fi" >> "$JAVA_CONF"
 
   echo "Java configuration has been stored in '$JAVA_CONF'."
   if ! grep "$JAVA_CONF" $HOME/.bashrc >/dev/null 2>&1; then
