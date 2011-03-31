@@ -15,24 +15,24 @@
 # Exceptions:
   :free_uris: #request-method for uri not controlled by A&A
     ? - :GET
-    : - !ruby/regexp /http:\/\/ESCAPEDSERVERNAME\/algorithm/
+    : - !ruby/regexp /http:\/\/ESCAPEDSERVER\/algorithm/
       - "http://SERVERNAME/model"
       - "http://SERVERNAME/validation"
-      - !ruby/regexp /http:\/\/ESCAPEDSERVERNAME\/validation\/[a-z,A-Z,\/,_\-]*$/
+      - !ruby/regexp /http:\/\/ESCAPEDSERVER\/validation\/[a-z,A-Z,\/,_\-]*$/
     ? - :GET
       - :POST
-    : - !ruby/regexp /http:\/\/ESCAPEDSERVERNAME\/toxcreate/
-      - !ruby/regexp /http:\/\/ESCAPEDSERVERNAME\/task/
-      - !ruby/regexp /http:\/\/ESCAPEDSERVERNAME\/compound/
+    : - !ruby/regexp /http:\/\/ESCAPEDSERVER\/toxcreate/
+      - !ruby/regexp /http:\/\/ESCAPEDSERVER\/task/
+      - !ruby/regexp /http:\/\/ESCAPEDSERVER\/compound/
 
     ? - :PUT
-    : - !ruby/regexp /http:\/\/ESCAPEDSERVERNAME\/task/
+    : - !ruby/regexp /http:\/\/ESCAPEDSERVER\/task/
 
   :authorize_exceptions: #request-method for uri only authenticated, no authorization
     ? - :POST
-    : - !ruby/regexp /http:\/\/ESCAPEDSERVERNAME\/algorithm/
+    : - !ruby/regexp /http:\/\/ESCAPEDSERVER\/algorithm/
       - "http://SERVERNAME/dataset"
       - "http://SERVERNAME/model"
       - "http://SERVERNAME/validation"
-      - !ruby/regexp /http\:\/\/ESCAPEDSERVERNAME\/validation\/[a-z,A-Z,\/,_\-]*$/
+      - !ruby/regexp /http\:\/\/ESCAPEDSERVER\/validation\/[a-z,A-Z,\/,_\-]*$/
  

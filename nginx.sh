@@ -17,6 +17,7 @@ if [ ! -e "$PIN" ]; then
 fi
 
 source ./config.sh
+source ./utils.sh
 
 echo "This installs Nginx."
 echo "Press <Return> to continue, or <Ctrl+C> to abort."
@@ -37,12 +38,16 @@ else
 fi
 
 if ! $NGINX_DONE; then
-  $PIN --auto-download --auto --prefix="$NGINX_DEST"
-  cd "$RUBY_DEST/lib/ruby/gems/1.8/gems/"
+  if ! $PIN --auto-download --auto --prefix="$NGINX_DEST">>$LOG 2>&1
+    printf "%25s%15s\n" "'Install'" "FAIL"
+    exit 1
+  fi
+  printf "%25s%15s\n" "'Install'" "DONE"
+  cd "$RUBY_DEST/lib/ruby/gems/1.8/gems/" >>$LOG 2>&1
   passenger=`ls -d passenger*`;
-  cd -
+  cd - >>$LOG 2>&1
   servername=`hostname`
-  sed -e "s/PASSENGER/$passenger/;s/SERVERNAME/$servername/;s/RUBY_DEST/$RUBY_DEST/" ./nginx.conf > $NGINX_DEST/nginx.conf
+  sed -e "s/PASSENGER/$passenger/;s/SERVERNAME/$servername/;s/RUBY_DEST/$RUBY_DEST/" ./nginx.conf > $NGINX_DEST/nginx.conf 2>>$LOG 
 fi
 
 cd "$DIR"
