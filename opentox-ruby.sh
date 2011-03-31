@@ -31,40 +31,50 @@ fi
 
 # Pkg
 source ./config.sh
-
+source ./utils.sh
+LOG="/tmp/`basename $0`-log.txt"
 
 echo "This installs the Opentox-ruby gem."
+echo "Log file is '$LOG'."
 echo "Press <Return> to continue, or <Ctrl+C> to abort."
 read
 
 DIR="`pwd`"
 
-$GEM install opentox-ruby
-$GEM install builder # not included by spreadsheet gem
+for mygem in opentox-ruby builder jewler; do
+  if ! $GEM install $mygem>>$LOG 2>&1; then
+    printf "%25s%15s\n" "'Install $mygem'" "FAIL"
+  fi
+  printf "%25s%15s\n" "'Install $mygem'" "DONE"
+done
 
-SERVERNAME="`hostname`"
-ESCAPED_SERVERNAME="`echo $SERVERNAME | sed 's/\/\\\//'`"
-LOGGER=":logger: backtrace"
-AA="nil"
 
-mkdir -p "$HOME/.opentox/config"
-mkdir -p "$HOME/.opentox/log"
-sed -e "s/SERVERNAME/$servername/;s/ESCAPEDSERVERNAME/$escapedservername/;s/LOGGER/$logger/;s/AA/$aa/" production.yaml > $HOME/.opentox/config/production.yaml
-sed -e "s/SERVERNAME/$servername/;s/ESCAPEDSERVERNAME/$escapedservername/;s/LOGGER/$logger/;s/AA/$aa/" "aa-local.yaml" >> $HOME/.opentox/config/production.yaml
+servername="`hostname`"
+escapedserver="`echo $servername | sed 's/\/\\\//'`"
+logger=":logger: backtrace"
+aa="nil"
 
-mkdir -p $WWW_DEST/opentox
-cd $WWW_DEST/opentox
-$GIT clone "git://github.com/opentox/opentox-ruby.git "
-cd opentox-ruby
-pwd
-$GIT remote show origin
-$GIT fetch
-$GIT checkout -b development origin/development
-$GEM install jeweler
-$RAKE install
+mkdir -p "$HOME/.opentox/config" >>$LOG 2>&1
+mkdir -p "$HOME/.opentox/log" >>$LOG 2>&1
+sed -e "s/SERVERNAME/$servername/;s/ESCAPEDSERVER/$escapedserver/;s/LOGGER/$logger/;s/AA/$aa/" production.yaml > $HOME/.opentox/config/production.yaml >>$LOG 2>&1
+sed -e "s/SERVERNAME/$servername/;s/ESCAPEDSERVER/$escapedserver/;s/LOGGER/$logger/;s/AA/$aa/" aa-local.yaml >> $HOME/.opentox/config/production.yaml >>$LOG 2>&1
+
+mkdir -p $WWW_DEST/opentox >>$LOG 2>&1
+cd $WWW_DEST/opentox >>$LOG 2>&1
+$GIT clone "git://github.com/opentox/opentox-ruby.git " >>$LOG 2>&1
+cd opentox-ruby >>$LOG 2>&1
+$GIT checkout -b development origin/development>>$LOG 2>&1
+
+if ! $RAKE install >>$LOG 2>&1; then
+  printf "%25s%15s\n" "'Install opentox-ruby'" "FAIL"
+fi
+printf "%25s%15s\n" "'Install opentox-ruby'" "DONE"
+
 GEM_LIB=`$GEM which opentox-ruby | sed 's/\/opentox-ruby.rb//'`
-echo "'$GEM_LIB'"
 mv "$GEM_LIB" "$GEM_LIB~"
 ln -s "$WWW_DEST/opentox/opentox-ruby/lib" "$GEM_LIB"
 
 cd "$DIR"
+
+echo
+echo "Opentox-ruby gem finished."
