@@ -44,19 +44,26 @@ if ! $REDIS_DONE; then
   echo  "Need root password: "
   echo "vm.overcommit_memory = 1" | sudo tee -a /etc/sysctl.conf >>$LOG 2>&1
 
-  cd $PREFIX
+  cd /tmp
   URI="http://redis.googlecode.com/files/redis-$REDIS_VER.tar.gz"
   if ! $WGET -O - "$URI" 2>>$LOG | tar zxv >>$LOG 2>&1; then
     printf "%25s%15s\n" "'Download'" "FAIL"
   fi
   printf "%25s%15s\n" "'Download'" "DONE"
 
-  cd $REDIS_DEST >>$LOG 2>&1
-  if ! make>>$LOG 2>&1; then
+  cd redis-$REDIS_VER >>$LOG 2>&1
+  if ! make "PREFIX=$REDIS_DEST" >>$LOG 2>&1; then
     printf "%25s%15s\n" "'Make'" "FAIL"
     exit 1
   fi
   printf "%25s%15s\n" "'Make'" "DONE"
+
+  if ! make install >>$LOG 2>&1; then
+    printf "%25s%15s\n" "'Install'" "FAIL"
+    exit 1
+  fi
+  printf "%25s%15s\n" "'Install'" "DONE"
+
 
   if ! grep "daemonize yes" $REDIS_SERVER_CONF >>$LOG 2>&1 ; then 
     echo "daemonize yes" > $REDIS_SERVER_CONF 2>$LOG
@@ -66,6 +73,8 @@ if ! $REDIS_DONE; then
     echo "dir `pwd`" >> $REDIS_SERVER_CONF 2>$LOG
   fi
 fi
+
+cd "$DIR"
 
 echo 
 echo "Preparing Redis..."
