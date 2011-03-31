@@ -87,7 +87,7 @@ if [ ! -f $REDIS_CONF ]; then
   fi
 
 else
-  echo "It seems Redis is already configured ('$RUBY_CONF' exists)."
+  echo "It seems Redis is already configured ('$REDIS_CONF' exists)."
 fi
 
 cd "$DIR"
