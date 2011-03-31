@@ -19,6 +19,12 @@ if [ ! -e "$WGET" ]; then
   exit 1
 fi
 
+RAKE="`which rake`"
+if [ ! -e "$RAKE" ]; then
+  echo "'rake' missing. Install 'rake' first. Aborting..."
+  exit 1
+fi
+
 LOG="/tmp/`basename $0`-log.txt"
 
 echo "Webservices ('$LOG'):"
@@ -39,14 +45,9 @@ for s in compound dataset algorithm model toxcreate task; do
     rm -rf public >>$LOG 2>&1
     mkdir public >>$LOG 2>&1
 
-    mypath_from=$WWW_DEST/opentox/$s/public
-    mypath_to=$WWW_DEST/$s
-    if ! ln -sf "$mypath_from" "$mypath_to" >>$LOG 2>&1; then
-
-      printf "%25s%15s\n" "'Linking $s'" "FAIL"
-      exit 1
-    fi
-    printf "%25s%15s\n" "'Linking $s'" "DONE"
+    mypath_from="$WWW_DEST/opentox/$s/public"
+    mypath_to="$WWW_DEST/$s"
+    cmd="ln -sf \"$mypath_from\" \"$mypath_to\"" && run_cmd "$cmd" "Linking $s"
 
     cd - >>$LOG 2>&1
 
@@ -63,20 +64,11 @@ done
 # fminer etc
 echo "Fminer:"
 
-if ! [ -f $HOME/.opentox/config/production.yaml ]; then
-    printf "%25s%15s\n" "'Config present'" "FAIL"
-    exit 1
-fi
-printf "%25s%15s\n" "'Config present'" "DONE"
-
+cmd="test -f $HOME/.opentox/config/production.yaml" && run_cmd "$cmd" "Config present"
 cd $WWW_DEST/opentox/algorithm >>$LOG 2>&1
 echo "Need root password:"
 sudo updatedb >>$LOG 2>&1
-if ! rake fminer:install >>$LOG 2>&1; then
-    printf "%25s%15s\n" "'Make'" "FAIL"
-    exit 1
-fi
-printf "%25s%15s\n" "'Make'" "DONE"
+cmd="$RAKE fminer:install" && run_cmd "$cmd" "Make"
 
 cd "$DIR"
 

@@ -53,18 +53,10 @@ echo "Installing:"
 if ! $R_DONE; then
   cd /tmp
   URI="http://cran.r-project.org/src/contrib/Archive/kernlab/kernlab_$KL_VER.tar.gz"
-  if ! $WGET "$URI" >>$LOG 2>&1; then
-    printf "%25s%15s\n" "'Download'" "FAIL"
-    exit 1
-  fi
-  printf "%25s%15s\n" "'Download'" "DONE"
+  cmd="$WGET $URI" && run_cmd "$cmd" "Download"
 
   export R_LIBS="$KL_DEST" # To install non-global
-
-  if ! $R CMD INSTALL "kernlab_$KL_VER.tar.gz">>$LOG 2>&1; then
-    printf "%25s%15s\n" "'Install'" "FAIL"
-  fi
-  printf "%25s%15s\n" "'Install'" "DONE"
+  cmd="$R CMD INSTALL kernlab_$KL_VER.tar.gz" && run_cmd "$cmd" "Install"
 fi
 
 

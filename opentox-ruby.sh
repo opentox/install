@@ -39,13 +39,9 @@ echo "Opentox-ruby ('$LOG'):"
 DIR="`pwd`"
 
 echo
-echo "Installing gem to pull dependencies:"
+echo "Gems:"
 for mygem in opentox-ruby builder jeweler; do
-  if ! $GEM install $mygem>>$LOG 2>&1; then
-    printf "%25s%15s\n" "'Install $mygem'" "FAIL"
-    exit 1
-  fi
-  printf "%25s%15s\n" "'Install $mygem'" "DONE"
+  cmd="$GEM install $mygem" && run_cmd "$cmd" "$mygem"
 done
 
 
@@ -68,19 +64,12 @@ $GIT clone git://github.com/opentox/opentox-ruby.git >>$LOG 2>&1
 cd opentox-ruby >>$LOG 2>&1
 $GIT checkout -b development origin/development>>$LOG 2>&1
 
-if ! $RAKE install >>$LOG 2>&1; then
-  printf "%25s%15s\n" "'Install opentox-ruby'" "FAIL"
-  exit 1
-fi
-printf "%25s%15s\n" "'Install opentox-ruby'" "DONE"
+cmd="$RAKE install" && run_cmd "$cmd" "Install"
 
 GEM_LIB=`$GEM which opentox-ruby | sed 's/\/opentox-ruby.rb//'`
-mv "$GEM_LIB" "$GEM_LIB~"
-if ! ln -s "$WWW_DEST/opentox/opentox-ruby/lib" "$GEM_LIB"; then
-  printf "%25s%15s\n" "'Linking back'" "FAIL"
-fi
-printf "%25s%15s\n" "'Linking back'" "DONE"
+mv "$GEM_LIB" "$GEM_LIB~" >>$LOG 2>&1
 
+cmd="ln -s $WWW_DEST/opentox/opentox-ruby/lib" && run_cmd "$cmd" "Linking back"
 
 cd "$DIR"
 

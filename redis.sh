@@ -46,17 +46,10 @@ if ! $REDIS_DONE; then
 
   cd $PREFIX
   URI="http://redis.googlecode.com/files/redis-$REDIS_VER.tar.gz"
-  if ! $WGET -O - "$URI" 2>>$LOG | tar zxv >>$LOG 2>&1; then
-    printf "%25s%15s\n" "'Download'" "FAIL"
-  fi
-  printf "%25s%15s\n" "'Download'" "DONE"
-
+  cmd="$WGET -O - $URI" && run_cmd "$cmd" "Download"
+  cmd="tar zxf redis-$REDIS_VER.tar.gz" && run_cmd "$cmd" "Unpack"
   cd redis-$REDIS_VER >>$LOG 2>&1
-  if ! make >>$LOG 2>&1; then
-    printf "%25s%15s\n" "'Make'" "FAIL"
-    exit 1
-  fi
-  printf "%25s%15s\n" "'Make'" "DONE"
+  cmd="make" && run_cmd "$cmd" "Make"
 
   if ! grep "daemonize yes" $REDIS_SERVER_CONF >>$LOG 2>&1 ; then 
     echo "daemonize yes" > $REDIS_SERVER_CONF 2>$LOG

@@ -38,12 +38,7 @@ else
 fi
 
 if ! $NGINX_DONE; then
-  CMD="$PIN --auto-download --auto --prefix=$NGINX_DEST"
-  if ! eval "$CMD" >>$LOG 2>&1; then
-    printf "%25s%15s\n" "'Install'" "FAIL"
-    exit 1
-  fi
-  printf "%25s%15s\n" "'Install'" "DONE"
+  cmd="$PIN --auto-download --auto --prefix=$NGINX_DEST" && run_cmd "$cmd" "Install"
   cd "$RUBY_DEST/lib/ruby/gems/1.8/gems/" >>$LOG 2>&1
   passenger=`ls -d passenger*`;
   cd - >>$LOG 2>&1

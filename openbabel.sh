@@ -44,30 +44,13 @@ echo "Install:"
 if [ ! $OB_DONE ]; then
   cd /tmp
   URI="http://downloads.sourceforge.net/project/openbabel/openbabel/$OB_NUM_VER/$OB_VER.tar.gz?use_mirror=kent"
-  if ! $WGET -O - "$URI" 2>>$LOG | tar zxv >>$LOG 2>&1; then
-    printf "%25s%15s\n" "'Download'" "FAIL"
-    exit 1
-  fi
-  printf "%25s%15s\n" "'Download'" "DONE"
+  cmd="$WGET $URI" && run_cmd "$cmd" "Download"
+  cmd="tar zxf $OB_VER.tar.gz" && run_cmd "$cmd" "Unpack"
   cd "/tmp/$OB_VER"
 
-  if ! ./configure --prefix="$OB_DEST" >>$LOG 2>&1; then
-    printf "%25s%15s\n" "'Configure'" "FAIL"
-    exit 1
-  fi
-  printf "%25s%15s\n" "'Configure'" "DONE"
-
-  if ! make >>$LOG 2>&1; then 
-    printf "%25s%15s\n" "'Make'" "FAIL"
-    exit 1
-  fi
-  printf "%25s%15s\n" "'Make'" "DONE"
-
-  if ! make install >>$LOG 2>&1; then 
-    printf "%25s%15s\n" "'Install'" "FAIL"
-    exit 1
-  fi
-  printf "%25s%15s\n" "'Install'" "DONE"
+  cmd="./configure --prefix=$OB_DEST" && run_cmd "$cmd" "Configure"
+  cmd="make" && run_cmd "$cmd" "Make"
+  cmd="make install" && run_cmd "$cmd" "Install"
 fi
 
 echo
@@ -86,27 +69,10 @@ fi
 
 if ! $OB_DONE ; then
   cd "/tmp/$OB_VER/scripts/ruby/"
-
-  if ! ruby extconf.rb --with-openbabel-include="$OB_DEST/include/openbabel-2.0" >>$LOG 2>&1; then 
-    printf "%25s%15s\n" "'Bindings: Code'" "FAIL"
-    exit 1
-  fi
-  printf "%25s%15s\n" "'Bindings: Code'" "DONE"
-  
-  if ! make >>$LOG 2>&1; then
-    printf "%25s%15s\n" "'Bindings: Make'" "FAIL"
-    exit 1
-  fi
-  printf "%25s%15s\n" "'Bindings: Make'" "DONE"
-
-  if ! cp openbabel.so $OB_DEST_BINDINGS >>$LOG 2>&1; then
-    printf "%25s%15s\n" "'Bindings: Install'" "FAIL"
-    exit 1
-  fi
-  printf "%25s%15s\n" "'Bindings: Install'" "DONE"
-  
+  cmd="ruby extconf.rb --with-openbabel-include=$OB_DEST/include/openbabel-2.0" && run_cmd "$cmd" "Bindings: Code"
+  cmd="make" && run_cmd "$cmd" "Make"
+  cmd="cp openbabel.so $OB_DEST_BINDINGS" && run_cmd "$cmd" "Bindings: Install"
 fi
-
 
 cd "$DIR"
 
