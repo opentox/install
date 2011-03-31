@@ -24,12 +24,11 @@ fi
 
 # Pkg
 source ./config.sh
-if [ -n "$1" ]; then
-  KL_DEST="$1"
-fi
-
+source ./utils.sh
+LOG="/tmp`basename $0`-log.txt"
 
 echo "This installs Kernlab."
+echo "Log file is '$LOG'."
 echo "Press <Return> to continue, or <Ctrl+C> to abort."
 read
 
@@ -48,29 +47,42 @@ else
     mkdir "$KL_DEST" >/dev/null 2>&1
   fi
 fi
+
+
 if ! $R_DONE; then
   cd /tmp
-  if ! $WGET -O - "http://cran.r-project.org/src/contrib/Archive/kernlab/kernlab_$KL_VER.tar.gz">/dev/null 2>&1; then
-    echo "Download failed! Aborting..."
+  URI="http://cran.r-project.org/src/contrib/Archive/kernlab/kernlab_$KL_VER.tar.gz"
+  if ! $WGET -O - "$URI">>$LOG 2>&1; then
+    printf "%25s%15s\n" "'Download'" "FAIL"
     exit 1
   fi
-  export R_LIBS="$KL_DEST"
-  $R CMD INSTALL "kernlab_$KL_VER.tar.gz"
+  printf "%25s%15s\n" "'Download'" "DONE"
+
+  export R_LIBS="$KL_DEST" # To install non-global
+
+  if ! $R CMD INSTALL "kernlab_$KL_VER.tar.gz">>$LOG 2>&1; then
+    printf "%25s%15s\n" "'Install'" "FAIL"
+  fi
+  printf "%25s%15s\n" "'Install'" "DONE"
 fi
+
 
 echo 
 echo "Preparing R..."
+
 if [ ! -f $KL_CONF ]; then
-  echo "export R_LIBS=\"$KL_DEST\"" >> "$KL_CONF"
+
+  echo "if ! [[ \"\$R_LIBS\" =~ \"$KL_DEST\" ]]; then export R_LIBS=\"$KL_DEST\"; fi" >> "$KL_CONF"
   echo "R package destination has been stored in '$KL_CONF'."
-  echo -n "Decide if R configuration should be linked to your .bashrc ('y/n'): "
-  read ANSWER_KL_CONF
-  if [ $ANSWER_KL_CONF = "y" ]; then
+
+  if ! grep "$KL_CONF" $HOME/.bashrc >/dev/null 2>&1 ; then
     echo "source \"$KL_CONF\"" >> $HOME/.bashrc
   fi
+
 else
   echo "It seems R is already configured ('$KL_CONF' exists)."
 fi
+source "$KL_CONF"
 
 cd "$DIR"
 

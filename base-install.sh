@@ -106,6 +106,7 @@ if [ ! -f $JAVA_CONF ]; then
 else
   echo "It seems JAVA is already configured ('$JAVA_CONF' exists)."
 fi
+source "$JAVA_CONF"
 
 echo
 echo "Installation finished."
