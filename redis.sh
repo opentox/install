@@ -46,7 +46,7 @@ if ! $REDIS_DONE; then
 
   cd $HOME
   URI="http://redis.googlecode.com/files/redis-$REDIS_VER.tar.gz"
-  if ! $WGET -O - "$URI" 2>$LOG | tar zxv ; then
+  if ! $WGET -O - "$URI" 2>>$LOG | tar zxv >>$LOG 2 >&1 ; then
     printf "%25s%15s\n" "'Download'" "FAIL"
   fi
   printf "%25s%15s\n" "'Download'" "DONE"
