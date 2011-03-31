@@ -62,7 +62,7 @@ sed -e "s/SERVERNAME/$servername/;s/ESCAPEDSERVER/$escapedserver/;s/LOGGER/$logg
 
 mkdir -p $WWW_DEST/opentox >>$LOG 2>&1
 cd $WWW_DEST/opentox >>$LOG 2>&1
-$GIT clone "git://github.com/opentox/opentox-ruby.git " >>$LOG 2>&1
+$GIT clone git://github.com/opentox/opentox-ruby.git >>$LOG 2>&1
 cd opentox-ruby >>$LOG 2>&1
 $GIT checkout -b development origin/development>>$LOG 2>&1
 
