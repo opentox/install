@@ -44,7 +44,7 @@ if ! $REDIS_DONE; then
   echo  "Need root password: "
   echo "vm.overcommit_memory = 1" | sudo tee -a /etc/sysctl.conf >>$LOG 2>&1
 
-  cd $REDIS_DEST
+  cd $PREFIX
   URI="http://redis.googlecode.com/files/redis-$REDIS_VER.tar.gz"
   if ! $WGET -O - "$URI" 2>>$LOG | tar zxv >>$LOG 2>&1; then
     printf "%25s%15s\n" "'Download'" "FAIL"
