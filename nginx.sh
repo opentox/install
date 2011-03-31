@@ -38,7 +38,7 @@ else
 fi
 
 if ! $NGINX_DONE; then
-  if ! $PIN --auto-download --auto --prefix="$NGINX_DEST" >>$LOG 2>&1; then
+  if ! $PIN --auto-download --auto --prefix=$NGINX_DEST >>$LOG 2>&1; then
     printf "%25s%15s\n" "'Install'" "FAIL"
     exit 1
   fi
