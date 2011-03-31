@@ -18,7 +18,7 @@ fi
 
 source ./config.sh
 source ./utils.sh
-LOG="/tmp`basename $0`-log.txt"
+LOG="/tmp/`basename $0`-log.txt"
 
 echo "This installs Nginx."
 echo "Press <Return> to continue, or <Ctrl+C> to abort."
