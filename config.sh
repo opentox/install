@@ -4,17 +4,22 @@
 # Author: Christoph Helma, Andreas Maunz.
 #
 
-# 1) Where all binaries are installed.
+# 1) Base setup
+OT_DIST="debian"       # Linux distribution    (debian)
+OT_INSTALL="local"     # Type                  (gem, local, server)
+OT_BRANCH="master"     # Maturity              (development, master)
+
+# 2) Where all binaries are installed.
 PREFIX="$HOME/opentox"
 JAVA_HOME="/usr/lib/jvm/java-6-sun"
 
-# 2) What versions to install.
+# 3) What versions to install.
 RUBY_NUM_VER="1.8.7-2011.03"
 OB_NUM_VER="2.2.3"
 KL_NUM_VER="0.9-11"
 REDIS_NUM_VER="2.2.2"
 
-# 3) Server settings.
+# 4) Server settings.
 NGINX_SERVERNAME="localhost"
 WWW_DEST="$PREFIX/www"
 
