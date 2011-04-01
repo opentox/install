@@ -21,6 +21,7 @@ fi
 
 LOG="/tmp/`basename $0`-log.txt"
 
+echo
 echo "Redis ('$LOG'):"
 
 

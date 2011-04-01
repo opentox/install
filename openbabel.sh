@@ -33,7 +33,6 @@ if [ ! -d "$OB_DEST" ]; then
   exit 1
 else
   if ! rmdir "$OB_DEST" >/dev/null 2>&1; then # if not empty this will fail
-    echo "Install directory '$OB_DEST' is not empty. Skipping openbabel base installation."
     OB_DONE=true
   fi
 fi

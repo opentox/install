@@ -74,8 +74,6 @@ for p in $pack_arr; do
   cmd="sudo $APTITUDE -y install $p" && run_cmd "$cmd" "$p"
 done
 
-echo 
-echo "Preparing JAVA:"
 if [ ! -f $JAVA_CONF ]; then
 
   if [ ! -d "$JAVA_HOME" ]; then

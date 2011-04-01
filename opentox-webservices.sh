@@ -27,8 +27,8 @@ fi
 
 LOG="/tmp/`basename $0`-log.txt"
 
+echo
 echo "Webservices ('$LOG'):"
-
 
 mkdir -p "$WWW_DEST/opentox" >>$LOG 2>&1
 cd "$WWW_DEST/opentox" >>$LOG 2>&1
