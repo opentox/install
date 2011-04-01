@@ -60,6 +60,7 @@ cmd="git submodule init" && run_cmd "$cmd" "Fminer Init"
 cmd="git submodule update" && run_cmd "$cmd" "Fminer Update"
 for mylib in bbrc last; do
   cmd="sed -i 's,^INCLUDE_OB.*,INCLUDE_OB\ =\ -I$OB_DEST/include/openbabel-2.0,g' $WWW_DEST/opentox/algorithm/libfminer/lib$mylib/Makefile" && run_cmd "$cmd" "Makefile $mylib"
+  cmd="sed -i 's,^INCLUDE_RB.*,INCLUDE_RB\ =\ -I$RUBY_DEST/lib/ruby/1.8/i686-linux,g' $WWW_DEST/opentox/algorithm/libfminer/lib$mylib/Makefile" && run_cmd "$cmd" "Makefile $mylib"
 done
 cd "libfminer/libbbrc">>$LOG 2>&1
 cmd="make ruby" && run_cmd "$cmd" "Make BBRC"
