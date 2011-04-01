@@ -51,8 +51,18 @@ if [ -n "$serverdomain" ]; then
   servername="$servername"."$serverdomain"
 fi
 escapedserver="`echo $servername | sed 's/\/\\\//'`"
-logger=":logger: backtrace"
-aa="nil"
+
+if [ "$OT_BRANCH" = "development" ]; then
+  logger=":logger: backtrace"
+else
+  logger=""
+fi
+
+if [ "$OT_INSTALL" = "server" ]; then
+  aa="https:\/\/opensso.in-silico.ch"
+else
+  aa=nil
+fi
 
 mkdir -p "$HOME/.opentox/config" >>$LOG 2>&1
 mkdir -p "$HOME/.opentox/log" >>$LOG 2>&1
@@ -60,7 +70,7 @@ mkdir -p "$HOME/.opentox/log" >>$LOG 2>&1
 cmd="sed -e \"s/SERVERNAME/$servername/;s/ESCAPEDSERVER/$escapedserver/;s/LOGGER/$logger/;s/AA/$aa/\" production.yaml > $HOME/.opentox/config/production.yaml" && run_cmd "$cmd" "Config 1"
 cmd="sed -e \"s/SERVERNAME/$servername/;s/ESCAPEDSERVER/$escapedserver/;s/LOGGER/$logger/;s/AA/$aa/\" aa-local.yaml >> $HOME/.opentox/config/production.yaml" && run_cmd "$cmd" "Config 2"
 
-if [ $OT_BRANCH = "development" ]; then
+if [ "$OT_BRANCH" = "development" ]; then
   mkdir -p $WWW_DEST/opentox >>$LOG 2>&1
   cd $WWW_DEST/opentox >>$LOG 2>&1
   rm -rf opentox-ruby >>$LOG 2>&1

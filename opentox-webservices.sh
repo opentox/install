@@ -27,6 +27,10 @@ fi
 
 LOG="/tmp/`basename $0`-log.txt"
 
+if ! id opentox; then
+  cmd="sudo adduser --system opentox" && run_cmd "$cmd" "User 'opentox'"
+fi
+
 echo
 echo "Webservices ('$LOG'):"
 
