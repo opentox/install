@@ -66,14 +66,14 @@ if [ -n "$pack_fail" ]; then
 fi
 
 echo
-if [ -n $pack_arr ]; then 
+if [ -n "$pack_arr" ]; then 
   echo "Installing missing packages:"
 fi
 
 pack_fail=""
 for p in $pack_arr; do
   echo -n "'$p':					"
-  cmd="sudo $APTITUDE install $p" && run_cmd "$cmd" "$p"
+  cmd="sudo $APTITUDE -y install $p" && run_cmd "$cmd" "$p"
 done
 
 if [ -n "$pack_fail" ]; then

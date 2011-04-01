@@ -1,3 +1,6 @@
+It is assumed that your system is configured for sudo to gain root privileges.
+It is assumed that your system is configured for using non-free packages.
+
 Installer for OpenTox IST/ALU Services
 ======================================
 
