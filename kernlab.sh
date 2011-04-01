@@ -38,7 +38,6 @@ if [ ! -d "$KL_DEST" ]; then
   exit 1
 else
   if ! rmdir "$KL_DEST" >/dev/null 2>&1; then # if not empty this will fail
-    echo "Install directory '$KL_DEST' not empty. Skipping kernlab installation."
     R_DONE=true
   else
     mkdir "$KL_DEST" >/dev/null 2>&1

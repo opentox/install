@@ -32,7 +32,6 @@ if [ ! -d "$REDIS_DEST" ]; then
   exit 1
 else
   if ! rmdir "$REDIS_DEST" >/dev/null 2>&1; then # if not empty this will fail
-    echo "Install directory '$REDIS_DEST' is not empty. Skipping Redis installation..."
     REDIS_DONE=true
   else
     mkdir "$REDIS_DEST" >/dev/null 2>&1

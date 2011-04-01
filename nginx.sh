@@ -31,7 +31,6 @@ if [ ! -d "$NGINX_DEST" ]; then
   exit 1
 else
   if ! rmdir "$NGINX_DEST" >/dev/null 2>&1; then # if not empty this will fail
-    echo "Install directory '$NGINX_DEST' not empty. Skipping nginx installation."
     NGINX_DONE=true
   fi
 fi

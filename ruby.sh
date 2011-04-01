@@ -34,7 +34,6 @@ if [ ! -d "$RUBY_DEST" ]; then
   exit 1
 else
   if ! rmdir "$RUBY_DEST" >/dev/null 2>&1; then # if not empty this will fail
-    echo "Install directory '$RUBY_DEST' is not empty. Skipping Ruby installation..."
     RUBY_DONE=true
   fi
 fi

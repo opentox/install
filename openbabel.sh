@@ -76,7 +76,6 @@ if [ ! -d "$OB_DEST_BINDINGS" ]; then
   exit 1
 else
   if [ "`ls $OB_DEST_BINDINGS | wc -l`" -gt 0 ]; then
-    echo "Install directory '$OB_DEST_BINDINGS' is not empty. Skipping Openbabel Binding installation..."
     OB_DONE=true
   fi
 fi
