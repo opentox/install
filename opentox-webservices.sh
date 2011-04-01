@@ -38,7 +38,7 @@ for s in compound dataset algorithm model toxcreate task; do
 
     cd "$s" >>$LOG 2>&1
 
-    git checkout -t origin/development  >>$LOG 2>&1 # AM: use development
+    git checkout -t origin/master>>$LOG 2>&1
 
     rm -rf public >>$LOG 2>&1
     mkdir public >>$LOG 2>&1
