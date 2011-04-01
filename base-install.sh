@@ -65,22 +65,16 @@ if [ -n "$pack_fail" ]; then
   read 
 fi
 
+echo sun-java6-jdk shared/accepted-sun-dlj-v1-1 select true | sudo /usr/bin/debconf-set-selections
 echo
 if [ -n "$pack_arr" ]; then 
   echo "Installing missing packages:"
 fi
 
-pack_fail=""
 for p in $pack_arr; do
   echo -n "'$p':					"
   cmd="sudo $APTITUDE -y install $p" && run_cmd "$cmd" "$p"
 done
-
-if [ -n "$pack_fail" ]; then
-  echo 
-  echo "WARNING: At least one missing package could not be installed. Press <Return> to continue or <Ctrl+C> to abort."
-  read 
-fi
 
 echo 
 echo "Preparing JAVA:"
