@@ -55,12 +55,18 @@ done
 
 # fminer etc
 cmd="test -f $HOME/.opentox/config/production.yaml" && run_cmd "$cmd" "Config present"
-cd $WWW_DEST/opentox/algorithm >>$LOG 2>&1
-sudo updatedb >>$LOG 2>&1
+cd "$WWW_DEST/opentox/algorithm" >>$LOG 2>&1
+cmd="git submodule init" && run_cmd "$cmd" "Fminer Init"
+cmd="git submodule update" && run_cmd "$cmd" "Fminer Update"
 for mylib in bbrc last; do
-  cmd="sed -i 's,INCLUDE_OB.*,INCLUDE_OB\ =\ $OB_DEST/include,g' $WWW_DEST/algorithm/libfminer/lib$mylib/Makefile" && run_cmd "$cmd" "Makefile $mylib"
+  cmd="sed -i 's,INCLUDE_OB.*,INCLUDE_OB\ =\ $OB_DEST/include,g' $WWW_DEST/opentox/algorithm/libfminer/lib$mylib/Makefile" && run_cmd "$cmd" "Makefile $mylib"
 done
-cmd="$RAKE fminer:install" && run_cmd "$cmd" "Make"
+cd "libfminer/libbbrc">>$LOG 2>&1
+cmd="make ruby" && run_cmd "$cmd" "Make BBRC"
+cd ->>$LOG 2>&1
+cd "libfminer/liblast">>$LOG 2>&1
+cmd="make ruby" && run_cmd "$cmd" "Make BBRC"
+cd ->>$LOG 2>&1
 
 cd "$DIR"
 
