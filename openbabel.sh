@@ -67,7 +67,6 @@ if [ ! -f "$OB_CONF" ]; then
 
 fi
 
-echo
 echo "Bindings:"
 OB_DONE=false
 source "$HOME/.bashrc"

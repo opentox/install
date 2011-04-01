@@ -28,6 +28,7 @@ fi
 # Pkg
 LOG="/tmp/`basename $0`-log.txt"
 
+echo
 echo "Kernlab ('$LOG')."
 
 R_DONE=false

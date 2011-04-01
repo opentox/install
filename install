@@ -14,7 +14,7 @@ source "./openbabel.sh"
 source "./kernlab.sh"
 source "./opentox-ruby.sh"
 
-if [ $install != "gem" ]
+if [ "$install" != "gem" ]
 then
     source "./nginx.sh"
     source "./redis.sh"
