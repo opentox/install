@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/bin/sh
 #
 # Installs Kernlab.
 # Author: Christoph Helma, Andreas Maunz.
 #
 
-source "`pwd`/utils.sh"
+. "`pwd`/utils.sh"
 DIR="`pwd`"
 
 if [ "$(id -u)" = "0" ]; then
@@ -61,7 +61,7 @@ if [ ! -f $KL_CONF ]; then
   echo "R package destination has been stored in '$KL_CONF'."
 
   if ! grep "$KL_CONF" $HOME/.bashrc >/dev/null 2>&1 ; then
-    echo "source \"$KL_CONF\"" >> $HOME/.bashrc
+    echo ". \"$KL_CONF\"" >> $HOME/.bashrc
   fi
 
 fi

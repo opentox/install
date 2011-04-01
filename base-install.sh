@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #
 # Installs base packages for Ubuntu
 # Author: Andreas Maunz
@@ -6,7 +6,7 @@
 # Your installed packages are safe and will not be updated.
 # A Java configuration is created and included in your '~.bashrc'.
 
-source "`pwd`/utils.sh"
+. "`pwd`/utils.sh"
 DIR="`pwd`"
 
 if [ "$(id -u)" = "0" ]; then
@@ -60,8 +60,8 @@ done
 if [ -n "$pack_fail" ]; then
   echo 
   echo "WARNING: At least one missing package has no suitable installation candidate."
-  echo "Press <Return> to continue or <Ctrl+C> to abort."
-  read 
+  echo "Press <Ctrl+C> to abort (5 sec)."
+  sleep 5
 fi
 
 echo sun-java6-jdk shared/accepted-sun-dlj-v1-1 select true | sudo /usr/bin/debconf-set-selections
@@ -86,7 +86,7 @@ if [ ! -f $JAVA_CONF ]; then
 
   echo "Java configuration has been stored in '$JAVA_CONF'."
   if ! grep "$JAVA_CONF" $HOME/.bashrc >/dev/null 2>&1; then
-    echo "source \"$JAVA_CONF\"" >> $HOME/.bashrc
+    echo ". \"$JAVA_CONF\"" >> $HOME/.bashrc
   fi
 fi
 

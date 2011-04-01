@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/bin/sh
 #
 # Installs Openbabel.
 # A configuration file is created and included in your '~.bashrc'.
 # Author: Christoph Helma, Andreas Maunz.
 #
 
-source "`pwd`/utils.sh"
+. "`pwd`/utils.sh"
 DIR="`pwd`"
 
 if [ "$(id -u)" = "0" ]; then
@@ -61,14 +61,14 @@ if [ ! -f "$OB_CONF" ]; then
 
   echo "Openbabel configuration has been stored in '$OB_CONF'."
   if ! grep "$OB_CONF" $HOME/.bashrc >/dev/null 2>&1 ; then
-    echo "source \"$OB_CONF\"" >> $HOME/.bashrc
+    echo ". \"$OB_CONF\"" >> $HOME/.bashrc
   fi
 
 fi
 
 echo "Bindings:"
 OB_DONE=false
-source "$HOME/.bashrc"
+. "$HOME/.bashrc"
 mkdir "$OB_DEST_BINDINGS">/dev/null 2>&1
 if [ ! -d "$OB_DEST_BINDINGS" ]; then
   echo "Install directory '$OB_DEST_BINDINGS' is not available! Aborting..."

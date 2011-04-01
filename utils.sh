@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 check_dest() 
 {
@@ -32,6 +32,6 @@ abs_path()
   esac
 }
 
-source "$HOME/.bashrc"
-source "`pwd`/config.sh"
+. "$HOME/.bashrc"
+. "`pwd`/config.sh"
 check_dest

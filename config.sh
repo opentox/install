@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #
 # Configuration file for Opentox installer.
 # Author: Christoph Helma, Andreas Maunz.

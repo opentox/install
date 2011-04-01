@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/bin/sh
 #
 # Installs Redis.
 # Author: Christoph Helma, Andreas Maunz.
 #
 
-source "`pwd`/utils.sh"
+. "`pwd`/utils.sh"
 DIR=`pwd`
 
 if [ "$(id -u)" = "0" ]; then
@@ -63,8 +63,8 @@ if [ ! -f $REDIS_CONF ]; then
   echo "export PATH=$REDIS_DEST/src:\$PATH" >> "$REDIS_CONF"
   echo "Redis configuration has been stored in '$REDIS_CONF'."
 
-  if ! grep "source \"$REDIS_CONF\"" $HOME/.bashrc; then
-    echo "source \"$REDIS_CONF\"" >> $HOME/.bashrc
+  if ! grep ". \"$REDIS_CONF\"" $HOME/.bashrc; then
+    echo ". \"$REDIS_CONF\"" >> $HOME/.bashrc
   fi
 
 fi

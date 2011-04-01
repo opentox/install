@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #
 # Installs Ruby enterprise edition and passenger gem.
 # A configuration file is created and included in your '~.bashrc'.
@@ -6,7 +6,7 @@
 # Author: Christoph Helma, Andreas Maunz.
 #
 
-source "`pwd`/utils.sh"
+. "`pwd`/utils.sh"
 DIR="`pwd`"
 
 if [ "$(id -u)" = "0" ]; then
@@ -56,10 +56,10 @@ if ! [ -f "$RUBY_CONF" ]; then
 
   echo "Ruby configuration has been stored in '$RUBY_CONF'."
   if ! grep "$RUBY_CONF" $HOME/.bashrc >/dev/null 2>&1 ; then
-    echo "source \"$RUBY_CONF\"" >> $HOME/.bashrc
+    echo ". \"$RUBY_CONF\"" >> $HOME/.bashrc
   fi
 fi
-source "$RUBY_CONF"
+. "$RUBY_CONF"
 
 
 GEM="`which gem`"

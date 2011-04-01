@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/bin/sh
 #
 # Installs Passenger.
 # Author: Christoph Helma, Andreas Maunz.
 #
 
-source "`pwd`/utils.sh"
+. "`pwd`/utils.sh"
 DIR="`pwd`"
 
 if [ "$(id -u)" = "0" ]; then
