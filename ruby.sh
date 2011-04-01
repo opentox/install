@@ -78,7 +78,9 @@ if [ "$PASSENGER_SKIP" != "s" ]; then
   if ! grep "$GEMCONF" $HOME/.gemrc >>$LOG 2>&1; then
     echo "$GEMCONF" | tee -a $HOME/.gemrc >>$LOG 2>&1 
   fi
-  cmd="$GEM install passenger" && run_cmd "$cmd" "Install Passenger"
+  if ! $GEM list | grep passenger >/dev/null 2>&1; then
+    cmd="$GEM install passenger" && run_cmd "$cmd" "Install Passenger"
+  fi
   
 fi
 
