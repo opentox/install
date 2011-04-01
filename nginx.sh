@@ -4,7 +4,8 @@
 # Author: Christoph Helma, Andreas Maunz.
 #
 
-source ./utils.sh
+source "`pwd`./utils.sh"
+DIR="`pwd`"
 
 if [ "$(id -u)" = "0" ]; then
   echo "This script must be run as non-root." 1>&2
@@ -22,8 +23,6 @@ LOG="/tmp/`basename $0`-log.txt"
 
 echo
 echo "Nginx ('$LOG'):"
-
-DIR="`pwd`"
 
 NGINX_DONE=false
 mkdir "$NGINX_DEST" >/dev/null 2>&1

@@ -4,7 +4,8 @@
 # Author: Christoph Helma, Andreas Maunz.
 #
 
-source ./utils.sh
+source "`pwd`/utils.sh"
+DIR=`pwd`
 
 if [ "$(id -u)" = "0" ]; then
   echo "This script must be run as non-root." 1>&2
@@ -23,7 +24,6 @@ LOG="/tmp/`basename $0`-log.txt"
 echo "This installs Redis."
 echo "Log file is '$LOG'."
 
-DIR=`pwd`
 
 REDIS_DONE=false
 mkdir "$REDIS_DEST" >/dev/null 2>&1
@@ -59,8 +59,6 @@ if ! $REDIS_DONE; then
     echo "dir `pwd`" >> $REDIS_SERVER_CONF 2>$LOG
   fi
 fi
-
-cd "$DIR"
 
 if [ ! -f $REDIS_CONF ]; then
   echo "export PATH=$REDIS_DEST/src:\$PATH" >> "$REDIS_CONF"

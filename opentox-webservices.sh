@@ -4,7 +4,8 @@
 # Author: Christoph Helma, Andreas Maunz.
 #
 
-source ./utils.sh
+source "`pwd`/utils.sh"
+DIR=`pwd`
 
 if [ "$(id -u)" = "0" ]; then
   echo "This script must be run as non-root." 1>&2
@@ -28,7 +29,6 @@ LOG="/tmp/`basename $0`-log.txt"
 
 echo "Webservices ('$LOG'):"
 
-DIR=`pwd`
 
 mkdir -p "$WWW_DEST/opentox" >>$LOG 2>&1
 cd "$WWW_DEST/opentox" >>$LOG 2>&1

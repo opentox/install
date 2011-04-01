@@ -5,7 +5,8 @@
 # Author: Christoph Helma, Andreas Maunz.
 #
 
-source ./utils.sh
+source "`pwd`/utils.sh"
+DIR="`pwd`"
 
 if [ "$(id -u)" = "0" ]; then
   echo "This script must be run as non-root." 1>&2
@@ -25,7 +26,6 @@ LOG="/tmp/`basename $0`-log.txt"
 echo
 echo "Openbabel ('$OB_DEST', '$LOG'):"
 
-DIR="`pwd`"
 
 mkdir "$OB_DEST" >/dev/null 2>&1
 if [ ! -d "$OB_DEST" ]; then
@@ -39,13 +39,13 @@ else
 fi
 
 if [ ! $OB_DONE ]; then
-  cd /tmp
+  cd "/tmp">>$LOG 2>/dev/null
   URI="http://downloads.sourceforge.net/project/openbabel/openbabel/$OB_NUM_VER/$OB_VER.tar.gz?use_mirror=kent"
   if ! [ -d "/tmp/$OB_VER" ]; then 
     cmd="$WGET $URI" && run_cmd "$cmd" "Download"
     cmd="tar zxf $OB_VER.tar.gz?use_mirror=kent $OB_VER"  && run_cmd "$cmd" "Unpack"
   fi
-  cd "/tmp/$OB_VER"
+  cd "/tmp/$OB_VER">>$LOG 2>/dev/null
 
   cmd="./configure --prefix=$OB_DEST" && run_cmd "$cmd" "Configure"
   cmd="make" && run_cmd "$cmd" "Make"

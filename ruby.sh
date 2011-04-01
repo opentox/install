@@ -6,6 +6,9 @@
 # Author: Christoph Helma, Andreas Maunz.
 #
 
+source "`pwd`/utils.sh"
+DIR="`pwd`"
+
 if [ "$(id -u)" = "0" ]; then
   echo "This script must be run as non-root." 1>&2
   exit 1
@@ -19,13 +22,11 @@ if [ ! -e "$WGET" ]; then
 fi
 
 # Pkg
-source ./utils.sh
 LOG="/tmp/`basename $0`-log.txt"
 
 echo
 echo "Ruby Enterprise edition ('$RUBY_DEST', '$LOG')."
 
-DIR="`pwd`"
 
 mkdir "$RUBY_DEST" >/dev/null 2>&1
 if [ ! -d "$RUBY_DEST" ]; then
@@ -48,7 +49,6 @@ if [ ! $RUBY_DONE ]; then
   cmd="sh /tmp/$RUBY_VER/installer  --dont-install-useful-gems --no-dev-docs --auto=$RUBY_DEST" && run_cmd "$cmd" "Install"
 fi
 
-cd "$DIR"
 
 
 if ! [ -f "$RUBY_CONF" ]; then
@@ -83,3 +83,4 @@ if [ "$PASSENGER_SKIP" != "s" ]; then
   
 fi
 
+cd "$DIR"

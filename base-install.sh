@@ -5,6 +5,10 @@
 #
 # Your installed packages are safe and will not be updated.
 # A Java configuration is created and included in your '~.bashrc'.
+
+source "`pwd`/utils.sh"
+DIR="`pwd`"
+
 if [ "$(id -u)" = "0" ]; then
   echo "This script must not be run as root" 1>&2
   exit 1
@@ -20,8 +24,6 @@ if [ ! -e "$APTITUDE" ]; then
   exit 1
 fi
 
-# Dest
-source ./utils.sh
 
 # Pkgs
 packs="lsb-release binutils gcc g++ gfortran wget hostname pwgen git-core raptor-utils r-base sun-java6-jdk libssl-dev zlib1g-dev libreadline-dev libmysqlclient-dev libcurl4-openssl-dev libxml2-dev libxslt1-dev libgsl0-dev sun-java6-jdk"
@@ -89,4 +91,6 @@ if [ ! -f $JAVA_CONF ]; then
     echo "source \"$JAVA_CONF\"" >> $HOME/.bashrc
   fi
 fi
+
+cd "$DIR"
 

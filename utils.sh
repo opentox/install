@@ -32,6 +32,6 @@ abs_path()
   esac
 }
 
-source ~/.bashrc
-source .config.sh
+source "$HOME/.bashrc"
+source "`pwd`/config.sh"
 check_dest
