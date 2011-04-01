@@ -8,7 +8,6 @@ echo "Opentox-ruby installation."
 echo "You may need to give root password for some privileged actions right now:"
 cmd="sudo echo -n \"\"" && run_cmd "$cmd" "Acquire privileges"
 
-source "./config"
 source "./base-install.sh"
 source "./ruby.sh"
 source "./openbabel.sh"
