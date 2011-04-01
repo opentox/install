@@ -40,32 +40,40 @@ echo "Opentox-ruby ('$LOG'):"
 DIR="`pwd`"
 
 for mygem in opentox-ruby builder jeweler; do
-  cmd="$GEM install $mygem" && run_cmd "$cmd" "$mygem"
+  if ! $GEM list | grep "$mygem" >/dev/null 2>&1; then
+    cmd="$GEM install $mygem" && run_cmd "$cmd" "$mygem"
+  fi
 done
 
 
 servername="`hostname`"
+serverdomain="`dnsdomainname`"
+if [ -n "$serverdomain" ]; then
+  servername="$servername"."$serverdomain"
+fi
 escapedserver="`echo $servername | sed 's/\/\\\//'`"
 logger=":logger: backtrace"
 aa="nil"
 
 mkdir -p "$HOME/.opentox/config" >>$LOG 2>&1
 mkdir -p "$HOME/.opentox/log" >>$LOG 2>&1
-sed -e "s/SERVERNAME/$servername/;s/ESCAPEDSERVER/$escapedserver/;s/LOGGER/$logger/;s/AA/$aa/" production.yaml > $HOME/.opentox/config/production.yaml 2>$LOG
-sed -e "s/SERVERNAME/$servername/;s/ESCAPEDSERVER/$escapedserver/;s/LOGGER/$logger/;s/AA/$aa/" aa-local.yaml >> $HOME/.opentox/config/production.yaml 2>$LOG
 
-mkdir -p $WWW_DEST/opentox >>$LOG 2>&1
-cd $WWW_DEST/opentox >>$LOG 2>&1
-$GIT clone git://github.com/opentox/opentox-ruby.git >>$LOG 2>&1
-cd opentox-ruby >>$LOG 2>&1
-$GIT checkout -b development origin/development>>$LOG 2>&1
+cmd="sed -e \"s/SERVERNAME/$servername/;s/ESCAPEDSERVER/$escapedserver/;s/LOGGER/$logger/;s/AA/$aa/\" production.yaml > $HOME/.opentox/config/production.yaml" && run_cmd "$cmd" "Config 1"
+cmd="sed -e \"s/SERVERNAME/$servername/;s/ESCAPEDSERVER/$escapedserver/;s/LOGGER/$logger/;s/AA/$aa/\" aa-local.yaml >> $HOME/.opentox/config/production.yaml" && run_cmd "$cmd" "Config 2"
 
-cmd="$RAKE install" && run_cmd "$cmd" "Install"
-
-GEM_LIB=`$GEM which opentox-ruby | sed 's/\/opentox-ruby.rb//'`
-mv "$GEM_LIB" "$GEM_LIB~" >>$LOG 2>&1
-
-cmd="ln -sf $WWW_DEST/opentox/opentox-ruby/lib $GEM_LIB" && run_cmd "$cmd" "Linking back"
+if [ $OT_BRANCH = "development" ]; then
+  mkdir -p $WWW_DEST/opentox >>$LOG 2>&1
+  cd $WWW_DEST/opentox >>$LOG 2>&1
+  rm -rf opentox-ruby >>$LOG 2>&1
+  $GIT clone git://github.com/opentox/opentox-ruby.git >>$LOG 2>&1
+  cd opentox-ruby >>$LOG 2>&1
+  $GIT checkout -t origin/$OT_BRANCH >>$LOG 2>&1
+  cmd="$RAKE install" && run_cmd "$cmd" "Install"
+  GEM_LIB=`$GEM which opentox-ruby | sed 's/\/opentox-ruby.rb//'`
+  rm -rf "$GEM_LIB~" >>$LOG 2>&1
+  mv "$GEM_LIB" "$GEM_LIB~" >>$LOG 2>&1
+  cmd="ln -sf $WWW_DEST/opentox/opentox-ruby/lib $GEM_LIB" && run_cmd "$cmd" "Linking back"
+fi
 
 cd "$DIR"
 
