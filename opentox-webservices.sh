@@ -63,6 +63,9 @@ done
 cmd="test -f $HOME/.opentox/config/production.yaml" && run_cmd "$cmd" "Config present"
 cd $WWW_DEST/opentox/algorithm >>$LOG 2>&1
 sudo updatedb >>$LOG 2>&1
+for mylib in bbrc last; do
+  sed -i "s/INCLUDE_OB.*/INCLUDE_OB\ =\ $OB_DEST/include/g" $WWW_DEST/algorithm/libfminer/lib$mylib/Makefile
+done
 cmd="$RAKE fminer:install" && run_cmd "$cmd" "Make"
 
 cd "$DIR"
