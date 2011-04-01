@@ -19,7 +19,6 @@ if [ ! -e "$WGET" ]; then
 fi
 
 # Pkg
-source ./config.sh
 source ./utils.sh
 LOG="/tmp/`basename $0`-log.txt"
 

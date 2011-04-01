@@ -21,7 +21,6 @@ if [ ! -e "$APTITUDE" ]; then
 fi
 
 # Dest
-source ./config.sh
 source ./utils.sh
 
 # Pkgs

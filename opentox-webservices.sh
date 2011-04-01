@@ -4,7 +4,6 @@
 # Author: Christoph Helma, Andreas Maunz.
 #
 
-source ./config.sh
 source ./utils.sh
 
 if [ "$(id -u)" = "0" ]; then

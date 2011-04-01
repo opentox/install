@@ -32,5 +32,6 @@ abs_path()
   esac
 }
 
-check_dest
 source ~/.bashrc
+source .config.sh
+check_dest
