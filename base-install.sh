@@ -43,10 +43,8 @@ done
 if [ -n "$pack_arr" ]; then
   echo 
   echo "Checking availablity:"
-  echo -n "Updating package indices:					"
   sudo $APTITUDE update -y >/dev/null 2>&1
   sudo $APTITUDE upgrade -y >/dev/null 2>&1
-  echo "done."
 fi
 
 for p in $pack_arr; do
@@ -72,7 +70,6 @@ if [ -n "$pack_arr" ]; then
 fi
 
 for p in $pack_arr; do
-  echo -n "'$p':					"
   cmd="sudo $APTITUDE -y install $p" && run_cmd "$cmd" "$p"
 done
 

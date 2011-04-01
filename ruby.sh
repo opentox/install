@@ -42,8 +42,10 @@ fi
 if [ ! $RUBY_DONE ]; then
   cd /tmp
   URI="http://rubyenterpriseedition.googlecode.com/files/$RUBY_VER.tar.gz"
-  cmd="$WGET $URI" && run_cmd "$cmd" "Download"
-  cmd="tar xzf $RUBY_VER.tar.gz" && run_cmd "$cmd" "Unpack"
+  if ! [ -d "/tmp/$RUBY_VER" ]; then
+    cmd="$WGET $URI" && run_cmd "$cmd" "Download"
+    cmd="tar xzf $RUBY_VER.tar.gz" && run_cmd "$cmd" "Unpack"
+  fi
   cmd="sh /tmp/$RUBY_VER/installer  --dont-install-useful-gems --no-dev-docs --auto=$RUBY_DEST" && run_cmd "$cmd" "Install"
 fi
 

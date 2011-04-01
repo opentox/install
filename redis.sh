@@ -45,8 +45,10 @@ if ! $REDIS_DONE; then
 
   cd $PREFIX
   URI="http://redis.googlecode.com/files/redis-$REDIS_VER.tar.gz"
-  cmd="$WGET $URI" && run_cmd "$cmd" "Download"
-  cmd="tar zxf redis-$REDIS_VER.tar.gz" && run_cmd "$cmd" "Unpack"
+  if ! [ -d "redis-$REDIS_VER" ]; then
+    cmd="$WGET $URI" && run_cmd "$cmd" "Download"
+    cmd="tar zxf redis-$REDIS_VER.tar.gz" && run_cmd "$cmd" "Unpack"
+  fi
   cd redis-$REDIS_VER >>$LOG 2>&1
   cmd="make" && run_cmd "$cmd" "Make"
 

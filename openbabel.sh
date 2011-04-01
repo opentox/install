@@ -42,8 +42,10 @@ fi
 if [ ! $OB_DONE ]; then
   cd /tmp
   URI="http://downloads.sourceforge.net/project/openbabel/openbabel/$OB_NUM_VER/$OB_VER.tar.gz?use_mirror=kent"
-  cmd="$WGET $URI" && run_cmd "$cmd" "Download"
-  cmd="tar zxf $OB_VER.tar.gz?use_mirror=kent $OB_VER"  && run_cmd "$cmd" "Unpack"
+  if ! [ -d "/tmp/$OB_VER" ]; then 
+    cmd="$WGET $URI" && run_cmd "$cmd" "Download"
+    cmd="tar zxf $OB_VER.tar.gz?use_mirror=kent $OB_VER"  && run_cmd "$cmd" "Unpack"
+  fi
   cd "/tmp/$OB_VER"
 
   cmd="./configure --prefix=$OB_DEST" && run_cmd "$cmd" "Configure"
@@ -51,30 +53,7 @@ if [ ! $OB_DONE ]; then
   cmd="make install" && run_cmd "$cmd" "Install"
 fi
 
-echo
-echo "Bindings:"
-OB_DONE=false
-mkdir "$OB_DEST_BINDINGS">/dev/null 2>&1
-if [ ! -d "$OB_DEST_BINDINGS" ]; then
-  echo "Install directory '$OB_DEST_BINDINGS' is not available! Aborting..."
-  exit 1
-else
-  if [ "`ls $OB_DEST_BINDINGS | wc -l`" -gt 0 ]; then
-    echo "Install directory '$OB_DEST_BINDINGS' is not empty. Skipping Openbabel Binding installation..."
-    OB_DONE=true
-  fi
-fi
-
-if ! $OB_DONE ; then
-  cd "/tmp/$OB_VER/scripts/ruby/"
-  cmd="ruby extconf.rb --with-openbabel-include=$OB_DEST/include/openbabel-2.0" && run_cmd "$cmd" "Code"
-  cmd="make" && run_cmd "$cmd" "Make"
-  cmd="cp openbabel.so $OB_DEST_BINDINGS" && run_cmd "$cmd" "Install"
-fi
-
-cd "$DIR"
-
-if [ ! -f $OB_CONF ]; then
+if [ ! -f "$OB_CONF" ]; then
 
   echo "if ! [[ \"\$PATH\" =~ \"$OB_DEST\" ]]; then export PATH=\"$OB_DEST/bin:\$PATH\"; fi" >> "$OB_CONF"
   echo "if ! [[ \"\$LD_LIBRARY_PATH\" =~ \"$OB_DEST\" ]]; then export LD_LIBRARY_PATH=\"$OB_DEST/lib:\$LD_LIBRARY_PATH\"; fi" >> "$OB_CONF"
@@ -88,4 +67,29 @@ if [ ! -f $OB_CONF ]; then
   fi
 
 fi
+
+echo
+echo "Bindings:"
+OB_DONE=false
+source "$HOME/.bashrc"
+mkdir "$OB_DEST_BINDINGS">/dev/null 2>&1
+if [ ! -d "$OB_DEST_BINDINGS" ]; then
+  echo "Install directory '$OB_DEST_BINDINGS' is not available! Aborting..."
+  exit 1
+else
+  if [ "`ls $OB_DEST_BINDINGS | wc -l`" -gt 0 ]; then
+    echo "Install directory '$OB_DEST_BINDINGS' is not empty. Skipping Openbabel Binding installation..."
+    OB_DONE=true
+  fi
+fi
+
+if ! $OB_DONE ; then
+  cd "/tmp/$OB_VER/scripts/ruby/"
+  cmd="ruby extconf.rb --with-openbabel-include=$OB_DEST/include/openbabel-2.0 --with-openbabel-lib=$OB_DEST/lib" && run_cmd "$cmd" "Code"
+  cmd="make" && run_cmd "$cmd" "Make"
+  cmd="cp openbabel.so $OB_DEST_BINDINGS" && run_cmd "$cmd" "Install"
+fi
+
+cd "$DIR"
+
 
