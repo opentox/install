@@ -4,7 +4,7 @@
 # Author: Christoph Helma, Andreas Maunz.
 #
 
-source "`pwd`./utils.sh"
+source "`pwd`/utils.sh"
 DIR="`pwd`"
 
 if [ "$(id -u)" = "0" ]; then

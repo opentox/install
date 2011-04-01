@@ -21,8 +21,7 @@ fi
 
 LOG="/tmp/`basename $0`-log.txt"
 
-echo "This installs Redis."
-echo "Log file is '$LOG'."
+echo "Redis ('$LOG'):"
 
 
 REDIS_DONE=false
