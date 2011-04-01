@@ -59,7 +59,7 @@ cd "$WWW_DEST/opentox/algorithm" >>$LOG 2>&1
 cmd="git submodule init" && run_cmd "$cmd" "Fminer Init"
 cmd="git submodule update" && run_cmd "$cmd" "Fminer Update"
 for mylib in bbrc last; do
-  cmd="sed -i 's,INCLUDE_OB.*,INCLUDE_OB\ =\ $OB_DEST/include,g' $WWW_DEST/opentox/algorithm/libfminer/lib$mylib/Makefile" && run_cmd "$cmd" "Makefile $mylib"
+  cmd="sed -i 's,INCLUDE_OB.*,INCLUDE_OB\ =\ -I$OB_DEST/include,g' $WWW_DEST/opentox/algorithm/libfminer/lib$mylib/Makefile" && run_cmd "$cmd" "Makefile $mylib"
 done
 cd "libfminer/libbbrc">>$LOG 2>&1
 cmd="make ruby" && run_cmd "$cmd" "Make BBRC"
