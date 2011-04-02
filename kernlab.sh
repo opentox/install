@@ -51,7 +51,6 @@ if ! $R_DONE; then
   cmd="$WGET $URI" && run_cmd "$cmd" "Download"
 
   export R_LIBS="$KL_DEST" # To install non-global
-  sudo ln -s /usr/lib/libgfortran.so.3 /usr/lib/libgfortran.so>$LOG 2>&1 # may fail, but nevermind
   cmd="$R CMD INSTALL kernlab_$KL_VER.tar.gz" && run_cmd "$cmd" "Install"
 fi
 
