@@ -11,12 +11,7 @@ tested with Debian Squeeze, might work for Ubuntu and other Debian based distrib
 
     git clone http://github.com/opentox/install.git
     cd install
-    vi config
-    sudo ./install
+    vi config.sh
+    ./install
 
-Adjusting for other distributions
----------------------------------
 
-- Create a script {distribution}.sh that installs all dependencies and libraries
-- Set {distribution} in config
-- Run sudo ./install
