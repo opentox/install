@@ -33,8 +33,6 @@ if [ ! -d "$REDIS_DEST" ]; then
 else
   if ! rmdir "$REDIS_DEST" >/dev/null 2>&1; then # if not empty this will fail
     REDIS_DONE=true
-  else
-    mkdir "$REDIS_DEST" >/dev/null 2>&1
   fi
 fi
 
