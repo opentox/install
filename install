@@ -3,21 +3,21 @@
 # Author: Christoph Helma, Andreas Maunz
 
 LOG="/tmp/`basename $0`-log.txt"
-source ./utils.sh
+. "./utils.sh"
 echo "Opentox-ruby installation."
 echo "You may need to give root password for some privileged actions right now:"
 cmd="sudo echo -n \"\"" && run_cmd "$cmd" "Acquire privileges"
 
-source "./base-install.sh"
-source "./ruby.sh"
-source "./openbabel.sh"
-source "./kernlab.sh"
-source "./opentox-ruby.sh"
+. "./base-install.sh"
+. "./ruby.sh"
+. "./openbabel.sh"
+. "./kernlab.sh"
+. "./opentox-ruby.sh"
 
 if [ "$install" != "gem" ]
 then
-    source "./nginx.sh"
-    source "./redis.sh"
-    source "./opentox-webservices.sh"
+    . "./nginx.sh"
+    . "./redis.sh"
+    . "./opentox-webservices.sh"
 fi
 
