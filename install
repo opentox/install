@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Main Opentox-ruby install script
 # Author: Christoph Helma, Andreas Maunz
 
