@@ -2,7 +2,6 @@
 #
 # Installs Ruby enterprise edition and passenger gem.
 # A configuration file is created and included in your '~.bashrc'.
-# Pass a ruby version string as first argument to install a specific version (blank for default).
 # Author: Christoph Helma, Andreas Maunz.
 #
 
