@@ -50,8 +50,7 @@ fi
 
 
 if ! [ -f "$RUBY_CONF" ]; then
-
-  echo "if ! [[ \"\$PATH\" =~ \"$RUBY_DEST\" ]]; then export PATH=\"$RUBY_DEST/bin:\$PATH\"; fi" >> "$RUBY_CONF"
+  echo "if echo \"\$PATH\" | grep -v \"$RUBY_DEST\">/dev/null 2>&1; then export PATH=\"$RUBY_DEST/bin:\$PATH\"; fi" >> "$RUBY_CONF"
 
   echo "Ruby configuration has been stored in '$RUBY_CONF'."
   if ! grep "$RUBY_CONF" $HOME/.bashrc >/dev/null 2>&1 ; then

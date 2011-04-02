@@ -57,7 +57,7 @@ fi
 
 if [ ! -f $KL_CONF ]; then
 
-  echo "if ! [[ \"\$R_LIBS\" =~ \"$KL_DEST\" ]]; then export R_LIBS=\"$KL_DEST\"; fi" >> "$KL_CONF"
+  echo "if echo \"\$R_LIBS\" | grep -v \"$KL_DEST\">/dev/null 2>&1; then export R_LIBS=\"$KL_DEST\"; fi" >> "$KL_CONF"
   echo "R package destination has been stored in '$KL_CONF'."
 
   if ! grep "$KL_CONF" $HOME/.bashrc >/dev/null 2>&1 ; then

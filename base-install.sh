@@ -26,7 +26,7 @@ fi
 
 
 # Pkgs
-packs="lsb-release binutils gcc g++ gfortran wget hostname pwgen git-core raptor-utils r-base sun-java6-jdk libssl-dev zlib1g-dev libreadline-dev libmysqlclient-dev libcurl4-openssl-dev libxml2-dev libxslt1-dev libgsl0-dev sun-java6-jdk"
+packs="lsb-release binutils gcc g++ gfortran wget hostname pwgen git-core raptor-utils r-base sun-java6-jdk libssl-dev zlib1g-dev libreadline-dev libmysqlclient-dev libcurl4-openssl-dev libxml2-dev libxslt1-dev libgsl0-dev sun-java6-jdk libreadline-5.dev"
 
 echo
 echo "Base Packages:"
@@ -81,8 +81,8 @@ if [ ! -f $JAVA_CONF ]; then
     exit 1
   fi
 
-  echo "if ! [[ \"\$JAVA_HOME\" =~ \"$JAVA_HOME\" ]]; then export JAVA_HOME=\"$JAVA_HOME\"; fi" >> "$JAVA_CONF"
-  echo "if ! [[ \"\$PATH\" =~ \"$JAVA_HOME\" ]]; then export PATH=\"$JAVA_HOME:\$PATH\"; fi" >> "$JAVA_CONF"
+  echo "if echo \"\$JAVA_HOME\" | grep -v \"$JAVA_HOME\">/dev/null 2>&1; then export JAVA_HOME=\"$JAVA_HOME\"; fi" >> "$JAVA_CONF"
+  echo "if echo \"\$PATH\" | grep -v \"$JAVA_HOME\"; then export PATH=\"$JAVA_HOME:\$PATH\"; fi" >> "$JAVA_CONF"
 
   echo "Java configuration has been stored in '$JAVA_CONF'."
   if ! grep "$JAVA_CONF" $HOME/.bashrc >/dev/null 2>&1; then
