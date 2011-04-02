@@ -8,6 +8,7 @@ Usage
 -----
 
 tested with Debian Squeeze, might work for Ubuntu and other Debian based distributions
+For Ubuntu Carmic, you need to install refblas3-dev first.
 
     git clone http://github.com/opentox/install.git
     cd install
