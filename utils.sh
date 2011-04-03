@@ -20,7 +20,7 @@ run_cmd ()
 
   echo -n "$title"
   if ! eval $cmd >>$LOG 2>&1 ; then  
-    printf "$format\n" "'$title'" "FAIL"
+    printf "%$(len)s\n" "'$title'" "FAIL"
     exit 1
   fi
   printf "$format\n" "'$title'" "DONE"
