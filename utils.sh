@@ -16,7 +16,6 @@ run_cmd ()
   local title="$2"
   local len=`echo "$title" | wc -c`
   len=$((40-$len))
-  local format = "%""$len""s"
 
   echo -n "$title"
   if ! eval $cmd >>$LOG 2>&1 ; then  
