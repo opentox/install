@@ -14,12 +14,16 @@ run_cmd ()
 {
   local cmd="$1"
   local title="$2"
+  local len=`echo "$title" | wc -c`
+  len=$((40-$len))
+  local format = "%""$len""s"
 
-  if ! eval $cmd >>$LOG 2>&1 ; then
-    printf "%25s%15s\n" "'$title'" "FAIL"
+  echo -n "$title"
+  if ! eval $cmd >>$LOG 2>&1 ; then  
+    printf "$format\n" "'$title'" "FAIL"
     exit 1
   fi
-  printf "%25s%15s\n" "'$title'" "DONE"
+  printf "$format\n" "'$title'" "DONE"
 
 }
 
