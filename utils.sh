@@ -22,7 +22,7 @@ run_cmd ()
     printf "%$(len)s\n" "'$title'" "FAIL"
     exit 1
   fi
-  printf "$format\n" "'$title'" "DONE"
+  printf "%$(len)s\n" "'$title'" "DONE"
 
 }
 
