@@ -15,11 +15,12 @@ run_cmd ()
   local cmd="$1"
   local title="$2"
 
-  if ! eval $cmd >>$LOG 2>&1 ; then
-    printf "%25s%15s\n" "'$title'" "FAIL"
+  printf "%15s" "'$title'"
+  if ! eval $cmd >>$LOG 2>&1 ; then  
+    printf "%25s\n" "FAIL"
     exit 1
   fi
-  printf "%25s%15s\n" "'$title'" "DONE"
+  printf "%25s\n" "DONE"
 
 }
 
