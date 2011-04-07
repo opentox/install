@@ -70,7 +70,7 @@ cd "libfminer/libbbrc">>$LOG 2>&1
 cmd="make ruby" && run_cmd "$cmd" "Make BBRC"
 cd ->>$LOG 2>&1
 cd "libfminer/liblast">>$LOG 2>&1
-cmd="make ruby" && run_cmd "$cmd" "Make BBRC"
+cmd="make ruby" && run_cmd "$cmd" "Make LAST"
 cd ->>$LOG 2>&1
 
 cd "$DIR"
