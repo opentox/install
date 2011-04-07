@@ -39,7 +39,7 @@ fi
 if ! $REDIS_DONE; then
   echo "vm.overcommit_memory = 1" | sudo tee -a /etc/sysctl.conf >>$LOG 2>&1
 
-  cd $PREFIX
+  cd $OT_PREFIX
   URI="http://redis.googlecode.com/files/redis-$REDIS_VER.tar.gz"
   if ! [ -d "redis-$REDIS_VER" ]; then
     cmd="$WGET $URI" && run_cmd "$cmd" "Download"

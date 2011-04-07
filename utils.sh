@@ -2,9 +2,9 @@
 
 check_dest() 
 {
-  if ! [ -d "$PREFIX" ]; then
-    if ! mkdir -p "$PREFIX"; then
-      echo "Could not create target directory '$PREFIX'! Aborting..."
+  if ! [ -d "$OT_PREFIX" ]; then
+    if ! mkdir -p "$OT_PREFIX"; then
+      echo "Could not create target directory '$OT_PREFIX'! Aborting..."
       exit 1
     fi
   fi
@@ -15,12 +15,12 @@ run_cmd ()
   local cmd="$1"
   local title="$2"
 
-  printf "%15s" "'$title'"
+  printf "%30s" "'$title'"
   if ! eval $cmd >>$LOG 2>&1 ; then  
-    printf "%25s\n" "FAIL"
+    printf "%50s\n" "FAIL"
     exit 1
   fi
-  printf "%25s\n" "DONE"
+  printf "%50s\n" "DONE"
 
 }
 

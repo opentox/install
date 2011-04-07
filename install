@@ -6,7 +6,7 @@ LOG="/tmp/`basename $0`-log.txt"
 . "./utils.sh"
 echo
 echo "Opentox-ruby installation."
-echo "You may need to give root password for some privileged actions right now:"
+echo "You may need to give root password for some privileged actions right now and later:"
 cmd="sudo echo -n \"\"" && run_cmd "$cmd" "Acquire privileges"
 
 . "./base-install.sh"
@@ -23,7 +23,7 @@ then
 fi
 
 echo
-echo "Installation finished and configured."
+echo "Installation to '$OT_DEST' finished and configured."
 echo
 echo "IMPORTANT:"
 echo "Include the file '$OT_UI_CONF' in your shell or system startup to have it automatically configured."
