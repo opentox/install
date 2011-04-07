@@ -3,7 +3,8 @@
 # Author: Christoph Helma, Andreas Maunz
 
 LOG="/tmp/`basename $0`-log.txt"
-touch $HOME/.bashrc
+touch "$OT_UI_CONF"
+
 . "./utils.sh"
 echo "Opentox-ruby installation."
 echo "You may need to give root password for some privileged actions right now:"
