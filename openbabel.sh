@@ -57,7 +57,7 @@ if [ ! -f "$OB_CONF" ]; then
   echo "if echo \"\$LD_LIBRARY_PATH\" | grep -v \"$OB_DEST\">/dev/null 2>&1; then export LD_LIBRARY_PATH=\"$OB_DEST/lib:\$LD_LIBRARY_PATH\"; fi" >> "$OB_CONF"
   echo "if [ -z \"\$BABEL_LIBDIR\" ]; then export BABEL_LIBDIR=\"$OB_DEST/lib/openbabel/2.3.0\"; fi" >> "$OB_CONF"
   echo "if [ -z \"\$BABEL_DATADIR\" ]; then export BABEL_DATADIR=\"$OB_DEST/share/openbabel/2.3.0\"; fi" >> "$OB_CONF"
-  echo "if [ -z \"\$RUBYLIB\" ]; then export RUBYLIB=\"$OB_DEST_BINDINGS\"; fi" >> "$RUBY_CONF"
+  echo "if echo \"\$RUBYLIB | grep -v \"$OB_DEST_BINDINGS\">/dev/null 2>&1; then export RUBYLIB=\"$OB_DEST_BINDINGS:\$RUBYLIB\"; fi" >> "$RUBY_CONF"
 
   echo "Openbabel configuration has been stored in '$OB_CONF'."
   if ! grep "$OB_CONF" $OT_UI_CONF >/dev/null 2>&1 ; then

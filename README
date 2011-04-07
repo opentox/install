@@ -1,13 +1,14 @@
-It is assumed that your system is configured for sudo to gain root privileges.
-It is assumed that your system is configured for using non-free packages.
+POSIX compatible Installer for OpenTox IST/ALU Services
+=======================================================
 
-Installer for OpenTox IST/ALU Services
-======================================
+A) It is assumed that your system is configured for sudo to gain root privileges.
+B) It is assumed that your system is configured for using non-free packages.
 
 Usage
 -----
 
-tested with Debian Squeeze, might work for Ubuntu and other Debian based distributions.
+Tested with Debian Squeeze (6.0.1), might work for Ubuntu and other Debian based distributions.
+
 
     git clone http://github.com/opentox/install.git
     cd install
