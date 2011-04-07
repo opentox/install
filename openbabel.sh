@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # Installs Openbabel.
-# A configuration file is created and included in your '~.bashrc'.
+# A configuration file is created and included in your '$OT_UI_CONF'.
 # Author: Christoph Helma, Andreas Maunz.
 #
 

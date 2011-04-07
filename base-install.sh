@@ -4,7 +4,7 @@
 # Author: Andreas Maunz
 #
 # Your installed packages are safe and will not be updated.
-# A Java configuration is created and included in your '~.bashrc'.
+# A Java configuration is created and included in your '$OT_UI_CONF'.
 
 . "`pwd`/utils.sh"
 DIR="`pwd`"
