@@ -24,8 +24,9 @@ then
 fi
 
 echo
-echo "Installation to '$OT_DEST' finished and configured."
-echo
-echo "IMPORTANT:"
-echo "Include the file '$OT_UI_CONF' in your shell or system startup to have it automatically configured."
+echo "Installation finished and system configured."
+echo "Destination: '$OT_PREFIX'" 
+echo "Nginx: '$NGINX_DEST'"
+echo "Redis: '$REDIS_DEST'"
+echo "IMPORTANT: Include the file '$OT_UI_CONF' in your shell or system startup to have the system automatically configured."
 echo
