@@ -23,7 +23,7 @@ REDIS_NUM_VER="2.2.2"
 NGINX_SERVERNAME="localhost"
 WWW_DEST="$PREFIX/www"
 
-# 4) Done.
+# Done.
 
 
 ### Nothing to gain from changes below this line.
@@ -46,4 +46,4 @@ NGINX_DEST="$PREFIX/nginx"
 REDIS_DEST="$PREFIX/redis-$REDIS_VER"
 
 REDIS_SERVER_CONF="$REDIS_DEST/redis.conf"
-
+OT_UI_CONF="$HOME/.opentox-ui.sh"
