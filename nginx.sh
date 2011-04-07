@@ -41,7 +41,7 @@ if ! $NGINX_DONE; then
   passenger=`ls -d passenger*`;
   cd - >>$LOG 2>&1
   servername=`hostname`
-  sed -e "s/PASSENGER/$passenger/;s/SERVERNAME/$servername/;s/RUBY_DEST/$RUBY_DEST/;s/NGINX_DEST/$NGINX_DEST/" ./nginx.conf > $NGINX_DEST/nginx.conf 2>>$LOG 
+  sed -e "s/PASSENGER/$passenger/;s/SERVERNAME/$servername/;s/RUBY_DEST/$RUBY_DEST/;s/NGINX_DEST/$NGINX_DEST/" "./nginx.conf" > $NGINX_DEST/conf/nginx.conf 2>>$LOG 
 fi
 
 cd "$DIR"
