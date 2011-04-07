@@ -19,6 +19,13 @@ if [ ! -e "$PIN" ]; then
   exit 1
 fi
 
+GIT="`which git`"
+if [ ! -e "$GIT" ]; then
+  echo "'git' missing. Install 'git' first. Aborting..."
+  exit 1
+fi
+
+
 LOG="/tmp/`basename $0`-log.txt"
 
 echo
@@ -43,6 +50,7 @@ cd "$RUBY_DEST/lib/ruby/gems/1.8/gems/" >>$LOG 2>&1
 passenger=`ls -d passenger*`
 cd - >>$LOG 2>&1
 servername=`hostname`
+$GIT checkout nginx.conf>>$LOG 2>&1
 cmd="sed -i -e \"s,PASSENGER,$passenger,;s,SERVERNAME,$servername,;s,RUBY_DEST,$RUBY_DEST,;s,NGINX_DEST,$NGINX_DEST,\" ./nginx.conf" && run_cmd "$cmd" "Config"
 cmd="cp ./nginx.conf \"$NGINX_DEST/conf\"" && run_cmd "$cmd" "Copy"
 
