@@ -34,5 +34,6 @@ abs_path()
 }
 
 . "`pwd`/config.sh"
+touch "$OT_UI_CONF"
 . "$OT_UI_CONF"
 check_dest

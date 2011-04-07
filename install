@@ -4,7 +4,6 @@
 
 LOG="/tmp/`basename $0`-log.txt"
 . "./utils.sh"
-touch "$OT_UI_CONF"
 echo
 echo "Opentox-ruby installation."
 echo "You may need to give root password for some privileged actions right now:"
