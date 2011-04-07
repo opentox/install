@@ -1,4 +1,4 @@
-:base_dir: /var/www/opentox/
+:base_dir: WWW_DEST
 
 :services:
 # make sure to enter a full uri (including training slash)
