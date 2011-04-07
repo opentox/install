@@ -22,3 +22,9 @@ then
     . "./opentox-webservices.sh"
 fi
 
+echo
+echo "Installation finished and configured."
+echo
+echo "IMPORTANT:"
+echo "Include the file '$OT_UI_CONF' in your shell or system startup to have it automatically configured."
+echo
