@@ -60,15 +60,15 @@ if [ ! -f "$OB_CONF" ]; then
   echo "if [ -z \"\$RUBYLIB\" ]; then export RUBYLIB=\"$OB_DEST_BINDINGS\"; fi" >> "$RUBY_CONF"
 
   echo "Openbabel configuration has been stored in '$OB_CONF'."
-  if ! grep "$OB_CONF" $HOME/.bashrc >/dev/null 2>&1 ; then
-    echo ". \"$OB_CONF\"" >> $HOME/.bashrc
+  if ! grep "$OB_CONF" $OT_UI_CONF >/dev/null 2>&1 ; then
+    echo ". \"$OB_CONF\"" >> $OT_UI_CONF
   fi
 
 fi
 
 echo "Bindings:"
 OB_DONE=false
-. "$HOME/.bashrc"
+. "$OT_UI_CONF"
 mkdir "$OB_DEST_BINDINGS">/dev/null 2>&1
 if [ ! -d "$OB_DEST_BINDINGS" ]; then
   echo "Install directory '$OB_DEST_BINDINGS' is not available! Aborting..."

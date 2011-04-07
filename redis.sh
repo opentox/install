@@ -63,8 +63,8 @@ if [ ! -f $REDIS_CONF ]; then
   echo "export PATH=$REDIS_DEST/src:\$PATH" >> "$REDIS_CONF"
   echo "Redis configuration has been stored in '$REDIS_CONF'."
 
-  if ! grep ". \"$REDIS_CONF\"" $HOME/.bashrc; then
-    echo ". \"$REDIS_CONF\"" >> $HOME/.bashrc
+  if ! grep ". \"$REDIS_CONF\"" $OT_UI_CONF; then
+    echo ". \"$REDIS_CONF\"" >> $OT_UI_CONF
   fi
 
 fi

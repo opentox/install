@@ -32,6 +32,6 @@ abs_path()
   esac
 }
 
-. "$HOME/.bashrc"
+. "$OT_UI_CONF"
 . "`pwd`/config.sh"
 check_dest

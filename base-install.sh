@@ -24,7 +24,7 @@ if [ ! -e "$APTITUDE" ]; then
   exit 1
 fi
 
-touch $HOME/.bashrc
+touch $OT_UI_CONF
 
 # Pkgs
 packs="lsb-release binutils gcc g++ gfortran wget hostname pwgen git-core raptor-utils r-base sun-java6-jdk libssl-dev zlib1g-dev libreadline-dev libmysqlclient-dev libcurl4-openssl-dev libxml2-dev libxslt1-dev libgsl0-dev sun-java6-jdk libreadline5-dev"
@@ -86,8 +86,8 @@ if [ ! -f $JAVA_CONF ]; then
   echo "if echo \"\$PATH\" | grep -v \"$JAVA_HOME\"; then export PATH=\"$JAVA_HOME:\$PATH\"; fi" >> "$JAVA_CONF"
 
   echo "Java configuration has been stored in '$JAVA_CONF'."
-  if ! grep "$JAVA_CONF" $HOME/.bashrc >/dev/null 2>&1; then
-    echo ". \"$JAVA_CONF\"" >> $HOME/.bashrc
+  if ! grep "$JAVA_CONF" $OT_UI_CONF >/dev/null 2>&1; then
+    echo ". \"$JAVA_CONF\"" >> $OT_UI_CONF
   fi
 fi
 
