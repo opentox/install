@@ -37,15 +37,16 @@ fi
 
 if ! $NGINX_DONE; then
   cmd="$PIN --auto-download --auto --prefix=$NGINX_DEST" && run_cmd "$cmd" "Install"
-  cd "$RUBY_DEST/lib/ruby/gems/1.8/gems/" >>$LOG 2>&1
-  passenger=`ls -d passenger*`
-  cd - >>$LOG 2>&1
-  servername=`hostname`
-  ruby_dest=`echo $RUBY_DEST | sed 's/\//\\\//g'`
-  nginx_dest=`echo $NGINX_DEST | sed 's/\//\\\//g'`
-  cmd="sed -i -e \"s/PASSENGER/$passenger/;s/SERVERNAME/$servername/;s/RUBY_DEST/$ruby_dest/;s/NGINX_DEST/$nginx_dest/\" ./nginx.conf" && run_cmd "$cmd" "Config"
-  cmd="cp ./nginx.conf \"$NGINX_DEST/conf\"" && run_cmd "$cmd" "Copy"
 fi
+
+cd "$RUBY_DEST/lib/ruby/gems/1.8/gems/" >>$LOG 2>&1
+passenger=`ls -d passenger*`
+cd - >>$LOG 2>&1
+servername=`hostname`
+ruby_dest=`echo $RUBY_DEST | sed 's/\//\\\//g'`
+nginx_dest=`echo $NGINX_DEST | sed 's/\//\\\//g'`
+cmd="sed -i -e \"s/PASSENGER/$passenger/;s/SERVERNAME/$servername/;s/RUBY_DEST/$ruby_dest/;s/NGINX_DEST/$nginx_dest/\" ./nginx.conf" && run_cmd "$cmd" "Config"
+cmd="cp ./nginx.conf \"$NGINX_DEST/conf\"" && run_cmd "$cmd" "Copy"
 
 cd "$DIR"
 
