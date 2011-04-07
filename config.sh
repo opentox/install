@@ -27,11 +27,11 @@ WWW_DEST="$OT_PREFIX/www"
 
 
 ### Nothing to gain from changes below this line.
-JAVA_CONF="$OT_PREFIX/.bash_java_ot"
-RUBY_CONF="$OT_PREFIX/.bash_ruby_ot"
-REDIS_CONF="$OT_PREFIX/.bash_redis_ot"
-OB_CONF="$OT_PREFIX/.bash_OB_ot"
-KL_CONF="$OT_PREFIX/.bash_R_ot"
+JAVA_CONF="$OT_PREFIX/.sh_java_ot"
+RUBY_CONF="$OT_PREFIX/.sh_ruby_ot"
+REDIS_CONF="$OT_PREFIX/.sh_redis_ot"
+OB_CONF="$OT_PREFIX/.sh_OB_ot"
+KL_CONF="$OT_PREFIX/.sh_R_ot"
 
 RUBY_VER="ruby-enterprise-$RUBY_NUM_VER"
 OB_VER="openbabel-$OB_NUM_VER"
