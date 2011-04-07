@@ -27,7 +27,7 @@ fi
 touch $OT_UI_CONF
 
 # Pkgs
-packs="lsb-release binutils gcc g++ gfortran wget hostname pwgen git-core raptor-utils r-base sun-java6-jdk libssl-dev zlib1g-dev libreadline-dev libmysqlclient-dev libcurl4-openssl-dev libxml2-dev libxslt1-dev libgsl0-dev sun-java6-jdk libreadline5-dev r-base-dev git"
+packs="binutils git git-core hostname libcurl4-openssl-dev libgsl0-dev libreadline5-dev libreadline-dev libssl-dev libxml2-dev libxslt1-dev lsb-release pwgen raptor-utils r-base r-base-dev sun-java6-jdk wget zlib1g-dev"
 
 echo
 echo "Base Packages:"
