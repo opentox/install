@@ -33,6 +33,6 @@ abs_path()
   esac
 }
 
-. "$OT_UI_CONF"
 . "`pwd`/config.sh"
+. "$OT_UI_CONF"
 check_dest
