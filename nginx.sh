@@ -38,10 +38,11 @@ fi
 if ! $NGINX_DONE; then
   cmd="$PIN --auto-download --auto --prefix=$NGINX_DEST" && run_cmd "$cmd" "Install"
   cd "$RUBY_DEST/lib/ruby/gems/1.8/gems/" >>$LOG 2>&1
-  passenger=`ls -d passenger*`;
+  passenger=`ls -d passenger*`
   cd - >>$LOG 2>&1
   servername=`hostname`
-  sed -e "s/PASSENGER/$passenger/;s/SERVERNAME/$servername/;s/RUBY_DEST/$RUBY_DEST/;s/NGINX_DEST/$NGINX_DEST/" "./nginx.conf" > $NGINX_DEST/conf/nginx.conf 2>>$LOG 
+  cmd="sed -i -e \"s/PASSENGER/$passenger/;s/SERVERNAME/$servername/;s/RUBY_DEST/$RUBY_DEST/;s/NGINX_DEST/$NGINX_DEST/\" ./nginx.conf" && run_cmd "$cmd" "Config"
+  cmd="cp ./nginx.conf \"$NGINX_DEST/conf\"" && run_cmd "$cmd" "Copy"
 fi
 
 cd "$DIR"
