@@ -43,9 +43,7 @@ cd "$RUBY_DEST/lib/ruby/gems/1.8/gems/" >>$LOG 2>&1
 passenger=`ls -d passenger*`
 cd - >>$LOG 2>&1
 servername=`hostname`
-ruby_dest=`echo $RUBY_DEST | sed 's/\//\\\//g'`
-nginx_dest=`echo $NGINX_DEST | sed 's/\//\\\//g'`
-cmd="sed -i -e \"s/PASSENGER/$passenger/;s/SERVERNAME/$servername/;s/RUBY_DEST/$ruby_dest/;s/NGINX_DEST/$nginx_dest/\" ./nginx.conf" && run_cmd "$cmd" "Config"
+cmd="sed -i -e \"s,PASSENGER,$passenger,;s,SERVERNAME,$servername,;s,RUBY_DEST,$RUBY_DEST,;s,NGINX_DEST,$NGINX_DEST,\" ./nginx.conf" && run_cmd "$cmd" "Config"
 cmd="cp ./nginx.conf \"$NGINX_DEST/conf\"" && run_cmd "$cmd" "Copy"
 
 cd "$DIR"
