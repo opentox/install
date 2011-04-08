@@ -58,7 +58,7 @@ if ! $REDIS_DONE; then
 fi
 
 if [ ! -f $REDIS_CONF ]; then
-  echo "if ! echo \"\$PATH\" | grep \"$REDIS_DEST\"; then export PATH=$REDIS_DEST/src:\$PATH; fi" >> "$REDIS_CONF"
+  echo "if ! echo \"\$PATH\" | grep \"$REDIS_DEST\">/dev/null 2>&1; then export PATH=$REDIS_DEST/src:\$PATH; fi" >> "$REDIS_CONF"
   echo "Redis configuration has been stored in '$REDIS_CONF'."
 
   if ! grep ". \"$REDIS_CONF\"" $OT_UI_CONF; then
