@@ -23,6 +23,9 @@ then
     . "./opentox-webservices.sh"
 fi
 
+echo "Cleaning up temp files."
+sudo rm -rf /tmp/openbabel* /tmp/kernlab* /tmp/ruby* /tmp/passenger* 
+
 echo
 echo "Installation finished and system configured."
 echo "Destination: '$OT_PREFIX'" 
