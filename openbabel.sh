@@ -55,9 +55,16 @@ if [ ! -f "$OB_CONF" ]; then
 
   echo "if echo \"\$PATH\" | grep -v \"$OB_DEST\">/dev/null 2>&1; then export PATH=\"$OB_DEST/bin:\$PATH\"; fi" >> "$OB_CONF"
   echo "if echo \"\$LD_LIBRARY_PATH\" | grep -v \"$OB_DEST\">/dev/null 2>&1; then export LD_LIBRARY_PATH=\"$OB_DEST/lib:\$LD_LIBRARY_PATH\"; fi" >> "$OB_CONF"
+  echo "if ! [ -d \"$OB_DEST\" ]; then echo \"\$0: '$OB_DEST' is not a directory!\"; fi" >> "$OB_CONF"
+
   echo "if [ -z \"\$BABEL_LIBDIR\" ]; then export BABEL_LIBDIR=\"$OB_DEST/lib/openbabel/$OB_NUM_VER\"; fi" >> "$OB_CONF"
+  echo "if ! [ -d \"\$BABEL_LIBDIR\" ]; then echo \"\$0: '\$BABEL_LIBDIR' is not a directory!\"; fi" >> "$OB_CONF"
+
   echo "if [ -z \"\$BABEL_DATADIR\" ]; then export BABEL_DATADIR=\"$OB_DEST/share/openbabel/$OB_NUM_VER\"; fi" >> "$OB_CONF"
+  echo "if ! [ -d \"\$BABEL_DATADIR\" ]; then echo \"\$0: '\$BABEL_DATADIR' is not a directory!\"; fi" >> "$OB_CONF"
+
   echo "if echo \"\$RUBYLIB\" | grep -v \"$OB_DEST_BINDINGS\">/dev/null 2>&1; then export RUBYLIB=\"$OB_DEST_BINDINGS:\$RUBYLIB\"; fi" >> "$RUBY_CONF"
+  echo "if ! [ -d \"$OB_DEST_BINDINGS\" ]; then echo \"\$0: '$OB_DEST_BINDINGS' is not a directory!\"; fi" >> "$RUBY_CONF"
 
   echo "Openbabel configuration has been stored in '$OB_CONF'."
   if ! grep "$OB_CONF" $OT_UI_CONF >/dev/null 2>&1 ; then
@@ -84,6 +91,7 @@ if ! $OB_DONE ; then
   cmd="ruby extconf.rb --with-openbabel-include=$OB_DEST/include/openbabel-2.0 --with-openbabel-lib=$OB_DEST/lib" && run_cmd "$cmd" "Code"
   cmd="make" && run_cmd "$cmd" "Make"
   cmd="cp openbabel.so $OB_DEST_BINDINGS" && run_cmd "$cmd" "Install"
+  cmd="ln -s $OB_DEST_BINDINGS/openbabel.so $RUBY_DEST/lib/ruby/site_ruby/1.8/i686-linux/" && run_cmd "$cmd" "Link"
 fi
 
 cd "$DIR"

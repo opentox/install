@@ -10,7 +10,7 @@ OT_INSTALL="local"     # Type                  (gem, local, server)
 OT_BRANCH="master"     # Maturity              (development, master)
 
 # 2) Where all binaries are installed.
-OT_PREFIX="$HOME/opentox"
+OT_PREFIX="$HOME/opentox-ruby"
 OT_JAVA_HOME="/usr/lib/jvm/java-6-sun"
 
 # 3) What versions to install.

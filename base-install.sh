@@ -84,6 +84,7 @@ if [ ! -f $JAVA_CONF ]; then
 
   echo "if echo \"\$JAVA_HOME\" | grep -v \"$OT_JAVA_HOME\">/dev/null 2>&1; then export JAVA_HOME=\"$OT_JAVA_HOME\"; fi" >> "$JAVA_CONF"
   echo "if echo \"\$PATH\" | grep -v \"$OT_JAVA_HOME\">/dev/null 2>&1; then export PATH=\"$OT_JAVA_HOME:\$PATH\"; fi" >> "$JAVA_CONF"
+  echo "if ! [ -d \"\$JAVA_HOME\" ]; then echo \"\$0: '\$OT_JAVA_HOME' is not a directory!\"; fi" >> "$JAVA_CONF"
 
   echo "Java configuration has been stored in '$JAVA_CONF'."
   if ! grep "$JAVA_CONF" $OT_UI_CONF >/dev/null 2>&1; then

@@ -58,6 +58,7 @@ fi
 if [ ! -f $KL_CONF ]; then
 
   echo "if echo \"\$R_LIBS\" | grep -v \"$KL_DEST\">/dev/null 2>&1; then export R_LIBS=\"$KL_DEST\"; fi" >> "$KL_CONF"
+  echo "if ! [ -d \"$KL_DEST\" ]; then echo \"\$0: '$KL_DEST' is not a directory!\"; fi" >> "$KL_CONF"
   echo "R package destination has been stored in '$KL_CONF'."
 
   if ! grep "$KL_CONF" $OT_UI_CONF >/dev/null 2>&1 ; then
