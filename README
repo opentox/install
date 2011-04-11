@@ -13,12 +13,13 @@ Here are some of my goals when writing the installer:
 - Encapsulated (everything is installed in a sub-directory in $HOME)
 - Logged (all non-elemtary actions are logged)
 
-Even if we officially support only *one* distro (currently Debian 6.0.1), I tested the installer successfully on various Ubuntus. In the README at the top are the requirements of the installer. By default, everything is installed to $HOME/opentox-ruby (=OT_PREFIX). The configs go OT_PREFIX/.sh_<Package>_ot.sh for each package.
+Even if we officially support only *one* distro (currently Debian 6.0.1), I tested the installer successfully on various Ubuntus. In the README at the top are the requirements of the installer. By default, everything is installed to $HOME/opentox-ruby (=OT_PREFIX). The configs go to OT_PREFIX/.sh_<Package>_ot.sh for each package.
 
-After running the installer, configure the operating system by editing the startup file of your favorite shell (in my case, BASH with to the file ~ /. bashrc) include file ~/.opentox-ui.sh (in my case with 'source ...'). This file is the only one that the installer creates outside OT_PREFIX. Thus, the system is fully configured: If you open a new shell, all environment variables adjusted.
+After running the installer, configure the system by editing the startup file of your favorite shell (in my case, BASH with the file ~ /. bashrc) to include ~/.opentox-ui.sh (in my case with 'source ...'). This file is the only one that the installer creates outside OT_PREFIX. Thus, the system is fully configured: If you open a new shell, all environment variables will be adjusted.
+
+Edit ~/.opentox/config/production.yaml and change ": server: nil" to "server" (once).
 
 To start the system I run the following (but that is not part of the installer):
-Edit ~/.opentox/config/production.yaml and change ": server: nil" to "server" (once)
 sudo nohup ~/opentox-ruby/redis-2.2.2/src/redis-server ~/opentox-ruby/redis-2.2.2/redis.conf &
 sudo nohup ~/opentox-ruby/nginx/sbin/nginx -c ~/opentox-ruby/nginx/conf/nginx.conf &
 
