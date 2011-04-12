@@ -82,6 +82,9 @@ $GIT checkout master >>$LOG 2>&1
 $GIT pull >>$LOG 2>&1
 cmd="make ruby" && run_cmd "$cmd" "Make LAST"
 cd ->>$LOG 2>&1
+cd "last-utils">>$LOG 2>&1
+$GIT checkout master >>$LOG 2>&1
+$GIT pull >>$LOG 2>&1
 
 cd "$DIR"
 
