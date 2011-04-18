@@ -47,8 +47,8 @@ for s in compound dataset algorithm model toxcreate task; do
     $GIT clone "git://github.com/opentox/$s.git" "$s" >>$LOG 2>&1
     cd "$s" >>$LOG 2>&1
     $GIT checkout -t origin/$OT_BRANCH >>$LOG 2>&1
-    rm -rf public >>$LOG 2>&1
-    mkdir public >>$LOG 2>&1
+    #rm -rf public >>$LOG 2>&1
+    #mkdir public >>$LOG 2>&1
     mypath_from="$WWW_DEST/opentox/$s/public"
     mypath_to="$WWW_DEST/$s"
     cmd="ln -sf \"$mypath_from\" \"$mypath_to\"" && run_cmd "$cmd" "Linking $s"
