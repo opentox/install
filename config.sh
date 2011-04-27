@@ -30,6 +30,7 @@ WWW_DEST="$OT_PREFIX/www"
 JAVA_CONF="$OT_PREFIX/.sh_java_ot"
 RUBY_CONF="$OT_PREFIX/.sh_ruby_ot"
 REDIS_CONF="$OT_PREFIX/.sh_redis_ot"
+NGINX_CONF="$OT_PREFIX/.sh_nginx_ot"
 OB_CONF="$OT_PREFIX/.sh_OB_ot"
 KL_CONF="$OT_PREFIX/.sh_R_ot"
 

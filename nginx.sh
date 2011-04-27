@@ -54,5 +54,16 @@ $GIT checkout nginx.conf>>$LOG 2>&1
 cmd="sed -i -e \"s,PASSENGER,$passenger,;s,SERVERNAME,$servername,;s,RUBY_DEST,$RUBY_DEST,;s,NGINX_DEST,$NGINX_DEST,;s,WWW_DEST,$WWW_DEST,\" ./nginx.conf" && run_cmd "$cmd" "Config"
 cmd="cp ./nginx.conf \"$NGINX_DEST/conf\"" && run_cmd "$cmd" "Copy"
 
+if [ ! -f $NGINX_CONF ]; then
+  echo "if ! echo \"\$PATH\" | grep \"$NGINX_DEST\">/dev/null 2>&1; then export PATH=$NGINX_DEST/sbin:\$PATH; fi" >> "$NGINX_CONF"
+  echo "Nginx configuration has been stored in '$NGINX_CONF'."
+
+  if ! grep ". \"$NGINX_CONF\"" $OT_UI_CONF; then
+    echo ". \"$NGINX_CONF\"" >> $OT_UI_CONF
+  fi
+
+fi
+
+
 cd "$DIR"
 
