@@ -1,19 +1,29 @@
-Installer for OpenTox IST/ALU Services
-======================================
+POSIX compatible Installer for OpenTox IST/ALU Services
+=======================================================
 
-Usage
------
+A) It is assumed that your system is configured for sudo to gain root privileges.
+B) It is assumed that your system is configured for using non-free packages.
 
-tested with Debian Squeeze, might work for Ubuntu and other Debian based distributions
+This is a POSIX-compliant  (not limited to a particular shell) Opentox installer. Please report bugs always via GitHub.
 
-    git clone http://github.com/opentox/install.git
-    cd install
-    vi config
-    sudo ./install
+Here are some of my goals when writing the installer:
+- Safe (existence of all the binaries will be checked before running, apart from GNU Core Utils)
+- idempotent (multiple execution does not change a thing)
+- Atomic (return value of each non-elemtary action is asserted to be TRUE)
+- Encapsulated (everything is installed in a sub-directory in $HOME)
+- Logged (all non-elemtary actions are logged)
 
-Adjusting for other distributions
----------------------------------
+Even if we officially support only *one* distro (currently Debian 6.0.1), I tested the installer successfully on various Ubuntus. In the README at the top are the requirements of the installer. By default, everything is installed to $HOME/opentox-ruby (=OT_PREFIX). The configs go to OT_PREFIX/.sh_<Package>_ot.sh for each package.
 
-- Create a script {distribution}.sh that installs all dependencies and libraries
-- Set {distribution} in config
-- Run sudo ./install
+After running the installer, configure the system by editing the startup file of your favorite shell (in my case, BASH with the file ~ /. bashrc) to include ~/.opentox-ui.sh (in my case with 'source ...'). This file is the only one that the installer creates outside OT_PREFIX. Thus, the system is fully configured: If you open a new shell, all environment variables will be adjusted.
+
+Edit ~/.opentox/config/production.yaml and change ": server: nil" to "server" (once).
+
+To start the system I run the following (but that is not part of the installer):
+sudo nohup ~/opentox-ruby/redis-2.2.2/src/redis-server ~/opentox-ruby/redis-2.2.2/redis.conf &
+sudo nohup ~/opentox-ruby/nginx/sbin/nginx -c ~/opentox-ruby/nginx/conf/nginx.conf &
+
+To uninstall the system simply delete the link from the startup file: Done. I guarantee that no configuration remains. To save disc space delete directory OT_PREFIX.
+
+Anyone who wants can run multiple Opentox versions on the same machine: Just install again, but to a different OT_PREFIX. The switch works manually: Include the sh_<Package>_ot.sh files from the desired OT_PREFIX in ~/opentox-ui.sh (only one installation may be activated  at any time).
+
