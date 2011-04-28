@@ -46,7 +46,7 @@ for s in compound dataset algorithm model toxcreate task; do
     rm -rf "$s" >>$LOG 2>&1
     $GIT clone "git://github.com/opentox/$s.git" "$s" >>$LOG 2>&1
     cd "$s" >>$LOG 2>&1
-    $GIT checkout -t origin/$OT_BRANCH >>$LOG 2>&1
+    $GIT checkout -b $OT_BRANCH origin/$OT_BRANCH >>$LOG 2>&1
     #rm -rf public >>$LOG 2>&1
     #mkdir public >>$LOG 2>&1
     mypath_from="$WWW_DEST/opentox/$s/public"

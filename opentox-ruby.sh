@@ -76,7 +76,7 @@ if [ "$OT_BRANCH" = "development" ]; then
   rm -rf opentox-ruby >>$LOG 2>&1
   $GIT clone git://github.com/opentox/opentox-ruby.git >>$LOG 2>&1
   cd opentox-ruby >>$LOG 2>&1
-  $GIT checkout -t origin/$OT_BRANCH >>$LOG 2>&1
+  $GIT checkout -b $OT_BRANCH origin/$OT_BRANCH >>$LOG 2>&1
   cmd="$RAKE install" && run_cmd "$cmd" "Install"
   GEM_LIB=`$GEM which opentox-ruby | sed 's/\/opentox-ruby.rb//'`
   rm -rf "$GEM_LIB~" >>$LOG 2>&1
