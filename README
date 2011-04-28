@@ -27,3 +27,30 @@ To uninstall the system simply delete the link from the startup file: Done. I gu
 
 Anyone who wants can run multiple Opentox versions on the same machine: Just install again, but to a different OT_PREFIX. The switch works manually: Include the sh_<Package>_ot.sh files from the desired OT_PREFIX in ~/opentox-ui.sh (only one installation may be activated  at any time).
 
+
+Some useful scripts to put in your ~/.bashrc in case you are using bash (assuming OT_PREFIX is '~/opentox-ruby'):
+# Load server config
+alias otconfig='source ~/.opentox-ui.sh'
+
+# Start the server
+otstart() {
+  sudo killall nginx redis-server>/dev/null 2>&1 
+  sudo env PATH=$PATH nohup redis-server ~/opentox-ruby/redis-2.2.2/redis.conf >/dev/null 2>&1 & 
+  sudo env PATH=$PATH nohup nginx -c ~/opentox-ruby/nginx/conf/nginx.conf >/dev/null 2>&1 &
+  sleep 2
+  if ! pgrep nginx>/dev/null 2>&1; then echo "Failed to start nginx."; fi
+  if ! pgrep redis-server>/dev/null 2>&1; then echo "Failed to start redis."; fi
+}
+
+# Reload the server
+alias otreload='sudo env PATH=$PATH nginx -s reload'
+
+# Kill the server
+alias otkill='sudo killall nginx redis-server'
+
+# Display log
+alias otless='less /home/am/.opentox/log/production.log'
+
+# Tail log
+alias ottail='tail -f /home/am/.opentox/log/production.log'
+
