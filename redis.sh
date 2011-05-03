@@ -55,6 +55,10 @@ if ! $REDIS_DONE; then
   if ! grep "dir `pwd`" $REDIS_SERVER_CONF >>$LOG 2>&1 ; then 
     echo "dir `pwd`" >> $REDIS_SERVER_CONF 2>$LOG
   fi
+
+  if ! grep "save 900 1" $REDIS_SERVER_CONF >>$LOG 2>&1 ; then 
+    echo "save 900 1" >> $REDIS_SERVER_CONF 2>$LOG
+  fi
 fi
 
 if [ ! -f $REDIS_CONF ]; then
