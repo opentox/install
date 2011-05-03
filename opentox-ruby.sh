@@ -8,7 +8,7 @@
 DIR="`pwd`"
 
 if [ "$(id -u)" = "0" ]; then
-  echo "This script must be run as non-root." 1>&2
+  echo "This script must be run as non-root." 1>&264
   exit 1
 fi
 
@@ -61,7 +61,7 @@ fi
 if [ "$OT_INSTALL" = "server" ]; then
   aa="https:\/\/opensso.in-silico.ch"
 else
-  aa=nil
+  aa=""
 fi
 
 mkdir -p "$HOME/.opentox/config" >>$LOG 2>&1
