@@ -46,7 +46,7 @@ if [ -n "$pack_arr" ]; then
   echo 
   echo "Checking availablity:"
   sudo $APTITUDE update -y >/dev/null 2>&1
-  sudo $APTITUDE upgrade -y >/dev/null 2>&1
+#  sudo $APTITUDE upgrade -y >/dev/null 2>&1
 fi
 
 for p in $pack_arr; do

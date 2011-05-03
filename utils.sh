@@ -18,6 +18,8 @@ run_cmd ()
   printf "%30s" "'$title'"
   if ! eval $cmd >>$LOG 2>&1 ; then  
     printf "%50s\n" "FAIL"
+    echo "Last 10 lines of log:"
+    tail -10 "$LOG"
     exit 1
   fi
   printf "%50s\n" "DONE"
