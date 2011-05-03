@@ -46,7 +46,10 @@ otstart() {
 alias otreload='sudo env PATH=$PATH nginx -s reload'
 
 # Kill the server
-alias otkill='sudo killall nginx redis-server'
+otkill() {
+  killall nginx 
+  redis-cli shutdown
+}
 
 # Display log
 alias otless='less /home/am/.opentox/log/production.log'
