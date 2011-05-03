@@ -8,25 +8,21 @@ This is a POSIX-compliant  (not limited to a particular shell) Opentox installer
 
 Here are some of my goals when writing the installer:
 - Safe (existence of all the binaries will be checked before running, apart from GNU Core Utils)
-- idempotent (multiple execution does not change a thing)
+- Idempotent (multiple execution does not change a thing)
 - Atomic (return value of each non-elemtary action is asserted to be TRUE)
 - Encapsulated (everything is installed in a sub-directory in $HOME)
 - Logged (all non-elemtary actions are logged)
 
 Even if we officially support only *one* distro (currently Debian 6.0.1), I tested the installer successfully on various Ubuntus. In the README at the top are the requirements of the installer. By default, everything is installed to $HOME/opentox-ruby (=OT_PREFIX). The configs go to OT_PREFIX/.sh_<Package>_ot.sh for each package.
 
-After running the installer, configure the system by editing the startup file of your favorite shell (in my case, BASH with the file ~ /. bashrc) to include ~/.opentox-ui.sh (in my case with 'source ...'). This file is the only one that the installer creates outside OT_PREFIX. Thus, the system is fully configured: If you open a new shell, all environment variables will be adjusted.
-
-Edit ~/.opentox/config/production.yaml and change ": server: nil" to "server" (once).
+After running the installer, configure the system by editing the startup file of your favorite shell (in my case, BASH with the file ~ /. bashrc) to include ~/.opentox-ui.sh (in my case with 'source ...'). This file is the only one that the installer creates outside OT_PREFIX. Thus, the system is fully configured: If you now open a new shell, all environment variables will be adjusted.
 
 To start the system I run the following (but that is not part of the installer):
 sudo nohup ~/opentox-ruby/redis-2.2.2/src/redis-server ~/opentox-ruby/redis-2.2.2/redis.conf &
 sudo nohup ~/opentox-ruby/nginx/sbin/nginx -c ~/opentox-ruby/nginx/conf/nginx.conf &
 
-To uninstall the system simply delete the link from the startup file: Done. I guarantee that no configuration remains. To save disc space delete directory OT_PREFIX.
-
-Anyone who wants can run multiple Opentox versions on the same machine: Just install again, but to a different OT_PREFIX. The switch works manually: Include the sh_<Package>_ot.sh files from the desired OT_PREFIX in ~/opentox-ui.sh (only one installation may be activated  at any time).
-
+To uninstall the system simply delete the link from the startup file: Done. To save disc space delete directory OT_PREFIX.
+Anyone can run multiple Opentox versions on the same machine: Just install again, but to a different OT_PREFIX. The switch works manually: Include the sh_<Package>_ot.sh files from the desired OT_PREFIX in ~/opentox-ui.sh (only one installation may be activated  at any time).
 
 Some useful scripts to put in your ~/.bashrc in case you are using bash (assuming OT_PREFIX is '~/opentox-ruby'):
 # Load server config
@@ -34,7 +30,8 @@ alias otconfig='source ~/.opentox-ui.sh'
 
 # Start the server
 otstart() {
-  sudo killall nginx redis-server>/dev/null 2>&1 
+  sudo killall nginx>/dev/null 2>&1 
+  sudo env PATH=$PATH redis-cli shutdown
   sudo env PATH=$PATH nohup redis-server ~/opentox-ruby/redis-2.2.2/redis.conf >/dev/null 2>&1 & 
   sudo env PATH=$PATH nohup nginx -c ~/opentox-ruby/nginx/conf/nginx.conf >/dev/null 2>&1 &
   sleep 2
@@ -47,8 +44,8 @@ alias otreload='sudo env PATH=$PATH nginx -s reload'
 
 # Kill the server
 otkill() {
-  killall nginx 
-  redis-cli shutdown
+  sudo killall nginx 
+  sudo redis-cli shutdown
 }
 
 # Display log
@@ -56,4 +53,3 @@ alias otless='less /home/am/.opentox/log/production.log'
 
 # Tail log
 alias ottail='tail -f /home/am/.opentox/log/production.log'
-
