@@ -73,7 +73,7 @@ $GIT checkout aa-$OT_INSTALL.yaml  >>$LOG 2>&1
 cmd="sed -e \"s,SERVERNAME,$servername,;s,ESCAPEDSERVER,$escapedserver,;s,LOGGER,$logger,;s,AA,$aa,;s,WWW_DEST,$WWW_DEST,\" production.yaml > $HOME/.opentox/config/production.yaml" && run_cmd "$cmd" "Config 1"
 cmd="sed -e \"s,SERVERNAME,$servername,;s,ESCAPEDSERVER,$escapedserver,;s,LOGGER,$logger,;s,AA,$aa,;s,WWW_DEST,$WWW_DEST,\" aa-$OT_INSTALL.yaml >> $HOME/.opentox/config/production.yaml" && run_cmd "$cmd" "Config 1"
 
-if [ "$OT_BRANCH" = "development" ]; then
+if [ "$OT_BRANCH" = "development" ] || expr match "$OT_BRANCH" "release"; then
   mkdir -p $WWW_DEST/opentox >>$LOG 2>&1
   cd $WWW_DEST/opentox >>$LOG 2>&1
   rm -rf opentox-ruby >>$LOG 2>&1
