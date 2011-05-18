@@ -15,7 +15,7 @@ echo "You may need to give root password for some privileged actions right now a
 echo
 cmd="sudo echo -n \"\"" && run_cmd "$cmd" "Acquire privileges"
 
-echo "Cleaning up temp files."
+echo "Cleaning up /tmp files."
 sudo rm -rf /tmp/openbabel* /tmp/kernlab* /tmp/ruby* /tmp/passenger* 
 
 . "./base-install.sh"
@@ -30,9 +30,6 @@ then
   . "./redis.sh"
   . "./opentox-webservices.sh"
 fi
-
-echo "Cleaning up temp files."
-sudo rm -rf /tmp/openbabel* /tmp/kernlab* /tmp/ruby* /tmp/passenger* 
 
 echo
 echo "Installation finished and system configured."
