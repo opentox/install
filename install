@@ -2,6 +2,11 @@
 # Main Opentox-ruby install script
 # Author: Christoph Helma, Andreas Maunz
 
+if [ "$(id -u)" = "0" ]; then
+  echo "This script must not be run as root" 1>&2
+  exit 1
+fi
+
 LOG="/tmp/`basename $0`-log.txt"
 . "./utils.sh"
 echo
@@ -18,9 +23,9 @@ cmd="sudo echo -n \"\"" && run_cmd "$cmd" "Acquire privileges"
 
 if [ "$install" != "gem" ]
 then
-    . "./nginx.sh"
-    . "./redis.sh"
-    . "./opentox-webservices.sh"
+  . "./nginx.sh"
+  . "./redis.sh"
+  . "./opentox-webservices.sh"
 fi
 
 echo "Cleaning up temp files."
