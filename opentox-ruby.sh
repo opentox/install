@@ -67,6 +67,9 @@ fi
 mkdir -p "$HOME/.opentox/config" >>$LOG 2>&1
 mkdir -p "$HOME/.opentox/log" >>$LOG 2>&1
 
+$GIT checkout production.yaml      >>$LOG 2>&1
+$GIT checkout aa-$OT_INSTALL.yaml  >>$LOG 2>&1
+
 cmd="sed -e \"s,SERVERNAME,$servername,;s,ESCAPEDSERVER,$escapedserver,;s,LOGGER,$logger,;s,AA,$aa,;s,WWW_DEST,$WWW_DEST,\" production.yaml > $HOME/.opentox/config/production.yaml" && run_cmd "$cmd" "Config 1"
 cmd="sed -e \"s,SERVERNAME,$servername,;s,ESCAPEDSERVER,$escapedserver,;s,LOGGER,$logger,;s,AA,$aa,;s,WWW_DEST,$WWW_DEST,\" aa-$OT_INSTALL.yaml >> $HOME/.opentox/config/production.yaml" && run_cmd "$cmd" "Config 1"
 
