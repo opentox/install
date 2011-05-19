@@ -6,11 +6,11 @@
 # You may modify some variables e.g. HOME, OTPREFIX, BACKUP_DIR.
 # opentox/install is needed and has to be configured
 
-HOME="/home/davor"
+HOME="/home/opentox"
 . $HOME/.opentox-ui.sh
 
 OTPREFIX="$HOME/opentox"
-BACKUP_DIR="$OTPREFIX/toxcreate3-backup"
+BACKUP_DIR="$OTPREFIX/ot-server-backup"
 mkdir $BACKUP_DIR >/dev/null 2>&1
 mkdir -p $BACKUP_DIR/tmp/dataset/public >/dev/null 2>&1
 mkdir -p $BACKUP_DIR/tmp/model/public >/dev/null 2>&1
