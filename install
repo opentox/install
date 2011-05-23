@@ -2,6 +2,11 @@
 # Main Opentox-ruby install script
 # Author: Christoph Helma, Andreas Maunz
 
+if [ "$(id -u)" = "0" ]; then
+  echo "This script must not be run as root" 1>&2
+  exit 1
+fi
+
 LOG="/tmp/`basename $0`-log.txt"
 . "./utils.sh"
 echo
@@ -9,6 +14,9 @@ echo "Opentox-ruby installation."
 echo "You may need to give root password for some privileged actions right now and later:"
 echo
 cmd="sudo echo -n \"\"" && run_cmd "$cmd" "Acquire privileges"
+
+echo "Cleaning up /tmp files."
+sudo rm -rf /tmp/openbabel* /tmp/kernlab* /tmp/ruby* /tmp/passenger* 
 
 . "./base-install.sh"
 . "./ruby.sh"
@@ -18,13 +26,10 @@ cmd="sudo echo -n \"\"" && run_cmd "$cmd" "Acquire privileges"
 
 if [ "$install" != "gem" ]
 then
-    . "./nginx.sh"
-    . "./redis.sh"
-    . "./opentox-webservices.sh"
+  . "./nginx.sh"
+  . "./redis.sh"
+  . "./opentox-webservices.sh"
 fi
-
-echo "Cleaning up temp files."
-sudo rm -rf /tmp/openbabel* /tmp/kernlab* /tmp/ruby* /tmp/passenger* 
 
 echo
 echo "Installation finished and system configured."
