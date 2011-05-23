@@ -1,20 +1,40 @@
 #!/bin/sh
+# Main Opentox-ruby install script
+# Author: Christoph Helma, Andreas Maunz
 
-. ./config
-. ./$distribution.sh
-. ./ruby.sh
-. ./openbabel.sh
-. ./kernlab.sh
-. ./opentox-ruby.sh
-
-if [ $install != "gem" ]
-then
-    . ./nginx.sh
-    . ./redis.sh
-    . ./opentox-webservices.sh
-    #. ./mysql-setup.sh
-    echo "Starting Nginx"
-    echo "Please inspect and tune /opt/nginx/conf/nginx.conf and /home/opentox/.opentox/config/production.yaml"
-    /opt/nginx/sbin/nginx
+if [ "$(id -u)" = "0" ]; then
+  echo "This script must not be run as root" 1>&2
+  exit 1
 fi
 
+LOG="/tmp/`basename $0`-log.txt"
+. "./utils.sh"
+echo
+echo "Opentox-ruby installation."
+echo "You may need to give root password for some privileged actions right now and later:"
+echo
+cmd="sudo echo -n \"\"" && run_cmd "$cmd" "Acquire privileges"
+
+echo "Cleaning up /tmp files."
+sudo rm -rf /tmp/openbabel* /tmp/kernlab* /tmp/ruby* /tmp/passenger* 
+
+. "./base-install.sh"
+. "./ruby.sh"
+. "./openbabel.sh"
+. "./kernlab.sh"
+. "./opentox-ruby.sh"
+
+if [ "$install" != "gem" ]
+then
+  . "./nginx.sh"
+  . "./redis.sh"
+  . "./opentox-webservices.sh"
+fi
+
+echo
+echo "Installation finished and system configured."
+echo "Destination: '$OT_PREFIX'" 
+echo "Nginx: '$NGINX_DEST'"
+echo "Redis: '$REDIS_DEST'"
+echo "IMPORTANT: Include the file '$OT_UI_CONF' in your shell or system startup to have the system automatically configured."
+echo

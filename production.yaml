@@ -1,4 +1,4 @@
-:base_dir: /var/www/opentox/
+:base_dir: WWW_DEST
 
 :services:
 # make sure to enter a full uri (including training slash)
@@ -8,7 +8,7 @@
   opentox-model:         "http://SERVERNAME/model/"
   opentox-task:          "http://SERVERNAME/task/"
   opentox-toxcreate:     "http://SERVERNAME/toxcreate/"
-  opentox-validation:    "http://opentox.informatik.uni-freiburg.de/validation/"
+  opentox-validation:    "http://SERVERNAME/validation/"
 
 :yaml_hosts:
   - "localhost"
