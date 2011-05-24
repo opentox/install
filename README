@@ -18,42 +18,42 @@ Even if we officially support only *one* distro (currently Debian 6.0.1), I test
 After running the installer, configure the system by editing the startup file of your favorite shell (in my case, BASH with the file ~ /. bashrc) to include ~/.opentox-ui.sh (in my case with 'source ...'). This file is the only one that the installer creates outside OT_PREFIX. Thus, the system is fully configured: If you now open a new shell, all environment variables will be adjusted.
 
 To start the system I run the following (but that is not part of the installer):
-sudo nohup ~/opentox-ruby/redis-2.2.2/src/redis-server ~/opentox-ruby/redis-2.2.2/redis.conf &
-sudo nohup ~/opentox-ruby/nginx/sbin/nginx -c ~/opentox-ruby/nginx/conf/nginx.conf &
+sudo nohup $HOME/opentox-ruby/redis-2.2.2/src/redis-server $HOME/opentox-ruby/redis-2.2.2/redis.conf &
+sudo nohup $HOME/opentox-ruby/nginx/sbin/nginx -c $HOME/opentox-ruby/nginx/conf/nginx.conf &
 
 To uninstall the system simply delete the link from the startup file: Done. To save disc space delete directory OT_PREFIX.
-Anyone can run multiple Opentox versions on the same machine: Just install again, but to a different OT_PREFIX. The switch works manually: Include the sh_<Package>_ot.sh files from the desired OT_PREFIX in ~/opentox-ui.sh (only one installation may be activated  at any time).
+Anyone can run multiple Opentox versions on the same machine: Just install again, but to a different OT_PREFIX. The switch works manually: Include the sh_<Package>_ot.sh files from the desired OT_PREFIX in $HOME/opentox-ui.sh (only one installation may be activated  at any time).
 
 Some useful scripts to put in your ~/.bashrc in case you are using bash (assuming OT_PREFIX is '~/opentox-ruby'):
 
 # Load server config
 otconfig() {
-  source ~/.opentox-ui.sh
+  source $HOME/.opentox-ui.sh
 }
 
 # Start the server
 otstart() {
   otkill
-  sudo bash -c "source ~/.opentox-ui.sh; nohup redis-server ~/opentox-ruby/redis-2.2.2/redis.conf >/dev/null 2>&1 &"
-  sudo bash -c "source ~/.opentox-ui.sh; nohup nginx -c ~/opentox-ruby/nginx/conf/nginx.conf >/dev/null 2>&1 &"
+  sudo bash -c "source $HOME/.opentox-ui.sh; nohup redis-server $HOME/opentox-ruby/redis-2.2.2/redis.conf >/dev/null 2>&1 &"
+  sudo bash -c "source $HOME/.opentox-ui.sh; nohup nginx -c $HOME/opentox-ruby/nginx/conf/nginx.conf >/dev/null 2>&1 &"
   sleep 2
   if ! pgrep nginx>/dev/null 2>&1; then echo "Failed to start nginx."; fi
   if ! pgrep redis-server>/dev/null 2>&1; then echo "Failed to start redis."; fi
 }
 
 # Display log
-alias otless='less ~/.opentox/log/production.log'
+alias otless='less $HOME/.opentox/log/production.log'
 
 # Tail log
-alias ottail='tail -f ~/.opentox/log/production.log'
+alias ottail='tail -f $HOME/.opentox/log/production.log'
 
 # Reload the server
 otreload() {
-  sudo bash -c "source ~/.opentox-ui.sh; nginx -s reload"
+  sudo bash -c "source $HOME/.opentox-ui.sh; nginx -s reload"
 }
 
 # Kill the server
 otkill() {
   sudo killall nginx >/dev/null 2>&1
-  sudo bash -c "source ~/.opentox-ui.sh; redis-cli shutdown >/dev/null 2>&1"
+  sudo bash -c "source $HOME/.opentox-ui.sh; redis-cli shutdown >/dev/null 2>&1"
 }
