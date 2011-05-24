@@ -93,7 +93,7 @@ if ! $OB_DONE ; then
   cmd="cp openbabel.so $OB_DEST_BINDINGS" && run_cmd "$cmd" "Install"
   cmd="ln -s $OB_DEST_BINDINGS/openbabel.so $RUBY_DEST/lib/ruby/site_ruby/1.8/`uname -m`-linux/" && run_cmd "$cmd" "Link"
   . "`pwd`/utils.sh"
-  cmd="ruby ob-test-rb.rb" && run_cmd "$cmd" "Load"
+  cmd="ruby test-ob-rb.rb" && run_cmd "$cmd" "Load"
 fi
 
 cd "$DIR"
