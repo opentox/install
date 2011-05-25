@@ -31,9 +31,28 @@ otconfig() {
   source $HOME/.opentox-ui.sh
 }
 
+# Update the development version
+otupdate() {
+  otconfig
+  cd $HOME/opentox-ruby/www/opentox
+  for d in `find -type d -maxdepth 1`; do echo $d ; cd $d ; git pull  ; echo ; cd - ;  done
+  cd opentox-ruby
+  rake install
+  LINK_DIR=`gem which opentox-ruby | sed 's/\/opentox-ruby.rb//'`
+  if ! [ -h $LINK_DIR ]; then
+    echo "Warning! Your lib $LINK_DIR is no symlink. Linking back for you..."
+    rm -rf "$LINK_DIR~"
+    mv "$LINK_DIR" "$LINK_DIR~" >>$LOG 2>&1
+    ln -sf $HOME/opentox-ruby/www/opentox/opentox-ruby/lib $GEM_LIB
+  fi
+  echo "Please execute 'otstart' to restart."
+}
+
+
 # Start the server
 otstart() {
   otkill
+  sleep 8
   sudo bash -c "source $HOME/.opentox-ui.sh; nohup redis-server $HOME/opentox-ruby/redis-2.2.2/redis.conf >/dev/null 2>&1 &"
   sudo bash -c "source $HOME/.opentox-ui.sh; nohup nginx -c $HOME/opentox-ruby/nginx/conf/nginx.conf >/dev/null 2>&1 &"
   sleep 2
