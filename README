@@ -35,7 +35,7 @@ otconfig() {
 otupdate() {
   otconfig
   cd $HOME/opentox-ruby/www/opentox
-  for d in `find -type d -maxdepth 1`; do echo $d ; cd $d ; git pull  ; echo ; cd - ;  done
+  for d in `find -not -name "." -type d -maxdepth 1 2>/dev/null`; do echo $d ; cd $d ; git pull  ; echo ; cd - ;  done
   cd opentox-ruby
   rake install
   LINK_DIR=`gem which opentox-ruby | sed 's/\/opentox-ruby.rb//'`
