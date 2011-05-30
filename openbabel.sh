@@ -98,5 +98,3 @@ fi
   cmd="ruby test-ob-rb.rb" && run_cmd "$cmd" "Load"
 #fi
 
-cd "$DIR"
-
