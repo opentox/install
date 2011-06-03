@@ -52,7 +52,6 @@ otupdate() {
 # Start the server
 otstart() {
   otkill
-  sleep 8
   sudo bash -c "source $HOME/.opentox-ui.sh; nohup redis-server $HOME/opentox-ruby/redis-2.2.2/redis.conf >/dev/null 2>&1 &"
   sudo bash -c "source $HOME/.opentox-ui.sh; nohup nginx -c $HOME/opentox-ruby/nginx/conf/nginx.conf >/dev/null 2>&1 &"
   sleep 2
@@ -75,4 +74,6 @@ otreload() {
 otkill() {
   sudo killall nginx >/dev/null 2>&1
   sudo bash -c "source $HOME/.opentox-ui.sh; redis-cli shutdown >/dev/null 2>&1"
+  while ps ax | grep PassengerHelperAgent | grep -v grep >/dev/null 2>&1; do sleep 1; done
+  for p in `pgrep R 2>/dev/null`; do sudo kill -9 $p; done
 }
