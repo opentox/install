@@ -50,8 +50,8 @@ otupdate() {
   if ! [ -h $LINK_DIR ]; then
     echo "Warning! Your lib $LINK_DIR is no symlink. Linking back for you..."
     rm -rf "$LINK_DIR~"
-    mv "$LINK_DIR" "$LINK_DIR~" >>$LOG 2>&1
-    ln -sf $HOME/opentox-ruby/www/opentox/opentox-ruby/lib $GEM_LIB
+    mv "$LINK_DIR" "$LINK_DIR~"
+    ln -sf $HOME/opentox-ruby/www/opentox/opentox-ruby/lib `echo ${LINK_DIR::${#LINK_DIR}-4}`
   fi
   echo "Please execute 'otstart' to restart."
 }
