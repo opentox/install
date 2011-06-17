@@ -39,7 +39,10 @@ otupdate() {
   cd  $HOME/opentox-ruby/www/opentox/algorithm/libfminer
   mv libbbrc/Makefile libbbrc/Makefile~
   mv liblast/Makefile liblast/Makefile~
-  git pull
+  if ! git pull; then
+    echo "Error! Pull for Fminer failed."
+    exit 1
+  fi
   mv libbbrc/Makefile~ libbbrc/Makefile
   mv liblast/Makefile~ liblast/Makefile
   make -C libbbrc/ clean
@@ -48,7 +51,10 @@ otupdate() {
   make -C liblast/ ruby
   cd -
   cd $HOME/opentox-ruby/www/opentox/algorithm/last-utils
-  git pull
+  if ! git pull; then
+    echo "Error! Pull for Last-Utils failed."
+    exit 1
+  fi
   cd -
   cd opentox-ruby
   rake install
