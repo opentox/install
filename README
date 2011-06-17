@@ -37,7 +37,11 @@ otupdate() {
   cd $HOME/opentox-ruby/www/opentox
   for d in `find -not -name "." -type d -maxdepth 1 2>/dev/null`; do echo $d ; cd $d ; git pull  ; echo ; cd - ;  done
   cd  $HOME/opentox-ruby/www/opentox/algorithm/libfminer
+  mv libbbrc/Makefile libbbrc/Makefile~
+  mv liblast/Makefile liblast/Makefile~
   git pull
+  mv libbbrc/Makefile~ libbbrc/Makefile
+  mv liblast/Makefile~ liblast/Makefile
   make -C libbbrc/ clean
   make -C libbbrc/ ruby
   make -C liblast/ clean
