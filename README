@@ -33,7 +33,7 @@ otconfig() {
 
 # Update the development version
 otupdate() {
-  START_DIR=`PWD`
+  START_DIR=`pwd`
   otconfig
   cd $HOME/opentox-ruby/www/opentox
   for d in `find -not -name "." -type d -maxdepth 1 2>/dev/null`; do echo $d ; cd $d ; git pull  ; echo ; cd - ;  done
@@ -70,9 +70,8 @@ otupdate() {
     ln -sf $HOME/opentox-ruby/www/opentox/opentox-ruby/lib `echo ${LINK_DIR::${#LINK_DIR}-4}`
   fi
   echo "Please execute 'otstart' to restart."
-  cd "START_DIR"
+  cd "$START_DIR"
 }
-
 
 # Start the server
 otstart() {
