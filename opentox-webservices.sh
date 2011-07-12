@@ -31,6 +31,12 @@ if [ ! -e "$GIT" ]; then
   exit 1
 fi
 
+RUBY="`which ruby`"
+if [ ! -e "$RUBY" ]; then
+  echo "'ruby' missing. Install 'ruby' first. Aborting..."
+  exit 1
+fi
+
 LOG="/tmp/`basename $0`-log.txt"
 
 echo
@@ -74,10 +80,10 @@ for mylib in bbrc last; do
 done
 cd "libfminer/libbbrc">>$LOG 2>&1
 cmd="make ruby" && run_cmd "$cmd" "Make BBRC"
-cd ->>$LOG 2>&1
+cd -
 cd "libfminer/liblast">>$LOG 2>&1
 cmd="make ruby" && run_cmd "$cmd" "Make LAST"
-cd ->>$LOG 2>&1
+cd -
 cd "last-utils">>$LOG 2>&1
 $GIT checkout $OT_BRANCH>>$LOG 2>&1
 $GIT pull >>$LOG 2>&1
