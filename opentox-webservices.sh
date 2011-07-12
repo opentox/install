@@ -80,14 +80,10 @@ for mylib in bbrc last; do
 done
 cd "libfminer/libbbrc">>$LOG 2>&1
 cmd="make ruby" && run_cmd "$cmd" "Make BBRC"
-cd "test">>$LOG 2>&1
-cmd="$RUBY tc_fminer_ruby.rb" && run_cmd "$cmd" "BBRC Unit Tests"
-cd ../../../ >>$LOG 2>&1
+cd -
 cd "libfminer/liblast">>$LOG 2>&1
 cmd="make ruby" && run_cmd "$cmd" "Make LAST"
-cd "test">>$LOG 2>&1
-cmd="$RUBY tc_fminer_ruby.rb" && run_cmd "$cmd" "LAST Unit Tests"
-cd ../../../ >>$LOG 2>&1
+cd -
 cd "last-utils">>$LOG 2>&1
 $GIT checkout $OT_BRANCH>>$LOG 2>&1
 $GIT pull >>$LOG 2>&1
