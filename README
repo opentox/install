@@ -33,6 +33,7 @@ otconfig() {
 
 # Update the development version
 otupdate() {
+  START_DIR=`PWD`
   otconfig
   cd $HOME/opentox-ruby/www/opentox
   for d in `find -not -name "." -type d -maxdepth 1 2>/dev/null`; do echo $d ; cd $d ; git pull  ; echo ; cd - ;  done
@@ -41,7 +42,7 @@ otupdate() {
   mv liblast/Makefile liblast/Makefile~
   if ! git pull; then
     echo "Error! Pull for Fminer failed."
-    exit 1
+    return 1
   fi
   mv libbbrc/Makefile~ libbbrc/Makefile
   mv liblast/Makefile~ liblast/Makefile
@@ -53,7 +54,7 @@ otupdate() {
   cd $HOME/opentox-ruby/www/opentox/algorithm/last-utils
   if ! git pull; then
     echo "Error! Pull for Last-Utils failed."
-    exit 1
+    return 1
   fi
   cd -
   cd opentox-ruby
@@ -69,6 +70,7 @@ otupdate() {
     ln -sf $HOME/opentox-ruby/www/opentox/opentox-ruby/lib `echo ${LINK_DIR::${#LINK_DIR}-4}`
   fi
   echo "Please execute 'otstart' to restart."
+  cd "START_DIR"
 }
 
 
