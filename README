@@ -57,8 +57,11 @@ otupdate() {
   fi
   cd -
   cd opentox-ruby
-  rake install
   LINK_DIR=`gem which opentox-ruby | sed 's/\/opentox-ruby.rb//'`
+  if [ -h $LINK_DIR ]; then 
+    rm -f $LINK_DIR
+  fi
+  rake install
   if ! [ -h $LINK_DIR ]; then
     echo "Warning! Your lib $LINK_DIR is no symlink. Linking back for you..."
     rm -rf "$LINK_DIR~"
