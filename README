@@ -70,7 +70,7 @@ otupdate() {
     ln -sf $HOME/opentox-ruby/www/opentox/opentox-ruby/lib `echo ${LINK_DIR::${#LINK_DIR}-4}`
   fi
   echo "Please execute 'otstart' to restart."
-  cd "START_DIR"
+  cd "$START_DIR"
 }
 
 # Start the server
