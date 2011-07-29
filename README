@@ -99,5 +99,6 @@ otkill() {
   sudo killall nginx >/dev/null 2>&1
   sudo bash -c "source $HOME/.opentox-ui.sh; redis-cli shutdown >/dev/null 2>&1"
   while ps ax | grep PassengerWatchdog | grep -v grep >/dev/null 2>&1; do sleep 1; done
+  while ps ax | grep Rack | grep -v grep >/dev/null 2>&1; do sleep 1; done
   for p in `pgrep R 2>/dev/null`; do sudo kill -9 $p; done
 }
