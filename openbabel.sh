@@ -86,7 +86,7 @@ else
   fi
 fi
 
-if ! $OB_DONE ; then
+#if ! $OB_DONE ; then
   OB_SRC_DIR="/tmp/$OB_VER/scripts/ruby/"
   cd "$OB_SRC_DIR"
   cmd="ruby extconf.rb --with-openbabel-include=$OB_DEST/include/openbabel-2.0 --with-openbabel-lib=$OB_DEST/lib" && run_cmd "$cmd" "Code"
@@ -96,5 +96,5 @@ if ! $OB_DONE ; then
   cd "$DIR"
   . "`pwd`/utils.sh"
   cmd="ruby test-ob-rb.rb" && run_cmd "$cmd" "Load"
-fi
+#fi
 
