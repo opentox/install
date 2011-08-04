@@ -86,14 +86,15 @@ else
   fi
 fi
 
-if ! $OB_DONE ; then
-  cd "/tmp/$OB_VER/scripts/ruby/"
+#if ! $OB_DONE ; then
+  OB_SRC_DIR="/tmp/$OB_VER/scripts/ruby/"
+  cd "$OB_SRC_DIR"
   cmd="ruby extconf.rb --with-openbabel-include=$OB_DEST/include/openbabel-2.0 --with-openbabel-lib=$OB_DEST/lib" && run_cmd "$cmd" "Code"
   cmd="make" && run_cmd "$cmd" "Make"
   cmd="cp openbabel.so $OB_DEST_BINDINGS" && run_cmd "$cmd" "Install"
-  cmd="ln -s $OB_DEST_BINDINGS/openbabel.so $RUBY_DEST/lib/ruby/site_ruby/1.8/`uname -m`-linux/" && run_cmd "$cmd" "Link"
-fi
-
-cd "$DIR"
-
+  cmd="ln -sf $OB_DEST_BINDINGS/openbabel.so $RUBY_DEST/lib/ruby/site_ruby/1.8/`uname -m`-linux/" && run_cmd "$cmd" "Link"
+  cd "$DIR"
+  . "`pwd`/utils.sh"
+  cmd="ruby test-ob-rb.rb" && run_cmd "$cmd" "Load"
+#fi
 

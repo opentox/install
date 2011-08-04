@@ -18,13 +18,14 @@
     : - !ruby/regexp /http:\/\/ESCAPEDSERVER\/algorithm/
       - "http://SERVERNAME/model"
       - "http://SERVERNAME/validation"
+      - !ruby/regexp /http:\/\/ESCAPEDSERVER\/validation\/resources/
       - !ruby/regexp /http:\/\/ESCAPEDSERVER\/validation\/[a-z,A-Z,\/,_\-]*$/
     ? - :GET
       - :POST
     : - !ruby/regexp /http:\/\/ESCAPEDSERVER\/toxcreate/
       - !ruby/regexp /http:\/\/ESCAPEDSERVER\/task/
       - !ruby/regexp /http:\/\/ESCAPEDSERVER\/compound/
-
+      - !ruby/regexp /sign_(in|out)$/
     ? - :PUT
     : - !ruby/regexp /http:\/\/ESCAPEDSERVER\/task/
 
