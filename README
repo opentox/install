@@ -71,7 +71,6 @@ otupdate() {
   fi
   echo "Please execute 'otstart' to restart."
   cd "$START_DIR"
->>>>>>> release/v2.1.0
 }
 
 # Start the server
