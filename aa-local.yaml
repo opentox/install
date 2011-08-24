@@ -23,7 +23,7 @@
       - !ruby/regexp /http:\/\/ESCAPEDSERVER\/validation\/[a-z,A-Z,\/,_\-]*$/
     ? - :GET
       - :POST
-    : - !ruby/regexp /http:\/\/ESCAPEDSERVER\/toxcreate/
+    : - !ruby/regexp /http:\/\/ESCAPEDSERVER\/toxcreate\/[a-z,A-Z,\/,_\-]*$/
       - !ruby/regexp /http:\/\/ESCAPEDSERVER\/task/
       - !ruby/regexp /http:\/\/ESCAPEDSERVER\/compound/
       - !ruby/regexp /sign_(in|out)$/
