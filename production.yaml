@@ -10,7 +10,7 @@
   opentox-toxcreate:     "http://SERVERNAME/toxcreate/"
   opentox-validation:    "http://SERVERNAME/validation/"
 
-:yaml_hosts:
+:json_hosts:
   - "localhost"
   - "SERVERNAME"
   - "webservices.in-silico.ch"
