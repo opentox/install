@@ -9,6 +9,7 @@
   opentox-task:          "http://SERVERNAME/task/"
   opentox-toxcreate:     "http://SERVERNAME/toxcreate/"
   opentox-validation:    "http://SERVERNAME/validation/"
+  opentox-ontology:      "http://apps.ideaconsult.net:8080/ontology"
 
 :json_hosts:
   - "localhost"
