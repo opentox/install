@@ -66,6 +66,7 @@ fi
 
 mkdir -p "$HOME/.opentox/config" >>$LOG 2>&1
 mkdir -p "$HOME/.opentox/log" >>$LOG 2>&1
+mkdir -p "$HOME/.opentox/tmp" >>$LOG 2>&1
 
 $GIT checkout production.yaml      >>$LOG 2>&1
 $GIT checkout aa-$OT_INSTALL.yaml  >>$LOG 2>&1
