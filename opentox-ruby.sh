@@ -39,7 +39,7 @@ echo
 echo "Opentox-ruby ('$LOG'):"
 
 for mygem in opentox-ruby builder jeweler; do
-  if ! $GEM list | grep "$mygem" >/dev/null 2>&1; then
+  if ! $GEM list | sed 's/\ .*//g' | grep -x "$mygem" >/dev/null 2>&1; then
     cmd="$GEM install $mygem" && run_cmd "$cmd" "$mygem"
   fi
 done
