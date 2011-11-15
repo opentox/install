@@ -27,7 +27,7 @@ fi
 touch $OT_UI_CONF
 
 # Pkgs
-packs="binutils build-essential git-core gnuplot hostname libcurl4-openssl-dev libgsl0-dev libreadline5-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev libxslt1-dev lsb-release psmisc pwgen raptor-utils r-base r-base-core r-base-dev sqlite3 sun-java6-jdk wget xsltproc zlib1g-dev"
+packs="binutils build-essential git-core gnuplot hostname libcurl4-openssl-dev libgsl0-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev libxslt1-dev lsb-release psmisc pwgen raptor-utils r-base r-base-core r-base-dev sqlite3 sun-java6-jdk wget xsltproc zlib1g-dev"
 
 echo
 echo "Base Packages:"

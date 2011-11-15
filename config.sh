@@ -20,9 +20,9 @@ KL_NUM_VER="0.9-11"
 REDIS_NUM_VER="2.2.2"
 
 # 4) Server settings.
-NGINX_SERVERNAME="localhost"
+NGINX_SERVERNAME="toxcreate3.in-silico.ch"
 WWW_DEST="$OT_PREFIX/www"
-PORT="" # leave empty for port 80 otherwise set to e.g. ":8080"
+PORT=":8080" # leave empty for port 80 otherwise set to e.g. ":8080"
 
 # Done.
 

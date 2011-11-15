@@ -76,7 +76,7 @@ fi
 echo "Bindings:"
 OB_DONE=false
 . "$OT_UI_CONF"
-mkdir "$OB_DEST_BINDINGS">/dev/null 2>&1
+mkdir -p "$OB_DEST_BINDINGS">/dev/null 2>&1
 if [ ! -d "$OB_DEST_BINDINGS" ]; then
   echo "Install directory '$OB_DEST_BINDINGS' is not available! Aborting..."
   exit 1
