@@ -2,13 +2,13 @@
 
 :services:
 # make sure to enter a full uri (including training slash)
-  opentox-compound:      "http://SERVERNAME/compound/"
-  opentox-dataset:       "http://SERVERNAME/dataset/"
-  opentox-algorithm:     "http://SERVERNAME/algorithm/"
-  opentox-model:         "http://SERVERNAME/model/"
-  opentox-task:          "http://SERVERNAME/task/"
-  opentox-toxcreate:     "http://SERVERNAME/toxcreate/"
-  opentox-validation:    "http://SERVERNAME/validation/"
+  opentox-compound:      "http://SERVERNAMEPORT/compound/"
+  opentox-dataset:       "http://SERVERNAMEPORT/dataset/"
+  opentox-algorithm:     "http://SERVERNAMEPORT/algorithm/"
+  opentox-model:         "http://SERVERNAMEPORT/model/"
+  opentox-task:          "http://SERVERNAMEPORT/task/"
+  opentox-toxcreate:     "http://SERVERNAMEPORT/toxcreate/"
+  opentox-validation:    "http://SERVERNAMEPORT/validation/"
   opentox-ontology:      "http://apps.ideaconsult.net:8080/ontology"
 
 :json_hosts:

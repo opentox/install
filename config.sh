@@ -22,6 +22,7 @@ REDIS_NUM_VER="2.2.2"
 # 4) Server settings.
 NGINX_SERVERNAME="localhost"
 WWW_DEST="$OT_PREFIX/www"
+PORT="" # leave empty for port 80 otherwise set to e.g. ":8080"
 
 # Done.
 

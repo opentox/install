@@ -53,6 +53,11 @@ servername=`hostname`
 $GIT checkout nginx.conf>>$LOG 2>&1
 cmd="sed -i -e \"s,PASSENGER,$passenger,;s,SERVERNAME,$servername,;s,RUBY_DEST,$RUBY_DEST,;s,NGINX_DEST,$NGINX_DEST,;s,WWW_DEST,$WWW_DEST,\" ./nginx.conf" && run_cmd "$cmd" "Config"
 cmd="sed -i -e \"s,USER,`whoami`,\" ./nginx.conf" && run_cmd "$cmd" "User"
+PORT=`echo "$PORT" | sed 's/^.//g'`
+if [ -z "$PORT" ]; then
+  PORT=80
+fi
+cmd="sed -i -e \"s,PORT,$PORT,\" ./nginx.conf" && run_cmd "$cmd" "Port"
 cmd="cp ./nginx.conf \"$NGINX_DEST/conf\"" && run_cmd "$cmd" "Copy"
 
 if [ ! -f $NGINX_CONF ]; then
