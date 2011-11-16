@@ -14,8 +14,7 @@ Here are some of my goals when writing the installer:
 - Logged (all non-elemtary actions are logged)
 
 
-Configure your system in config.sh. 
-NOTE for variable NGINX_PORT: leave this empty or set to ":80" to use port 80. If you do this, use the ot-scripts in "ot-tools-root.sh". Otherwise, if NGINX_PORT >1024, use ot-scripts in "ot-tools-user.sh".
+Configure your system in config.sh. NOTE for variable NGINX_PORT: leave this empty or set to ":80" to use port 80. If you do this, use the ot-scripts in "ot-tools-root.sh". Otherwise, if NGINX_PORT >1024, use ot-scripts in "ot-tools-user.sh".
 
 Even if we officially support only *one* distro (currently Debian 6.0.1), I tested the installer successfully on various Ubuntus. In this README at the top are the requirements of the installer. By default, everything is installed to $HOME/opentox-ruby (=OT_PREFIX). The configs go to OT_PREFIX/.sh_<Package>_ot.sh for each package.
 
