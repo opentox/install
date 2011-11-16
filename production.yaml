@@ -17,6 +17,8 @@
   - "webservices.in-silico.ch"
   - "opentox.informatik.uni-freiburg.de"
 
+:ohm_port: OHM_PORT
+
 # Uncomment for verbose logging
 LOGGER
 :logger: debug

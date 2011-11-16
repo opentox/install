@@ -59,6 +59,10 @@ if ! $REDIS_DONE; then
   if ! grep "save 900 1" $REDIS_SERVER_CONF >>$LOG 2>&1 ; then 
     echo "save 900 1" >> $REDIS_SERVER_CONF 2>$LOG
   fi
+
+  if ! grep "port $OHM_PORT" $REDIS_SERVER_CONF >>$LOG 2>&1 ; then 
+    echo "port $OHM_PORT" >> $REDIS_SERVER_CONF 2>$LOG
+  fi
 fi
 
 if [ ! -f $REDIS_CONF ]; then
