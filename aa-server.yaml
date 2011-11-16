@@ -15,25 +15,25 @@
 # Exceptions:
   :free_uris: #request-method for uri not controlled by A&A
     ? - :GET
-    : - !ruby/regexp /http:\/\/ESCAPEDSERVERPORT\/algorithm/
-      - "http://SERVERNAMEPORT/model"
-      - "http://SERVERNAMEPORT/dataset"
-      - "http://SERVERNAMEPORT/validation"
-      - !ruby/regexp /http:\/\/ESCAPEDSERVERPORT\/validation\/resources/
-      - !ruby/regexp /http:\/\/ESCAPEDSERVERPORT\/validation\/[a-z,A-Z,\/,_\-]*$/
+    : - !ruby/regexp /http:\/\/ESCAPEDSERVERNGINX_PORT\/algorithm/
+      - "http://SERVERNAMENGINX_PORT/model"
+      - "http://SERVERNAMENGINX_PORT/dataset"
+      - "http://SERVERNAMENGINX_PORT/validation"
+      - !ruby/regexp /http:\/\/ESCAPEDSERVERNGINX_PORT\/validation\/resources/
+      - !ruby/regexp /http:\/\/ESCAPEDSERVERNGINX_PORT\/validation\/[a-z,A-Z,\/,_\-]*$/
     ? - :GET
       - :POST
-    : - !ruby/regexp /http:\/\/ESCAPEDSERVERPORT\/toxcreate\/[a-z,A-Z,\/,_\-]*$/
-      - !ruby/regexp /http:\/\/ESCAPEDSERVERPORT\/task/
-      - !ruby/regexp /http:\/\/ESCAPEDSERVERPORT\/compound/
+    : - !ruby/regexp /http:\/\/ESCAPEDSERVERNGINX_PORT\/toxcreate\/[a-z,A-Z,\/,_\-]*$/
+      - !ruby/regexp /http:\/\/ESCAPEDSERVERNGINX_PORT\/task/
+      - !ruby/regexp /http:\/\/ESCAPEDSERVERNGINX_PORT\/compound/
       - !ruby/regexp /sign_(in|out)$/
     ? - :PUT
-    : - !ruby/regexp /http:\/\/ESCAPEDSERVERPORT\/task/
+    : - !ruby/regexp /http:\/\/ESCAPEDSERVERNGINX_PORT\/task/
 
   :authorize_exceptions: #request-method for uri only authenticated, no authorization
     ? - :POST
-    : - !ruby/regexp /http:\/\/ESCAPEDSERVERPORT\/algorithm/
-      - "http://SERVERNAMEPORT/dataset"
-      - "http://SERVERNAMEPORT/model"
-      - "http://SERVERNAMEPORT/validation"
-      - !ruby/regexp /http\:\/\/ESCAPEDSERVERPORT\/validation\/[a-z,A-Z,\/,_\-]*$/
+    : - !ruby/regexp /http:\/\/ESCAPEDSERVERNGINX_PORT\/algorithm/
+      - "http://SERVERNAMENGINX_PORT/dataset"
+      - "http://SERVERNAMENGINX_PORT/model"
+      - "http://SERVERNAMENGINX_PORT/validation"
+      - !ruby/regexp /http\:\/\/ESCAPEDSERVERNGINX_PORT\/validation\/[a-z,A-Z,\/,_\-]*$/
