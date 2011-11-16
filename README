@@ -31,12 +31,12 @@ otconfig() {
   source $HOME/.opentox-ui.sh
 }
 
-# Update the development version
+# Update the version
 otupdate() {
   START_DIR=`pwd`
   otconfig
   cd $HOME/opentox-ruby/www/opentox
-  for d in `find -not -name "." -type d -maxdepth 1 2>/dev/null`; do echo $d ; cd $d ; git pull  ; echo ; cd - ;  done
+  for d in `find -not -name "." -type d -maxdepth 1 2>/dev/null`; do echo ; echo $d ; cd $d ; MYBRANCH=`git branch | grep "*" | sed 's/.*\ //g'`; git pull origin $MYBRANCH ; cd - ;  done
   cd  $HOME/opentox-ruby/www/opentox/algorithm/libfminer
   mv libbbrc/Makefile libbbrc/Makefile~
   mv liblast/Makefile liblast/Makefile~
@@ -102,3 +102,4 @@ otkill() {
   while ps x | grep Rack | grep -v grep >/dev/null 2>&1; do sleep 1; done
   for p in `pgrep -u $USER R 2>/dev/null`; do kill -9 $p; done
 }
+
