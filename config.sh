@@ -8,6 +8,7 @@
 OT_DIST="debian"       # Linux distribution    (debian)
 OT_INSTALL="local"     # Type                  (gem, local, server)
 OT_BRANCH="development"     # Maturity              (development, master)
+# NOTE: For branches other than 'master' you have to have your public SSH key at Github and must be a member of 'opentox-ruby' group.
 
 # 2) Where all binaries are installed.
 OT_PREFIX="$HOME/opentox-ruby"
@@ -22,7 +23,7 @@ REDIS_NUM_VER="2.2.2"
 # 4) Server settings.
 NGINX_SERVERNAME="toxcreate3.in-silico.ch"
 WWW_DEST="$OT_PREFIX/www"
-PORT="" # set to empty string ("") for port 80 otherwise set to port *using colons* e.g. ":8080"
+PORT=":8081" # set to empty string ("") for port 80 otherwise set to port *using colons* e.g. ":8080"
 
 # Done.
 
