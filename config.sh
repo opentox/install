@@ -7,7 +7,7 @@
 # 1) Base setup
 OT_DIST="debian"       # Linux distribution    (debian)
 OT_INSTALL="local"     # Type                  (gem, local, server)
-OT_BRANCH="development"     # Maturity              (development, master)
+OT_BRANCH="development"     # Maturity              (development -you need SSH key at Github-, master)
 
 # 2) Where all binaries are installed.
 OT_PREFIX="$HOME/opentox-ruby"
