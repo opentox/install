@@ -50,9 +50,10 @@ otupdate() {
 
 # Start the server
 otstart() {
+  otconfig
   otkill
-  bash -c "source $HOME/.opentox-ui.sh; nohup redis-server $HOME/opentox-ruby/redis-2.2.2/redis.conf >/dev/null 2>&1 &"
-  bash -c "source $HOME/.opentox-ui.sh; nohup nginx -c $HOME/opentox-ruby/nginx/conf/nginx.conf >/dev/null 2>&1 &"
+  bash -c "nohup redis-server $HOME/opentox-ruby/redis-2.2.2/redis.conf >/dev/null 2>&1 &"
+  bash -c "nohup nginx -c $HOME/opentox-ruby/nginx/conf/nginx.conf >/dev/null 2>&1 &"
   sleep 2
   if ! pgrep -u $USER nginx>/dev/null 2>&1; then echo "Failed to start nginx."; fi
   if ! pgrep -u $USER redis-server>/dev/null 2>&1; then echo "Failed to start redis."; fi
@@ -66,13 +67,15 @@ alias ottail='tail -f $HOME/.opentox/log/production.log'
 
 # Reload the server
 otreload() {
-  bash -c "source $HOME/.opentox-ui.sh; nginx -s reload"
+  otconfig
+  bash -c "nginx -s reload"
 }
 
 # Kill the server
 otkill() {
+  otconfig
   killall nginx >/dev/null 2>&1
-  bash -c "source $HOME/.opentox-ui.sh; redis-cli -p $OHM_PORT shutdown >/dev/null 2>&1"
+  bash -c "redis-cli -p $OHM_PORT shutdown >/dev/null 2>&1"
   while ps x | grep PassengerWatchdog | grep -v grep >/dev/null 2>&1; do sleep 1; done
   while ps x | grep Rack | grep -v grep >/dev/null 2>&1; do sleep 1; done
   for p in `pgrep -u $USER R 2>/dev/null`; do kill -9 $p; done
