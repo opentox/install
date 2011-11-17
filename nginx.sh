@@ -53,12 +53,15 @@ servername=`hostname`
 $GIT checkout nginx.conf>>$LOG 2>&1
 cmd="sed -i -e \"s,PASSENGER,$passenger,;s,SERVERNAME,$servername,;s,RUBY_DEST,$RUBY_DEST,;s,NGINX_DEST,$NGINX_DEST,;s,WWW_DEST,$WWW_DEST,\" ./nginx.conf" && run_cmd "$cmd" "Config"
 cmd="sed -i -e \"s,USER,`whoami`,\" ./nginx.conf" && run_cmd "$cmd" "User"
-NGINX_PORT=`echo "$NGINX_PORT" | sed 's/^.//g'`
+
 if [ -z "$NGINX_PORT" ]; then
   NGINX_PORT=80
+else
+  NGINX_PORT=`echo "$NGINX_PORT" | sed 's/^.//g'`
 fi
 cmd="sed -i -e \"s,NGINX_PORT,$NGINX_PORT,\" ./nginx.conf" && run_cmd "$cmd" "NGINX_PORT"
 cmd="cp ./nginx.conf \"$NGINX_DEST/conf\"" && run_cmd "$cmd" "Copy"
+$GIT checkout nginx.conf>>$LOG 2>&1
 
 if [ ! -f $NGINX_CONF ]; then
   echo "if ! echo \"\$PATH\" | grep \"$NGINX_DEST\">/dev/null 2>&1; then export PATH=$NGINX_DEST/sbin:\$PATH; fi" >> "$NGINX_CONF"
