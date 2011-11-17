@@ -16,7 +16,7 @@ echo
 cmd="sudo echo -n \"\"" && run_cmd "$cmd" "Acquire privileges"
 
 echo "Cleaning up /tmp files."
-sudo rm -rf /tmp/openbabel* /tmp/kernlab* /tmp/ruby* /tmp/passenger* 
+sudo rm -rf /tmp/openbabel* /tmp/kernlab* /tmp/ruby*
 
 . "./base-install.sh"
 . "./ruby.sh"
