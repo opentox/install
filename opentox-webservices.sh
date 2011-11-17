@@ -46,11 +46,7 @@ mkdir -p "$WWW_DEST/opentox" >>$LOG 2>&1
 cd "$WWW_DEST/opentox" >>$LOG 2>&1
 for s in compound dataset algorithm model toxcreate task validation; do
     rm -rf "$s" >>$LOG 2>&1
-    if [ "$OT_BRANCH" = "development" ] || expr match "$OT_BRANCH" "release"; then
-      $GIT clone "git@github.com:opentox/$s.git" "$s" >>$LOG 2>&1
-    else
-      $GIT clone "git://github.com/opentox/$s.git" "$s" >>$LOG 2>&1
-    fi
+    $GIT clone "git://github.com/opentox/$s.git" "$s" >>$LOG 2>&1
     cd "$s" >>$LOG 2>&1
     $GIT checkout -b $OT_BRANCH origin/$OT_BRANCH >>$LOG 2>&1
     #rm -rf public >>$LOG 2>&1
