@@ -26,7 +26,7 @@ if [ ! -e "$R" ]; then
 fi
 
 # Pkg
-LOG="/tmp/`basename $0`-log.txt"
+LOG="$HOME/tmp/`basename $0`-log.txt"
 
 echo
 echo "Kernlab ('$LOG')."
@@ -46,7 +46,7 @@ fi
 
 
 if ! $R_DONE; then
-  cd /tmp
+  cd $HOME/tmp
   URI="http://cran.r-project.org/src/contrib/Archive/kernlab/kernlab_$KL_VER.tar.gz"
   cmd="$WGET $URI" && run_cmd "$cmd" "Download"
 
