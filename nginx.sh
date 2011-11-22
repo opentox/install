@@ -26,7 +26,7 @@ if [ ! -e "$GIT" ]; then
 fi
 
 
-LOG="/tmp/`basename $0`-log.txt"
+LOG="$HOME/tmp/`basename $0`-log.txt"
 
 echo
 echo "Nginx ('$LOG'):"

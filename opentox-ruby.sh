@@ -33,7 +33,7 @@ fi
 
 
 # Pkg
-LOG="/tmp/`basename $0`-log.txt"
+LOG="$HOME/tmp/`basename $0`-log.txt"
 
 echo
 echo "Opentox-ruby ('$LOG'):"

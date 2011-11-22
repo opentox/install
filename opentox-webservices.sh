@@ -37,7 +37,7 @@ if [ ! -e "$RUBY" ]; then
   exit 1
 fi
 
-LOG="/tmp/`basename $0`-log.txt"
+LOG="$HOME/tmp/`basename $0`-log.txt"
 
 echo
 echo "Webservices ('$LOG'):"

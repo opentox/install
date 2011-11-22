@@ -21,7 +21,7 @@ if [ ! -e "$WGET" ]; then
 fi
 
 # Pkg
-LOG="/tmp/`basename $0`-log.txt"
+LOG="$HOME/tmp/`basename $0`-log.txt"
 
 echo
 echo "Openbabel ('$OB_DEST', '$LOG'):"
@@ -38,13 +38,13 @@ else
 fi
 
 if [ ! $OB_DONE ]; then
-  cd "/tmp">>$LOG 2>/dev/null
+  cd "$HOME/tmp">>$LOG 2>/dev/null
   URI="http://downloads.sourceforge.net/project/openbabel/openbabel/$OB_NUM_VER/$OB_VER.tar.gz?use_mirror=kent"
-  if ! [ -d "/tmp/$OB_VER" ]; then 
+  if ! [ -d "$HOME/tmp/$OB_VER" ]; then 
     cmd="$WGET $URI" && run_cmd "$cmd" "Download"
     cmd="tar zxf $OB_VER.tar.gz?use_mirror=kent $OB_VER"  && run_cmd "$cmd" "Unpack"
   fi
-  cd "/tmp/$OB_VER">>$LOG 2>/dev/null
+  cd "$HOME/tmp/$OB_VER">>$LOG 2>/dev/null
 
   cmd="./configure --prefix=$OB_DEST" && run_cmd "$cmd" "Configure"
   cmd="make" && run_cmd "$cmd" "Make"
@@ -87,7 +87,7 @@ else
 fi
 
 if ! $OB_DONE ; then
- OB_SRC_DIR="/tmp/$OB_VER/scripts/ruby/"
+ OB_SRC_DIR="$HOME/tmp/$OB_VER/scripts/ruby/"
  cd "$OB_SRC_DIR"
  cmd="ruby extconf.rb --with-openbabel-include=$OB_DEST/include/openbabel-2.0 --with-openbabel-lib=$OB_DEST/lib" && run_cmd "$cmd" "Code"
  cmd="make" && run_cmd "$cmd" "Make"
