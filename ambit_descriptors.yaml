@@ -1,0 +1,124 @@
+--- 
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.LengthOverBreadthDescriptor: 
+  :category: "geometrical"
+  :name: "Length Over Breadth"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.KierHallSmartsDescriptor: 
+  :category: "topological"
+  :name: "Kier & Hall SMARTS"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.FragmentComplexityDescriptor: 
+  :category: "topological"
+  :name: "Fragment Complexity"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.APolDescriptor: 
+  :category: "electronic"
+  :name: "Atomic Polarizabilities"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.LargestChainDescriptor: 
+  :category: "constitutional"
+  :name: "Largest Chain"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.ChiPathDescriptor: 
+  :category: "topological"
+  :name: "Chi Path Indices"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.PetitjeanNumberDescriptor: 
+  :category: "topological"
+  :name: "Petitjean Number"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.LongestAliphaticChainDescriptor: 
+  :category: "constitutional"
+  :name: "Longest Aliphatic Chain"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.KappaShapeIndicesDescriptor: 
+  :category: "topological"
+  :name: "Kier and Hall kappa molecular shape indices"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.AromaticBondsCountDescriptor: 
+  :category: "constitutional"
+  :name: "Aromatic Bonds Count"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.CPSADescriptor: 
+  :category: "electronic"
+  :name: "Charged Partial Surface Areas"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.VAdjMaDescriptor: 
+  :category: "topological"
+  :name: "Vertex adjacency information magnitude"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.AutocorrelationDescriptorMass: 
+  :category: "topological"
+  :name: "Moreau-Broto Autocorrelation (mass) descriptors"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.RuleOfFiveDescriptor: 
+  :category: "constitutional"
+  :name: "Lipinski's Rule of Five"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.GravitationalIndexDescriptor: 
+  :category: "geometrical"
+  :name: "Gravitational Index"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.WienerNumbersDescriptor: 
+  :category: "topological"
+  :name: "Wiener Numbers"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.ChiPathClusterDescriptor: 
+  :category: "topological"
+  :name: "Chi Path-Cluster Indices"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.AtomCountDescriptor: 
+  :category: "constitutional"
+  :name: "Atoms Count"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.MomentOfInertiaDescriptor: 
+  :category: "geometrical"
+  :name: "Moments of Inertia"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.CarbonTypesDescriptor: 
+  :category: "topological"
+  :name: "Carbon Types"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.AutocorrelationDescriptorPolarizability: 
+  :category: "topological"
+  :name: "Moreau-Broto Autocorrelation (polarizability) descriptors"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.EccentricConnectivityIndexDescriptor: 
+  :category: "topological"
+  :name: "Eccentric Connectivity Index"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.BCUTDescriptor: 
+  :category: "hybrid"
+  :name: "BCUT"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.AromaticAtomsCountDescriptor: 
+  :category: "constitutional"
+  :name: "Aromatic Atoms Count"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.WHIMDescriptor: 
+  :category: "hybrid"
+  :name: "WHIM"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.ALOGPDescriptor: 
+  :category: "constitutional"
+  :name: "ALogP"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.XLogPDescriptor: 
+  :category: "constitutional"
+  :name: "XLogP"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.PetitjeanShapeIndexDescriptor: 
+  :category: "topological"
+  :name: "Petitjean Number"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.MDEDescriptor: 
+  :category: "topological"
+  :name: "Molecular Distance Edge"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.ChiChainDescriptor: 
+  :category: "topological"
+  :name: "Chi Chain Indices"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.BondCountDescriptor: 
+  :category: "constitutional"
+  :name: "Bonds Count"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.MannholdLogPDescriptor: 
+  :category: "constitutional"
+  :name: "Mannhold LogP"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.BPolDescriptor: 
+  :category: "electronic"
+  :name: "Bond Polarizabilities"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.AutocorrelationDescriptorCharge: 
+  :category: "topological"
+  :name: "Moreau-Broto Autocorrelation (charge) descriptors"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.ZagrebIndexDescriptor: 
+  :category: "topological"
+  :name: "Zagreb Index"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.ChiClusterDescriptor: 
+  :category: "topological"
+  :name: "Chi Cluster Indices"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.RotatableBondsCountDescriptor: 
+  :category: "constitutional"
+  :name: "Rotatable Bonds Count"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.TPSADescriptor: 
+  :category: "topological"
+  :name: "Topological Polar Surface Area"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.HBondDonorCountDescriptor: 
+  :category: "electronic"
+  :name: "Hydrogen Bond Donors"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.HBondAcceptorCountDescriptor: 
+  :category: "electronic"
+  :name: "Hydrogen Bond Acceptors"
+http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.LargestPiSystemDescriptor: 
+  :category: "constitutional"
+  :name: "Largest Pi Chain"
