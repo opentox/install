@@ -65,21 +65,21 @@ cmd="$GIT submodule update" && run_cmd "$cmd" "Fminer Update"
 cd "libfminer/libbbrc">>$LOG 2>&1
 $GIT checkout $OT_BRANCH>>$LOG 2>&1
 $GIT pull >>$LOG 2>&1
-cd -
+cd - >>$LOG 2>&1
 cd "libfminer/liblast">>$LOG 2>&1
 $GIT checkout $OT_BRANCH>>$LOG 2>&1
 $GIT pull >>$LOG 2>&1
-cd -
+cd - >>$LOG 2>&1
 for mylib in bbrc last; do
   cmd="sed -i 's,^INCLUDE_OB.*,INCLUDE_OB\ =\ -I$OB_DEST/include/openbabel-2.0,g' $WWW_DEST/opentox/algorithm/libfminer/lib$mylib/Makefile; sed -i 's,^LDFLAGS_OB.*,LDFLAGS_OB\ =\ -L$OB_DEST/lib,g' $WWW_DEST/opentox/algorithm/libfminer/lib$mylib/Makefile" && run_cmd "$cmd" "Makefile $mylib (OB)"
   cmd="sed -i 's,^INCLUDE_RB.*,INCLUDE_RB\ =\ -I$RUBY_DEST/lib/ruby/1.8/`uname -m`-linux,g' $WWW_DEST/opentox/algorithm/libfminer/lib$mylib/Makefile" && run_cmd "$cmd" "Makefile $mylib (RB)"
 done
 cd "libfminer/libbbrc">>$LOG 2>&1
 cmd="make ruby" && run_cmd "$cmd" "Make BBRC"
-cd -
+cd - >>$LOG 2>&1
 cd "libfminer/liblast">>$LOG 2>&1
 cmd="make ruby" && run_cmd "$cmd" "Make LAST"
-cd -
+cd - >>$LOG 2>&1
 cd "last-utils">>$LOG 2>&1
 $GIT checkout $OT_BRANCH>>$LOG 2>&1
 $GIT pull >>$LOG 2>&1
