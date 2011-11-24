@@ -13,24 +13,24 @@ echo "Note: Your data will be backupped."
 read help_var
 echo 
 
-mkdir -p $HOME/tmp/
+mkdir -p $HOME/tmp/ >/dev/null 2>&1
 if [ -f "$HOME/.opentox-ui.sh" ]
 then
   mv -b -v $HOME/.opentox-ui.sh $HOME/.opentox-ui.sh~
 else
-  echo "$HOME/.opentox-ui.sh does not exist."
+  echo "$HOME/.opentox-ui.sh does not found (nothing to backup)."
 fi
 if [ -d "$HOME/.opentox" ]
 then
   mv -b -v -T $HOME/.opentox $HOME/.opentox~
 else
-  echo "$HOME/.opentox does not exist."
+  echo "$HOME/.opentox does not found (nothing to backup)."
 fi
 if [ -d "$HOME/opentox-ruby" ]
 then
   mv -b -v -T $HOME/opentox-ruby $HOME/opentox-ruby~
 else
-  echo "$HOME/opentox-ruby does not exist."
+  echo "$HOME/opentox-ruby does not found (nothing to backup)."
 fi 
 LOG="$HOME/tmp/`basename $0`-log.txt"
 . "./utils.sh"
