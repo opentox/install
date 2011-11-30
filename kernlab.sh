@@ -45,13 +45,17 @@ else
 fi
 
 
-if ! $R_DONE; then
+if $R_DONE; then
   cd $HOME/tmp
-  URI="http://cran.r-project.org/src/contrib/Archive/kernlab/kernlab_$KL_VER.tar.gz"
-  cmd="$WGET $URI" && run_cmd "$cmd" "Download"
-
   export R_LIBS="$KL_DEST" # To install non-global
-  cmd="$R CMD INSTALL kernlab_$KL_VER.tar.gz" && run_cmd "$cmd" "Install"
+
+  URI="http://cran.r-project.org/src/contrib/Archive/kernlab/kernlab_$KL_VER.tar.gz"
+  cmd="$WGET $URI" && run_cmd "$cmd" "Download KL"
+  cmd="$R CMD INSTALL kernlab_$KL_VER.tar.gz" && run_cmd "$cmd" "Install KL"
+
+  URI="http://cran.r-project.org/src/contrib/pls_2.3-0.tar.gz"
+  cmd="$WGET $URI" && run_cmd "$cmd" "Download PLS"
+  cmd="$R CMD INSTALL kernlab_$KL_VER.tar.gz" && run_cmd "$cmd" "Install PLS"
 fi
 
 
