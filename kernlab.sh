@@ -45,7 +45,7 @@ else
 fi
 
 
-if $R_DONE; then
+if ! $R_DONE; then
   cd $HOME/tmp
   export R_LIBS="$KL_DEST" # To install non-global
 
