@@ -14,21 +14,22 @@ read help_var
 echo 
 
 mkdir -p $HOME/tmp/ >/dev/null 2>&1
+DATE=`date +_%Y%m%d_%H_%M`
 if [ -f "$HOME/.opentox-ui.sh" ]
 then
-  mv -b -v $HOME/.opentox-ui.sh $HOME/.opentox-ui.sh~
+  mv -v --backup=numbered $HOME/.opentox-ui.sh $HOME/.opentox-ui.sh$DATE
 else
   echo "$HOME/.opentox-ui.sh does not found (nothing to backup)."
 fi
 if [ -d "$HOME/.opentox" ]
 then
-  mv -b -v -T $HOME/.opentox $HOME/.opentox~
+  mv -v --backup=numbered -T $HOME/.opentox $HOME/.opentox$DATE
 else
   echo "$HOME/.opentox does not found (nothing to backup)."
 fi
 if [ -d "$HOME/opentox-ruby" ]
 then
-  mv -b -v -T $HOME/opentox-ruby $HOME/opentox-ruby~
+  mv -v --backup=numbered -T $HOME/opentox-ruby $HOME/opentox-ruby$DATE
 else
   echo "$HOME/opentox-ruby does not found (nothing to backup)."
 fi 
