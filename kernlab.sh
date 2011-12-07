@@ -60,6 +60,10 @@ if ! $R_DONE; then
   URI="http://cran.r-project.org/src/contrib/robustbase_0.7-8.tar.gz"
   cmd="$WGET $URI" && run_cmd "$cmd" "Download RB"
   cmd="$R CMD INSTALL robustbase_0.7-8.tar.gz" && run_cmd "$cmd" "Install RB"
+
+  URI="http://cran.r-project.org/src/contrib/leaps_2.9.tar.gz"
+  cmd="$WGET $URI" && run_cmd "$cmd" "Download LEAPS"
+  cmd="$R CMD INSTALL leaps_2.9.tar.gz" && run_cmd "$cmd" "Install LEAPS"
 fi
 
 
