@@ -55,7 +55,7 @@ if ! $R_DONE; then
 
   URI="http://cran.r-project.org/src/contrib/pls_2.3-0.tar.gz"
   cmd="$WGET $URI" && run_cmd "$cmd" "Download PLS"
-  cmd="$R CMD INSTALL pls_2.3.0.tar.gz" && run_cmd "$cmd" "Install PLS"
+  cmd="$R CMD INSTALL pls_2.3-0.tar.gz" && run_cmd "$cmd" "Install PLS"
 
   URI="http://cran.r-project.org/src/contrib/robustbase_0.7-8.tar.gz"
   cmd="$WGET $URI" && run_cmd "$cmd" "Download RB"
