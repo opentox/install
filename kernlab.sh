@@ -53,16 +53,20 @@ if ! $R_DONE; then
   cmd="$WGET $URI" && run_cmd "$cmd" "Download KL"
   cmd="$R CMD INSTALL kernlab_$KL_VER.tar.gz" && run_cmd "$cmd" "Install KL"
 
-  URI="http://cran.r-project.org/src/contrib/pls_2.3-0.tar.gz"
-  cmd="$WGET $URI" && run_cmd "$cmd" "Download PLS"
+
+  echo "Warning! If you already downloaded pls_2.3-0.tar.gz , robustbase_0.7-8.tar.gz and leaps_2.9.tar.gz from http://cran.r-project.org/src/contrib/ into $HOME/tmp/ press return, else <Ctrl+C> to stop installation."
+  read help_var2
+  echo 
+  #URI="http://cran.r-project.org/src/contrib/pls_2.3-0.tar.gz"
+  #cmd="$WGET $URI" && run_cmd "$cmd" "Download PLS"
   cmd="$R CMD INSTALL pls_2.3-0.tar.gz" && run_cmd "$cmd" "Install PLS"
 
-  URI="http://cran.r-project.org/src/contrib/00Archive/robustbase/robustbase_0.7-8.tar.gz"
-  cmd="$WGET $URI" && run_cmd "$cmd" "Download RB"
+  #URI="http://cran.r-project.org/src/contrib/00Archive/robustbase/robustbase_0.7-8.tar.gz"
+  #cmd="$WGET $URI" && run_cmd "$cmd" "Download RB"
   cmd="$R CMD INSTALL robustbase_0.7-8.tar.gz" && run_cmd "$cmd" "Install RB"
 
-  URI="http://cran.r-project.org/src/contrib/leaps_2.9.tar.gz"
-  cmd="$WGET $URI" && run_cmd "$cmd" "Download LEAPS"
+  #URI="http://cran.r-project.org/src/contrib/leaps_2.9.tar.gz"
+  #cmd="$WGET $URI" && run_cmd "$cmd" "Download LEAPS"
   cmd="$R CMD INSTALL leaps_2.9.tar.gz" && run_cmd "$cmd" "Install LEAPS"
 fi
 
