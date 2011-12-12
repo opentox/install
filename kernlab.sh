@@ -53,8 +53,11 @@ if ! $R_DONE; then
   cmd="$WGET $URI" && run_cmd "$cmd" "Download KL"
   cmd="$R CMD INSTALL kernlab_$KL_VER.tar.gz" && run_cmd "$cmd" "Install KL"
 
-  URI="http://cran.r-project.org/src/contrib/pls_2.3-0.tar.gz"
-  cmd="$WGET $URI" && run_cmd "$cmd" "Download PLS"
+  echo "Warning! If you already downloaded pls_2.3-0.tar.gz from http://cran.r-project.org/src/contrib/ into $HOME/tmp/ press return, else <Ctrl+C> to stop installation."
+  read help_var2
+  echo
+  #URI="http://cran.r-project.org/src/contrib/pls_2.3-0.tar.gz"
+  #cmd="$WGET $URI" && run_cmd "$cmd" "Download PLS"
   cmd="$R CMD INSTALL pls_2.3-0.tar.gz" && run_cmd "$cmd" "Install PLS"
 fi
 
