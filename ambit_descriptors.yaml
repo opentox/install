@@ -30,7 +30,7 @@ http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descr
   :category: "constitutional"
   :name: "Aromatic Bonds Count"
 http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.CPSADescriptor: 
-  :category: "electronic"
+  :category: "cpsa"
   :name: "Charged Partial Surface Areas"
 http://apps.ideaconsult.net:8080/ambit2/algorithm/org.openscience.cdk.qsar.descriptors.molecular.VAdjMaDescriptor: 
   :category: "topological"
