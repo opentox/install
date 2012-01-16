@@ -29,6 +29,8 @@
       - !ruby/regexp /sign_(in|out)$/
     ? - :PUT
     : - !ruby/regexp /http:\/\/ESCAPEDSERVERNGINX_PORT\/task/
+    ? - :DELETE
+    : - "http://SERVERNAMENGINX_PORT/task/cleanup"
 
   :authorize_exceptions: #request-method for uri only authenticated, no authorization
     ? - :POST
