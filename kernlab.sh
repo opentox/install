@@ -46,10 +46,9 @@ fi
 
 
 if ! $R_DONE; then
-  cd $HOME/tmp
   export R_LIBS="$R_DEST" # To install non-global
-  options(repos="http://mirrors.softliste.de/cran") # set mirror to avoid questioning the user
-  install.packages(c("caret", "doMC", "e1071", "foreach", "iterators", "kernlab", "multicore", "plyr", "reshape"))
+  cmd="$R CMD BATCH packs.R" && run_cmd "$cmd" "R packages"
+  eval "$cmd"
 fi
 
 

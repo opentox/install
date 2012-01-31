@@ -16,7 +16,6 @@ OT_JAVA_HOME="/usr/lib/jvm/java-6-sun"
 # 3) What versions to install.
 RUBY_NUM_VER="1.8.7-2011.03"
 OB_NUM_VER="2.2.3"
-KL_NUM_VER="0.9-11"
 REDIS_NUM_VER="2.2.2"
 
 # 4) Server settings.
@@ -38,7 +37,6 @@ R_CONF="$OT_PREFIX/.sh_R_ot"
 
 RUBY_VER="ruby-enterprise-$RUBY_NUM_VER"
 OB_VER="openbabel-$OB_NUM_VER"
-KL_VER="$KL_NUM_VER"
 REDIS_VER="$REDIS_NUM_VER"
 
 RUBY_DEST="$OT_PREFIX/$RUBY_VER"

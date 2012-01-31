@@ -19,19 +19,19 @@ if [ -f "$HOME/.opentox-ui.sh" ]
 then
   mv -v --backup=numbered $HOME/.opentox-ui.sh $HOME/.opentox-ui.sh$DATE
 else
-  echo "$HOME/.opentox-ui.sh does not found (nothing to backup)."
+  echo "$HOME/.opentox-ui.sh not found (nothing to backup)."
 fi
 if [ -d "$HOME/.opentox" ]
 then
   mv -v --backup=numbered -T $HOME/.opentox $HOME/.opentox$DATE
 else
-  echo "$HOME/.opentox does not found (nothing to backup)."
+  echo "$HOME/.opentox not found (nothing to backup)."
 fi
 if [ -d "$HOME/opentox-ruby" ]
 then
   mv -v --backup=numbered -T $HOME/opentox-ruby $HOME/opentox-ruby$DATE
 else
-  echo "$HOME/opentox-ruby does not found (nothing to backup)."
+  echo "$HOME/opentox-ruby not found (nothing to backup)."
 fi 
 LOG="$HOME/tmp/`basename $0`-log.txt"
 . "./utils.sh"
