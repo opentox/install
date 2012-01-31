@@ -32,53 +32,35 @@ echo
 echo "Kernlab ('$LOG')."
 
 R_DONE=false
-mkdir "$KL_DEST" >/dev/null 2>&1
-if [ ! -d "$KL_DEST" ]; then
-  echo "Install directory '$KL_DEST' is not available! Aborting..."
+mkdir "$R_DEST" >/dev/null 2>&1
+if [ ! -d "$R_DEST" ]; then
+  echo "Install directory '$R_DEST' is not available! Aborting..."
   exit 1
 else
-  if ! rmdir "$KL_DEST" >/dev/null 2>&1; then # if not empty this will fail
+  if ! rmdir "$R_DEST" >/dev/null 2>&1; then # if not empty this will fail
     R_DONE=true
   else
-    mkdir "$KL_DEST" >/dev/null 2>&1
+    mkdir "$R_DEST" >/dev/null 2>&1
   fi
 fi
 
 
 if ! $R_DONE; then
   cd $HOME/tmp
-  export R_LIBS="$KL_DEST" # To install non-global
-
-  URI="http://cran.r-project.org/src/contrib/Archive/kernlab/kernlab_$KL_VER.tar.gz"
-  cmd="$WGET $URI" && run_cmd "$cmd" "Download KL"
-  cmd="$R CMD INSTALL kernlab_$KL_VER.tar.gz" && run_cmd "$cmd" "Install KL"
-
-
-  echo "Warning! If you already downloaded pls_2.3-0.tar.gz , robustbase_0.7-8.tar.gz and leaps_2.9.tar.gz from http://cran.r-project.org/src/contrib/ into $HOME/tmp/ press return, else <Ctrl+C> to stop installation."
-  read help_var2
-  echo 
-  #URI="http://cran.r-project.org/src/contrib/pls_2.3-0.tar.gz"
-  #cmd="$WGET $URI" && run_cmd "$cmd" "Download PLS"
-  cmd="$R CMD INSTALL pls_2.3-0.tar.gz" && run_cmd "$cmd" "Install PLS"
-
-  #URI="http://cran.r-project.org/src/contrib/00Archive/robustbase/robustbase_0.7-8.tar.gz"
-  #cmd="$WGET $URI" && run_cmd "$cmd" "Download RB"
-  cmd="$R CMD INSTALL robustbase_0.7-8.tar.gz" && run_cmd "$cmd" "Install RB"
-
-  #URI="http://cran.r-project.org/src/contrib/leaps_2.9.tar.gz"
-  #cmd="$WGET $URI" && run_cmd "$cmd" "Download LEAPS"
-  cmd="$R CMD INSTALL leaps_2.9.tar.gz" && run_cmd "$cmd" "Install LEAPS"
+  export R_LIBS="$R_DEST" # To install non-global
+  options(repos="http://mirrors.softliste.de/cran") # set mirror to avoid questioning the user
+  install.packages(c("caret", "doMC", "e1071", "foreach", "iterators", "kernlab", "multicore", "plyr", "reshape"))
 fi
 
 
-if [ ! -f $KL_CONF ]; then
+if [ ! -f $R_CONF ]; then
 
-  echo "if echo \"\$R_LIBS\" | grep -v \"$KL_DEST\">/dev/null 2>&1; then export R_LIBS=\"$KL_DEST\"; fi" >> "$KL_CONF"
-  echo "if ! [ -d \"$KL_DEST\" ]; then echo \"\$0: '$KL_DEST' is not a directory!\"; fi" >> "$KL_CONF"
-  echo "R package destination has been stored in '$KL_CONF'."
+  echo "if echo \"\$R_LIBS\" | grep -v \"$R_DEST\">/dev/null 2>&1; then export R_LIBS=\"$R_DEST\"; fi" >> "$R_CONF"
+  echo "if ! [ -d \"$R_DEST\" ]; then echo \"\$0: '$R_DEST' is not a directory!\"; fi" >> "$R_CONF"
+  echo "R package destination has been stored in '$R_CONF'."
 
-  if ! grep "$KL_CONF" $OT_UI_CONF >/dev/null 2>&1 ; then
-    echo ". \"$KL_CONF\"" >> $OT_UI_CONF
+  if ! grep "$R_CONF" $OT_UI_CONF >/dev/null 2>&1 ; then
+    echo ". \"$R_CONF\"" >> $OT_UI_CONF
   fi
 
 fi
