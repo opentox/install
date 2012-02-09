@@ -3,4 +3,4 @@
 
 # set mirror to avoid questioning the user
 options(repos="http://mirrors.softliste.de/cran")
-install.packages(c("caret", "doMC", "e1071", "foreach", "iterators", "kernlab", "multicore", "plyr", "reshape"))
+install.packages(c("caret", "doMC", "e1071", "foreach", "iterators", "kernlab", "multicore", "plyr", "reshape", "randomForest", "RANN"))
