@@ -68,7 +68,7 @@ alias ottail='tail -f $HOME/.opentox/log/production.log'
 # Reload the server
 otreload() {
   otconfig
-  sudo bash -c "nginx -s reload"
+  sudo bash -c "source $HOME/.opentox-ui.sh; nginx -s reload"
 }
 
 # Kill the server
