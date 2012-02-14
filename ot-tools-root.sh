@@ -52,8 +52,8 @@ otupdate() {
 otstart() {
   otconfig
   otkill
-  sudo bash -c "nohup redis-server $HOME/opentox-ruby/redis-2.2.2/redis.conf >/dev/null 2>&1 &"
-  sudo bash -c "nohup nginx -c $HOME/opentox-ruby/nginx/conf/nginx.conf >/dev/null 2>&1 &"
+  sudo bash -c "source $HOME/.opentox-ui.sh; nohup redis-server $HOME/opentox-ruby/redis-*/redis.conf >/dev/null 2>&1 &"
+  sudo bash -c "source $HOME/.opentox-ui.sh; nohup nginx -c $HOME/opentox-ruby/nginx/conf/nginx.conf >/dev/null 2>&1 &"
   sleep 2
   if ! pgrep -u root nginx>/dev/null 2>&1; then echo "Failed to start nginx."; fi
   if ! pgrep -u root redis-server>/dev/null 2>&1; then echo "Failed to start redis."; fi
