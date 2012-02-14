@@ -75,7 +75,7 @@ otreload() {
 otkill() {
   otconfig
   sudo killall -u root nginx >/dev/null 2>&1
-  sudo bash -c "redis-cli -p $OHM_PORT shutdown >/dev/null 2>&1"
+  sudo bash -c "source $HOME/.opentox-ui.sh; redis-cli -p $OHM_PORT shutdown >/dev/null 2>&1"
   while sudo ps x | grep PassengerWatchdog | grep -v grep >/dev/null 2>&1; do sleep 1; done
   while sudo ps x | grep Rack | grep -v grep >/dev/null 2>&1; do sleep 1; done
   for p in `pgrep -u root R 2>/dev/null`; do sudo kill -9 $p; done
