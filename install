@@ -7,7 +7,33 @@ if [ "$(id -u)" = "0" ]; then
   exit 1
 fi
 
-LOG="/tmp/`basename $0`-log.txt"
+echo
+echo "Warning! If all IST services are stoppped press return, else <Ctrl+C> to stop installation."
+echo "Note: Your data will be backupped."
+read help_var
+echo 
+
+mkdir -p $HOME/tmp/ >/dev/null 2>&1
+DATE=`date +_%Y%m%d_%H_%M`
+if [ -f "$HOME/.opentox-ui.sh" ]
+then
+  mv -v --backup=numbered $HOME/.opentox-ui.sh $HOME/.opentox-ui.sh$DATE
+else
+  echo "$HOME/.opentox-ui.sh not found (nothing to backup)."
+fi
+if [ -d "$HOME/.opentox" ]
+then
+  mv -v --backup=numbered -T $HOME/.opentox $HOME/.opentox$DATE
+else
+  echo "$HOME/.opentox not found (nothing to backup)."
+fi
+if [ -d "$HOME/opentox-ruby" ]
+then
+  mv -v --backup=numbered -T $HOME/opentox-ruby $HOME/opentox-ruby$DATE
+else
+  echo "$HOME/opentox-ruby not found (nothing to backup)."
+fi 
+LOG="$HOME/tmp/`basename $0`-log.txt"
 . "./utils.sh"
 echo
 echo "Opentox-ruby installation."
@@ -15,8 +41,8 @@ echo "You may need to give root password for some privileged actions right now a
 echo
 cmd="sudo echo -n \"\"" && run_cmd "$cmd" "Acquire privileges"
 
-echo "Cleaning up /tmp files."
-sudo rm -rf /tmp/openbabel* /tmp/kernlab* /tmp/ruby* /tmp/passenger* 
+echo "Cleaning up $HOME/tmp files."
+rm -rf $HOME/tmp/openbabel* $HOME/tmp/kernlab* $HOME/tmp/ruby*
 
 . "./base-install.sh"
 . "./ruby.sh"

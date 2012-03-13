@@ -33,13 +33,13 @@ fi
 
 
 # Pkg
-LOG="/tmp/`basename $0`-log.txt"
+LOG="$HOME/tmp/`basename $0`-log.txt"
 
 echo
 echo "Opentox-ruby ('$LOG'):"
 
 for mygem in opentox-ruby builder jeweler; do
-  if ! $GEM list | grep "$mygem" >/dev/null 2>&1; then
+  if ! $GEM list | sed 's/\ .*//g' | grep -x "$mygem" >/dev/null 2>&1; then
     cmd="$GEM install $mygem" && run_cmd "$cmd" "$mygem"
   fi
 done
@@ -66,12 +66,14 @@ fi
 
 mkdir -p "$HOME/.opentox/config" >>$LOG 2>&1
 mkdir -p "$HOME/.opentox/log" >>$LOG 2>&1
+mkdir -p "$HOME/.opentox/tmp" >>$LOG 2>&1
 
 $GIT checkout production.yaml      >>$LOG 2>&1
 $GIT checkout aa-$OT_INSTALL.yaml  >>$LOG 2>&1
 
-cmd="sed -e \"s,SERVERNAME,$servername,;s,ESCAPEDSERVER,$escapedserver,;s,LOGGER,$logger,;s,AA,$aa,;s,WWW_DEST,$WWW_DEST,\" production.yaml > $HOME/.opentox/config/production.yaml" && run_cmd "$cmd" "Config 1"
-cmd="sed -e \"s,SERVERNAME,$servername,;s,ESCAPEDSERVER,$escapedserver,;s,LOGGER,$logger,;s,AA,$aa,;s,WWW_DEST,$WWW_DEST,\" aa-$OT_INSTALL.yaml >> $HOME/.opentox/config/production.yaml" && run_cmd "$cmd" "Config 1"
+cmd="sed -e \"s,SERVERNAME,$servername,;s,ESCAPEDSERVER,$escapedserver,;s,LOGGER,$logger,;s,AA,$aa,;s,WWW_DEST,$WWW_DEST,;s,NGINX_PORT,$NGINX_PORT,;s,OHM_PORT,$OHM_PORT,\" production.yaml > $HOME/.opentox/config/production.yaml" && run_cmd "$cmd" "Config 1"
+cmd="sed -e \"s,SERVERNAME,$servername,;s,ESCAPEDSERVER,$escapedserver,;s,LOGGER,$logger,;s,AA,$aa,;s,WWW_DEST,$WWW_DEST,;s,NGINX_PORT,$NGINX_PORT,;s,OHM_PORT,$OHM_PORT,\" aa-$OT_INSTALL.yaml >> $HOME/.opentox/config/production.yaml" && run_cmd "$cmd" "Config 2"
+cmd="cp ambit_descriptors.yaml $HOME/.opentox/config/" && run_cmd "$cmd" "Ambit"
 
 if [ "$OT_BRANCH" = "development" ] || expr match "$OT_BRANCH" "release"; then
   mkdir -p $WWW_DEST/opentox >>$LOG 2>&1

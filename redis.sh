@@ -19,7 +19,7 @@ if [ ! -e "$WGET" ]; then
   exit 1
 fi
 
-LOG="/tmp/`basename $0`-log.txt"
+LOG="$HOME/tmp/`basename $0`-log.txt"
 
 echo
 echo "Redis ('$LOG'):"
@@ -59,10 +59,15 @@ if ! $REDIS_DONE; then
   if ! grep "save 900 1" $REDIS_SERVER_CONF >>$LOG 2>&1 ; then 
     echo "save 900 1" >> $REDIS_SERVER_CONF 2>$LOG
   fi
+
+  if ! grep "port $OHM_PORT" $REDIS_SERVER_CONF >>$LOG 2>&1 ; then 
+    echo "port $OHM_PORT" >> $REDIS_SERVER_CONF 2>$LOG
+  fi
 fi
 
 if [ ! -f $REDIS_CONF ]; then
   echo "if ! echo \"\$PATH\" | grep \"$REDIS_DEST\">/dev/null 2>&1; then export PATH=$REDIS_DEST/src:\$PATH; fi" >> "$REDIS_CONF"
+  echo "export OHM_PORT=$OHM_PORT" >> "$REDIS_CONF"
   echo "Redis configuration has been stored in '$REDIS_CONF'."
 
   if ! grep ". \"$REDIS_CONF\"" $OT_UI_CONF; then

@@ -2,13 +2,13 @@
 
 :services:
 # make sure to enter a full uri (including training slash)
-  opentox-compound:      "http://SERVERNAME/compound/"
-  opentox-dataset:       "http://SERVERNAME/dataset/"
-  opentox-algorithm:     "http://SERVERNAME/algorithm/"
-  opentox-model:         "http://SERVERNAME/model/"
-  opentox-task:          "http://SERVERNAME/task/"
-  opentox-toxcreate:     "http://SERVERNAME/toxcreate/"
-  opentox-validation:    "http://SERVERNAME/validation/"
+  opentox-compound:      "http://SERVERNAMENGINX_PORT/compound/"
+  opentox-dataset:       "http://SERVERNAMENGINX_PORT/dataset/"
+  opentox-algorithm:     "http://SERVERNAMENGINX_PORT/algorithm/"
+  opentox-model:         "http://SERVERNAMENGINX_PORT/model/"
+  opentox-task:          "http://SERVERNAMENGINX_PORT/task/"
+  opentox-toxcreate:     "http://SERVERNAMENGINX_PORT/toxcreate/"
+  opentox-validation:    "http://SERVERNAMENGINX_PORT/validation/"
   opentox-ontology:      "http://apps.ideaconsult.net:8080/ontology"
 
 :json_hosts:
@@ -16,6 +16,8 @@
   - "SERVERNAME"
   - "webservices.in-silico.ch"
   - "opentox.informatik.uni-freiburg.de"
+
+:ohm_port: OHM_PORT
 
 # Uncomment for verbose logging
 LOGGER

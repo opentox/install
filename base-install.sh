@@ -27,14 +27,14 @@ fi
 touch $OT_UI_CONF
 
 # Pkgs
-packs="binutils build-essential git-core gnuplot hostname libcurl4-openssl-dev libgsl0-dev libreadline5-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev libxslt1-dev lsb-release psmisc pwgen raptor-utils r-base r-base-core r-base-dev sqlite3 sun-java6-jdk wget xsltproc zlib1g-dev"
+packs="binutils build-essential git-core gnuplot hostname libcurl4-openssl-dev libgsl0-dev libreadline6-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev libxslt1-dev lsb-release openjdk-6-jdk psmisc pwgen raptor-utils r-base r-base-core r-base-dev sqlite3 wget xsltproc zlib1g-dev"
 
 echo
 echo "Base Packages:"
 
 pack_arr=""
 for p in $packs; do
-  if $DPKG -s "$p" >/dev/null 2>&1; then
+  if $DPKG -S "$p" >/dev/null 2>&1; then
      printf "%50s%30s\n" "'$p'" "Y"
   else
      printf "%50s%30s\n" "'$p'" "N"
