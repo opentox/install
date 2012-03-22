@@ -19,12 +19,17 @@ if [ ! -e "$WGET" ]; then
   echo "'wget' missing. Install 'wget' first. Aborting..."
   exit 1
 fi
+RBENV="`which rbenv`"
+if [ ! -e "$RBENV" ]; then
+  echo "'rbenv' missing. Install 'rbenv' first. Aborting..."
+  exit 1
+fi
 
 # Pkg
 LOG="$HOME/tmp/`basename $0`-log.txt"
 
 echo
-echo "Ruby Enterprise edition ('$RUBY_DEST', '$LOG')."
+echo "Ruby ('$RUBY_DEST', '$LOG')."
 
 
 mkdir "$RUBY_DEST" >/dev/null 2>&1
@@ -39,45 +44,35 @@ fi
 
 if [ ! $RUBY_DONE ]; then
   cd $HOME/tmp
-  URI="http://rubyenterpriseedition.googlecode.com/files/$RUBY_VER.tar.gz"
-  if ! [ -d "$HOME/tmp/$RUBY_VER" ]; then
+  URI="http://ftp.ruby-lang.org/pub/ruby/1.9/$RUBY_VER.tar.gz"
+  if ! [ -d "$RUBY_VER" ]; then
     cmd="$WGET $URI" && run_cmd "$cmd" "Download"
     cmd="tar xzf $RUBY_VER.tar.gz" && run_cmd "$cmd" "Unpack"
   fi
-  cmd="sh $HOME/tmp/$RUBY_VER/installer  --dont-install-useful-gems --no-dev-docs --auto=$RUBY_DEST" && run_cmd "$cmd" "Install"
+  cmd="cd $RUBY_VER" && run_cmd "$cmd" "cd"
+  cmd="./configure --prefix=$RUBY_DEST" && run_cmd "$cmd" "Configure"
+  cmd="make" && run_cmd "$cmd" "Make"
+  cmd="make install" && run_cmd "$cmd" "Install"
+  cmd="cd -" && run_cmd "$cmd" "cd"
 fi
 
+cmd="$RBENV rehash" && run_cmd "$cmd" "Rbenv Update"
 
 
-if ! [ -f "$RUBY_CONF" ]; then
-  echo "if echo \"\$PATH\" | grep -v \"$RUBY_DEST\">/dev/null 2>&1; then export PATH=\"$RUBY_DEST/bin:\$PATH\"; fi" >> "$RUBY_CONF"
+#GEM="`which gem`"
+#if [ ! -e "$GEM" ]; then
+#  echo "'gem' missing. Install 'gem' first. Aborting..."
+#  exit 1
+#fi
+#
+#export PATH="$RUBY_DEST/bin:$PATH"
+#cmd="$GEM sources -a http://gemcutter.org" && run_cmd "$cmd" "Add Gemcutter"
+#cmd="$GEM sources -a http://rubygems.org" && run_cmd "$cmd" "Add Rubygems"
+#GEMCONF="gem: --no-ri --no-rdoc"
+#if ! grep "$GEMCONF" $HOME/.gemrc >>$LOG 2>&1; then
+#  echo "$GEMCONF" | tee -a $HOME/.gemrc >>$LOG 2>&1 
+#fi
 
-  echo "Ruby configuration has been stored in '$RUBY_CONF'."
-  if ! grep "$RUBY_CONF" $OT_UI_CONF >/dev/null 2>&1 ; then
-    echo ". \"$RUBY_CONF\"" >> $OT_UI_CONF
-  fi
-fi
-. "$RUBY_CONF"
 
-
-GEM="`which gem`"
-if [ ! -e "$GEM" ]; then
-  echo "'gem' missing. Install 'gem' first. Aborting..."
-  exit 1
-fi
-
-if [ "$PASSENGER_SKIP" != "s" ]; then
-  export PATH="$RUBY_DEST/bin:$PATH"
-  cmd="$GEM sources -a http://gemcutter.org" && run_cmd "$cmd" "Add Gemcutter"
-  cmd="$GEM sources -a http://rubygems.org" && run_cmd "$cmd" "Add Rubygems"
-  GEMCONF="gem: --no-ri --no-rdoc"
-  if ! grep "$GEMCONF" $HOME/.gemrc >>$LOG 2>&1; then
-    echo "$GEMCONF" | tee -a $HOME/.gemrc >>$LOG 2>&1 
-  fi
-  if ! $GEM list | grep passenger >/dev/null 2>&1; then
-    cmd="$GEM install passenger" && run_cmd "$cmd" "Install Passenger"
-  fi
   
-fi
-
 cd "$DIR"

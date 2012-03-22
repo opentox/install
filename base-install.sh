@@ -16,6 +16,7 @@ fi
 
 # Utils
 APTITUDE="`which aptitude`"
+GIT="`which git`"
 APT_CACHE="`which apt-cache`"
 DPKG="`which dpkg`"
 
@@ -24,10 +25,15 @@ if [ ! -e "$APTITUDE" ]; then
   exit 1
 fi
 
+if [ ! -e "$GIT" ]; then
+  echo "Git missing. Install git first." 1>&2
+  exit 1
+fi
+
 touch $OT_UI_CONF
 
 # Pkgs
-packs="binutils build-essential git-core gnuplot hostname libcurl4-openssl-dev libgsl0-dev libreadline6-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev libxslt1-dev lsb-release openjdk-6-jdk psmisc pwgen raptor-utils r-base r-base-core r-base-dev sqlite3 wget xsltproc zlib1g-dev"
+packs="binutils build-essential cmake gnuplot hostname libcurl4-openssl-dev libgsl0-dev libreadline6-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev libxslt1-dev lsb-release openjdk-6-jdk psmisc pwgen raptor-utils r-base r-base-core r-base-dev sqlite3 udev wget xsltproc zlib1g-dev"
 
 echo
 echo "Base Packages:"
@@ -65,7 +71,6 @@ if [ -n "$pack_fail" ]; then
   sleep 5
 fi
 
-echo sun-java6-jdk shared/accepted-sun-dlj-v1-1 select true | sudo /usr/bin/debconf-set-selections
 echo
 if [ -n "$pack_arr" ]; then 
   echo "Installing missing packages:"
@@ -90,6 +95,17 @@ if [ ! -f $JAVA_CONF ]; then
   if ! grep "$JAVA_CONF" $OT_UI_CONF >/dev/null 2>&1; then
     echo ". \"$JAVA_CONF\"" >> $OT_UI_CONF
   fi
+fi
+
+if [ ! -d ~/.rbenv ]; then
+  cmd="$GIT clone git://github.com/sstephenson/rbenv.git ~/.rbenv" && run_cmd "$cmd" "rbenv"
+else
+  echo "'rbenv' already installed. Leaving untouched."
+fi
+
+if ! grep "rbenv" $OT_UI_CONF >/dev/null 2>&1 ; then
+  echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> $OT_UI_CONF
+  echo 'eval "$(rbenv init -)"' >> $OT_UI_CONF
 fi
 
 cd "$DIR"
