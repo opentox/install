@@ -74,3 +74,4 @@ if [ ! -f "$OB_CONF" ]; then
 
 fi
 
+cd "$DIR"

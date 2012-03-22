@@ -45,22 +45,10 @@ echo "Cleaning up $HOME/tmp files."
 rm -rf $HOME/tmp/openbabel* $HOME/tmp/kernlab* $HOME/tmp/ruby*
 
 . "./base-install.sh"
-. "./ruby.sh"
 . "./openbabel.sh"
-. "./kernlab.sh"
-. "./opentox-ruby.sh"
-
-if [ "$install" != "gem" ]
-then
-  . "./nginx.sh"
-  . "./redis.sh"
-  . "./opentox-webservices.sh"
-fi
 
 echo
 echo "Installation finished and system configured."
 echo "Destination: '$OT_PREFIX'" 
-echo "Nginx: '$NGINX_DEST'"
-echo "Redis: '$REDIS_DEST'"
-echo "IMPORTANT: Include the file '$OT_UI_CONF' in your shell or system startup to have the system automatically configured."
+echo "IMPORTANT: Include '$OT_UI_CONF' in your shell or system startup to have the system automatically configured."
 echo
