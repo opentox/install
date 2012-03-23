@@ -2,11 +2,10 @@
 
 check_dest() 
 {
-  if ! [ -d "$OT_PREFIX" ]; then
-    if ! mkdir -p "$OT_PREFIX"; then
-      echo "Could not create target directory '$OT_PREFIX'! Aborting..."
-      exit 1
-    fi
+  [ -d "$OT_PREFIX/tmp" ] || mkdir -p "$OT_PREFIX/tmp"
+  if ! [ -d "$OT_PREFIX/tmp" ]; then
+    echo "Could not create target directory! Aborting..."
+    exit 1
   fi
 }
 
@@ -37,5 +36,5 @@ abs_path()
 
 . "`pwd`/config.sh"
 touch "$OT_UI_CONF"
-. "$OT_UI_CONF"
+. "$OT_UI_CONF" 2>/dev/null
 check_dest

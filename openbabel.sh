@@ -26,7 +26,7 @@ if [ ! -e "$CMAKE" ]; then
 fi
 
 # Pkg
-LOG="$HOME/tmp/`basename $0`-log.txt"
+LOG="$OT_PREFIX/tmp/`basename $0`-log.txt"
 
 echo
 echo "Openbabel ('$OB_DEST', '$LOG'):"
@@ -43,13 +43,13 @@ else
 fi
 
 if [ ! $OB_DONE ]; then
-  cd "$HOME/tmp">>$LOG 2>/dev/null
+  cd "$OT_PREFIX/tmp">>$LOG 2>/dev/null
   URI="http://downloads.sourceforge.net/project/openbabel/openbabel/$OB_NUM_VER/$OB_VER.tar.gz?use_mirror=kent"
-  if ! [ -d "$HOME/tmp/$OB_VER" ]; then 
+  if ! [ -d "$OT_PREFIX/tmp/$OB_VER" ]; then 
     cmd="$WGET $URI" && run_cmd "$cmd" "Download"
     cmd="tar zxf $OB_VER.tar.gz?use_mirror=kent $OB_VER"  && run_cmd "$cmd" "Unpack"
   fi
-  cd "$HOME/tmp/$OB_VER">>$LOG 2>/dev/null
+  cd "$OT_PREFIX/tmp/$OB_VER">>$LOG 2>/dev/null
   cmd="$CMAKE -DCMAKE_INSTALL_PREFIX=$OB_DEST" && run_cmd "$cmd" "Configure"
   cmd="make -j2" && run_cmd "$cmd" "Make"
   cmd="make install" && run_cmd "$cmd" "Install"

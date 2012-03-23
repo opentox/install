@@ -13,7 +13,7 @@ echo "Note: Your data will be backupped."
 read help_var
 echo 
 
-mkdir -p $HOME/tmp/ >/dev/null 2>&1
+mkdir -p $OT_PREFIX/tmp/ >/dev/null 2>&1
 DATE=`date +_%Y%m%d_%H_%M`
 if [ -f "$HOME/.opentox-ui.sh" ]
 then
@@ -33,7 +33,7 @@ then
 else
   echo "$HOME/opentox-ruby not found (nothing to backup)."
 fi 
-LOG="$HOME/tmp/`basename $0`-log.txt"
+LOG="$OT_PREFIX/tmp/`basename $0`-log.txt"
 . "./utils.sh"
 echo
 echo "Opentox-ruby installation."
@@ -41,11 +41,11 @@ echo "You may need to give root password for some privileged actions right now a
 echo
 cmd="sudo echo -n \"\"" && run_cmd "$cmd" "Acquire privileges"
 
-echo "Cleaning up $HOME/tmp files."
-rm -rf $HOME/tmp/openbabel* $HOME/tmp/kernlab* $HOME/tmp/ruby*
+echo "Cleaning up $OT_PREFIX/tmp files."
+rm -rf $OT_PREFIX/tmp/openbabel* $OT_PREFIX/tmp/kernlab* $OT_PREFIX/tmp/ruby*
 
 . "./base-install.sh"
-#. "./openbabel.sh"
+. "./openbabel.sh"
 
 echo
 echo "Installation finished and system configured."
