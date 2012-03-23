@@ -87,13 +87,13 @@ if [ ! -f $JAVA_CONF ]; then
     exit 1
   fi
 
-  echo "if echo \"\$JAVA_HOME\" | grep -v \"$OT_JAVA_HOME\">/dev/null 2>&1; then export JAVA_HOME=\"$OT_JAVA_HOME\"; fi" >> "$JAVA_CONF"
-  echo "if echo \"\$PATH\" | grep -v \"$OT_JAVA_HOME\">/dev/null 2>&1; then export PATH=\"$OT_JAVA_HOME:\$PATH\"; fi" >> "$JAVA_CONF"
-  echo "if ! [ -d \"\$JAVA_HOME\" ]; then echo \"\$0: '\$OT_JAVA_HOME' is not a directory!\"; fi" >> "$JAVA_CONF"
+  echo 'if echo "$JAVA_HOME" | grep -v '$OT_JAVA_HOME'>/dev/null 2>&1; then export JAVA_HOME='$OT_JAVA_HOME'; fi' >> "$JAVA_CONF"
+  echo 'if echo "$PATH" | grep -v '$OT_JAVA_HOME/bin'>/dev/null 2>&1; then export PATH='$OT_JAVA_HOME/bin':"$PATH"; fi' >> "$JAVA_CONF"
+  echo 'if ! [ -d "$JAVA_HOME" ]; then echo "$0: JAVA_HOME is not a directory!"; fi' >> "$JAVA_CONF"
 
   echo "Java configuration has been stored in '$JAVA_CONF'."
   if ! grep "$JAVA_CONF" $OT_UI_CONF >/dev/null 2>&1; then
-    echo ". \"$JAVA_CONF\"" >> $OT_UI_CONF
+    echo ". "$JAVA_CONF"" >> $OT_UI_CONF
   fi
 fi
 
@@ -104,8 +104,7 @@ else
 fi
 
 if ! grep "rbenv" $OT_UI_CONF >/dev/null 2>&1 ; then
-  echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> $OT_UI_CONF
-  echo 'eval "$(rbenv init -)"' >> $OT_UI_CONF
+  echo 'if ! echo "$PATH" | grep "$HOME/.rbenv/bin">/dev/null 2>&1; then export PATH="$HOME/.rbenv/bin:$PATH"; eval "$(rbenv init -)"; fi' >> $OT_UI_CONF
 fi
 
 cd "$DIR"
