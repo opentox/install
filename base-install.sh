@@ -38,31 +38,34 @@ packs="binutils build-essential cmake gnuplot hostname libcurl4-openssl-dev libg
 echo
 echo "Base Packages:"
 
+echo
+echo "Updating index"
+sudo $APTITUDE update -y >/dev/null 2>&1
+
+echo
+echo "Checking installation:"
 pack_arr=""
 for p in $packs; do
-  if $DPKG -S "$p" >/dev/null 2>&1; then
-     printf "%50s%30s\n" "'$p'" "Y"
+  if [ "un" != `$DPKG -l "$p" 2>/dev/null | tail -1 | awk -F " " '{print $1}'` ]; then
+     printf "%30s%50s\n" "'$p'" "Y"
   else
-     printf "%50s%30s\n" "'$p'" "N"
-    pack_arr="$pack_arr $p"
+     printf "%30s%50s\n" "'$p'" "N"
+     pack_arr="$pack_arr $p"
   fi
 done
 
 if [ -n "$pack_arr" ]; then
   echo 
   echo "Checking availablity:"
-  sudo $APTITUDE update -y >/dev/null 2>&1
-#  sudo $APTITUDE upgrade -y >/dev/null 2>&1
+  for p in $pack_arr; do
+    if [ -n "`$APT_CACHE search $p`" ] ; then
+       printf "%30s%50s\n" "'$p'" "Y"
+    else
+      printf "%30s%50s\n" "'$p'" "N"
+      pack_fail="$pack_fail $p"
+    fi
+  done
 fi
-
-for p in $pack_arr; do
-  if [ -n "`$APT_CACHE search $p`" ] ; then
-     printf "%50s%30s\n" "'$p'" "Y"
-  else
-    printf "%50s%30s\n" "'$p'" "N"
-    pack_fail="$pack_fail $p"
-  fi
-done
 
 if [ -n "$pack_fail" ]; then
   echo 

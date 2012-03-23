@@ -45,7 +45,7 @@ echo "Cleaning up $HOME/tmp files."
 rm -rf $HOME/tmp/openbabel* $HOME/tmp/kernlab* $HOME/tmp/ruby*
 
 . "./base-install.sh"
-. "./openbabel.sh"
+#. "./openbabel.sh"
 
 echo
 echo "Installation finished and system configured."
