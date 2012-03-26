@@ -15,11 +15,11 @@ Here are some of my goals when writing the installer:
 
 Configure your system in config.sh.
 
-Even if we officially support only *one* distro (currently Debian 6.0.1), I tested the installer successfully on various Ubuntus. In this README at the top are the requirements of the installer. By default, everything is installed to $HOME/opentox-ruby (=OT_PREFIX). The configs go to OT_PREFIX/.sh_<Package>_ot.sh for each package.
+Even if we officially support only *one* distro (currently Debian 6.0.1), I tested the installer successfully on various Ubuntus. In this README at the top are the requirements of the installer. By default, everything is installed to $HOME/opentox-ruby (OT_PREFIX).
 
-After running the installer, configure the system by editing the startup file of your favorite shell (in my case, BASH with the file ~/.bashrc) to include ~/.opentox-ui.sh (in my case with 'source ...'). This file is the only one that the installer creates outside OT_PREFIX. Thus, the system is fully configured: If you now open a new shell, all environment variables will be adjusted.
+After running the installer, configure the system by editing the startup file of your favorite shell (in my case, BASH with the file ~/.bashrc) to include ~/OT_PREFIX/.opentox-ui.sh (in my case with 'source ...'). OT_PREFIX is the only directory the installer creates. Thus, the system is fully configured: If you now open a new shell, all environment variables will be adjusted.
 
-To uninstall the system simply delete the link from the startup file: Done. To save disc space delete also directory OT_PREFIX and possibly the configuration in .opentox.
+To uninstall the system simply delete the link from the startup file: Done. To save disc space delete also directory OT_PREFIX.
 
-Anyone can run multiple Opentox versions on the same machine: Just install again, but to a different OT_PREFIX. The switch works manually: Include the sh_<Package>_ot.sh files from the desired OT_PREFIX in $HOME/opentox-ui.sh (only one installation may be activated  at any time).
+Anyone can run multiple Opentox versions on the same machine: Just install again, but to a different OT_PREFIX. The switch works manually: Include the opentox-ui.sh files from the desired OT_PREFIX (only one installation may be activated at a time).
 
