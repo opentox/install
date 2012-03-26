@@ -4,7 +4,12 @@ check_dest()
 {
   [ -d "$OT_PREFIX/tmp" ] || mkdir -p "$OT_PREFIX/tmp"
   if ! [ -d "$OT_PREFIX/tmp" ]; then
-    echo "Could not create target directory! Aborting..."
+    echo "Could not create OT_PREFIX directory! Aborting..."
+    exit 1
+  fi
+  [ -d "$HOME/.opentox" ] || mkdir -p "$HOME/.opentox"
+  if ! [ -d "$HOME/.opentox" ]; then
+    echo "Could not create .opentox directory! Aborting..."
     exit 1
   fi
 }
@@ -35,6 +40,6 @@ abs_path()
 }
 
 . "`pwd`/config.sh"
+check_dest
 touch "$OT_UI_CONF"
 . "$OT_UI_CONF" 2>/dev/null
-check_dest

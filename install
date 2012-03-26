@@ -15,24 +15,19 @@ echo
 
 mkdir -p $OT_PREFIX/tmp/ >/dev/null 2>&1
 DATE=`date +_%Y%m%d_%H_%M`
-if [ -f "$HOME/.opentox-ui.sh" ]
-then
-  mv -v --backup=numbered $HOME/.opentox-ui.sh $HOME/.opentox-ui.sh$DATE
-else
-  echo "$HOME/.opentox-ui.sh not found (nothing to backup)."
-fi
-if [ -d "$HOME/.opentox" ]
-then
-  mv -v --backup=numbered -T $HOME/.opentox $HOME/.opentox$DATE
-else
-  echo "$HOME/.opentox not found (nothing to backup)."
-fi
-if [ -d "$HOME/opentox-ruby" ]
-then
-  mv -v --backup=numbered -T $HOME/opentox-ruby $HOME/opentox-ruby$DATE
-else
-  echo "$HOME/opentox-ruby not found (nothing to backup)."
-fi 
+
+echo
+echo "Backups (if any)."
+echo
+backup_targets="$HOME/.opentox $HOME/opentox-ruby"
+for bt in $backup_targets; do
+  if [ -f $bt ]; then
+    mv -v --backup=numbered $bt $bt$DATE
+  elif [ -d $bt ]; then
+    mv -v --backup=numbered -T $bt $bt$DATE
+  fi
+done
+
 LOG="$OT_PREFIX/tmp/`basename $0`-log.txt"
 . "./utils.sh"
 echo

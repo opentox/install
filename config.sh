@@ -7,7 +7,7 @@
 # 1) Base setup
 OT_DIST="debian"       # Linux distribution    (debian)
 OT_INSTALL="local"     # Type                  (gem, local, server)
-OT_BRANCH="development"     # Maturity              (development -you need SSH key at Github-, master)
+OT_BRANCH="development"     # Maturity              (development -need SSH key at Github-, master)
 
 # 2) Where all binaries are installed.
 OT_PREFIX="$HOME/opentox-ruby"
@@ -16,28 +16,21 @@ OT_JAVA_HOME="/usr/lib/jvm/java-6-openjdk"
 # 3) What versions to install.
 RUBY_NUM_VER="1.9.3-p125"
 OB_NUM_VER="2.3.1"
-REDIS_NUM_VER="2.2.2"
 
 # 4) Server settings.
-NGINX_SERVERNAME="toxcreate3.in-silico.ch"
-WWW_DEST="$OT_PREFIX/www"
+SERVERNAME="toxcreate3.in-silico.ch"
 OHM_PORT="6381" # set to port (no colon)
 
 # Done.
 
 
 ### Nothing to gain from changes below this line.
-JAVA_CONF="$OT_PREFIX/.sh_java_ot"
-OB_CONF="$OT_PREFIX/.sh_OB_ot"
-R_CONF="$OT_PREFIX/.sh_R_ot"
+JAVA_CONF="$HOME/.opentox/sh_java"
+OB_CONF="$HOME/.opentox/sh_OB"
+R_CONF="$HOME/.opentox/sh_R"
+OT_UI_CONF="$HOME/.opentox/opentox-ui.sh"
 
 OB_VER="openbabel-$OB_NUM_VER"
-REDIS_VER="$REDIS_NUM_VER"
-
 OB_DEST="$OT_PREFIX/$OB_VER"
 OB_DEST_BINDINGS="$OT_PREFIX/openbabel-ruby-install"
-R_DEST="$OT_PREFIX/r-packages"
-REDIS_DEST="$OT_PREFIX/redis-$REDIS_VER"
 
-REDIS_SERVER_CONF="$REDIS_DEST/redis.conf"
-OT_UI_CONF="$HOME/.opentox-ui.sh"

@@ -34,7 +34,7 @@ fi
 touch "$OT_UI_CONF"
 
 # Pkgs
-packs="binutils build-essential cmake gnuplot hostname libcurl4-openssl-dev libgsl0-dev libreadline6-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev libxslt1-dev lsb-release openjdk-6-jdk psmisc pwgen raptor-utils r-base r-base-core r-base-dev sqlite3 udev wget xsltproc zlib1g-dev"
+packs="binutils build-essential cmake gnuplot hostname libcurl4-openssl-dev libgsl0-dev libreadline6-dev libreadline-dev libsqlite3-dev libssl-dev libyaml-dev libxml2-dev libxslt1-dev lsb-release openjdk-6-jdk psmisc pwgen raptor-utils r-base r-base-core r-base-dev sqlite3 udev wget xsltproc zlib1g-dev"
 
 echo
 echo "Base Packages:"
