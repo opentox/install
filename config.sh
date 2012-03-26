@@ -1,12 +1,12 @@
 #!/bin/sh
-#
+
 # Configuration file for Opentox installer.
 # Author: Christoph Helma, Andreas Maunz.
-#
+
 
 # 1) Base setup
-OT_DIST="debian"       # Linux distribution    (debian)
-OT_INSTALL="local"     # Type                  (gem, local, server)
+OT_DIST="debian"            # Linux distribution    (debian)
+OT_INSTALL="local"          # Type                  (gem, local, server)
 OT_BRANCH="development"     # Maturity              (development -need SSH key at Github-, master)
 
 # 2) Where all binaries are installed.
@@ -19,7 +19,6 @@ OB_NUM_VER="2.3.1"
 
 # 4) Server settings.
 SERVERNAME="toxcreate3.in-silico.ch"
-OHM_PORT="6381" # set to port (no colon)
 
 # Done.
 
