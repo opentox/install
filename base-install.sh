@@ -15,20 +15,10 @@ if [ "$(id -u)" = "0" ]; then
 fi
 
 # Utils
-APTITUDE=`which aptitude`
-GIT=`which git`
-APT_CACHE=`which apt-cache`
-DPKG=`which dpkg`
-
-if [ ! -e $APTITUDE ]; then
-  echo "Aptitude missing. Install aptitude first." 1>&2
-  exit 1
-fi
-
-if [ ! -e $GIT ]; then
-  echo "Git missing. Install git first." 1>&2
-  exit 1
-fi
+utils="aptitude git apt-cache dpkg"
+for u in $utils; do
+  eval `echo $u | tr "[:lower:]" "[:upper:]" | tr "-" "_"`=`which $u` || (echo "'$u' missing. Install '$u' first." 1>&2 && exit 1)
+done
 
 # Init main file
 touch "$OT_UI_CONF"
