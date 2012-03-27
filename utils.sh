@@ -17,14 +17,14 @@ check_dest()
 run_cmd ()
 {
   local cmd="$1"; local title="$2"
-  printf "%50s" "'$title'"
+  printf "%50s" "$title"
   if ! eval $cmd >>$LOG 2>&1 ; then  
-    printf "\033[31m%30s\033[m\n" "FAIL"
+    printf "                              [ \033[31m%s\033[m ]\n" "FAIL"
     echo "Last 10 lines of log:"
     tail -10 "$LOG"
     exit 1
   fi
-  printf "\033[32m%30s\033[m\n" "DONE"
+  printf "                              [ \033[32m%s\033[m ]\n" "OK"
 }
 
 
