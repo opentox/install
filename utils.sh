@@ -7,8 +7,8 @@ check_dest()
     echo "Could not create OT_PREFIX directory! Aborting..."
     exit 1
   fi
-  [ -d "$HOME/.opentox" ] || mkdir -p "$HOME/.opentox"
-  if ! [ -d "$HOME/.opentox" ]; then
+  [ -d "$HOME/.opentox/log" ] || mkdir -p "$HOME/.opentox/log"
+  if ! [ -d "$HOME/.opentox/log" ]; then
     echo "Could not create CONFIG (~/.opentox) directory! Aborting..."
     exit 1
   fi
