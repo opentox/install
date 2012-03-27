@@ -9,16 +9,14 @@ OT_DIST="debian"            # Linux distribution    (debian)
 OT_INSTALL="local"          # Type                  (gem, local, server)
 OT_BRANCH="development"     # Maturity              (development -need SSH key at Github-, master)
 
-# 2) Where all binaries are installed.
+# 2) Where binaries are installed
 OT_PREFIX="$HOME/opentox-ruby"
 OT_JAVA_HOME="/usr/lib/jvm/java-6-openjdk"
 
-# 3) What versions to install.
+# 3) What versions to install
 RUBY_NUM_VER="1.9.3-p125"
 OB_NUM_VER="2.3.1"
-
-# 4) Server settings.
-SERVERNAME="toxcreate3.in-silico.ch"
+RUBY_DWL="http://ftp.ruby-lang.org/pub/ruby/1.9"
 
 # Done.
 

@@ -6,8 +6,8 @@
 # Your installed packages are safe and will not be updated.
 # A Java configuration is created and included in your '$OT_UI_CONF'.
 
-. "`pwd`/utils.sh"
-DIR="`pwd`"
+. ./utils.sh
+DIR=`pwd`
 
 if [ "$(id -u)" = "0" ]; then
   echo "This script must not be run as root" 1>&2

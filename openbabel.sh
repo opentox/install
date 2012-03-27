@@ -4,8 +4,8 @@
 # Author: Christoph Helma, Andreas Maunz.
 # A configuration file is created and included in your 'OT_UI_CONF' (see config.sh).
 
-. "`pwd`/utils.sh"
-DIR="`pwd`"
+. ./utils.sh
+DIR=`pwd`
 OB_DWL="http://downloads.sourceforge.net/sourceforge/openbabel/$OB_NUM_VER/$OB_VER.tar.gz"
 
 [ "`id -u`" = "0" ] && echo "This script must be run as non-root." 1>&2 && exit 1
@@ -17,7 +17,7 @@ for u in $utils; do
 done
 
 # check openbabel
-LOG="$OT_PREFIX/tmp/`basename $0`-log.txt"
+LOG="$OT_PREFIX/tmp/`basename $0`.log"
 echo
 echo "Openbabel ('$OB_DEST', '$LOG'):"
 mkdir "$OB_DEST" >/dev/null 2>&1

@@ -8,15 +8,13 @@ if [ "$(id -u)" = "0" ]; then
 fi
 
 echo
-echo "Warning! If all IST services are stoppped press return, else <Ctrl+C> to stop installation."
-echo "Note: Your data will be backupped."
+echo "Warning! Hit <Return> If all services are stoppped, else <Ctrl+C>."
+echo "Note: CONFIG (~/.opentox) will be backupped."
 read help_var
-echo 
 
 mkdir -p $OT_PREFIX/tmp/ >/dev/null 2>&1
 DATE=`date +_%Y%m%d_%H_%M`
 
-echo
 echo "Backups (if any)."
 echo
 backup_targets="$HOME/.opentox $HOME/opentox-ruby"
@@ -28,19 +26,28 @@ for bt in $backup_targets; do
   fi
 done
 
-LOG="$OT_PREFIX/tmp/`basename $0`-log.txt"
-. "./utils.sh"
+. ./utils.sh
+
+
+LOG="$OT_PREFIX/tmp/`basename $0`.log"
 echo
-echo "Opentox-ruby installation."
+echo "Welcome to base installation for OpenTox compatible services on Ruby and Debian."
+echo "This will install:"
+echo "- Debian packages"
+echo "- OpenBabel (from source)."
+echo
+echo "IMPORTANT: press Ctrl+C to adjust config.sh first (<Return> to continue)."
+read delete_me
+echo 
 echo "You may need to give root password for some privileged actions right now and later:"
 echo
 cmd="sudo echo -n \"\"" && run_cmd "$cmd" "Acquire privileges"
 
-echo "Cleaning up $OT_PREFIX/tmp files."
-rm -rf $OT_PREFIX/tmp/openbabel* $OT_PREFIX/tmp/kernlab* $OT_PREFIX/tmp/ruby*
-
-. "./base-install.sh"
-. "./openbabel.sh"
+rm -rf $OT_PREFIX/tmp/openbabel* $OT_PREFIX/tmp/ruby*
+cmd="mkdir -p $OT_PREFIX/install && cp utils.sh $OT_PREFIX/install" && run_cmd "$cmd" "Install utils.sh to OT_PREFIX"
+cmd="mkdir -p $HOME/.opentox/config/install && cp config.sh $HOME/.opentox/config/install" && run_cmd "$cmd" "Install config.sh to CONFIG (~/.opentox)"
+. ./base-install.sh
+. ./openbabel.sh
 
 echo
 echo "Installation finished."
@@ -50,6 +57,7 @@ echo "IMPORTANT: How to configure your system:"
 echo "IMPORTANT: a) Include '$OT_UI_CONF' in shell startup (e.g. ~/.bashrc)."
 echo "IMPORTANT: b) Manually source '$OT_UI_CONF' every time."
 echo "IMPORTANT: The command in both cases: '. $OT_UI_CONF'"
+echo "IMPORTANT: Your system is NOT configured right now."
 echo
 echo "Thank you for your attention."
 echo
