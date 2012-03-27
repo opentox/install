@@ -39,16 +39,16 @@ install_ruby() {
   printf "\n%50s\n" "RUBY"
   local DIR=`pwd`
   check_utils "rbenv curl make"
-  if ! $RBENV versions $RUBY_VER | grep $RUBY_VER>/dev/null 2>&1; then
+  if ! $RBENV versions $RUBY_NUM_VER | grep $RUBY_NUM_VER>/dev/null 2>&1; then
     [ -d $DIR/tmp ] || mkdir -p $DIR/tmp && cd $DIR/tmp
-    ([ -d $DIR/tmp/ruby-$RUBY_VER ] || $CURL $RUBY_DWL/ruby-$RUBY_VER.tar.gz 2>/dev/null | tar xz) && cd ruby-$RUBY_VER
+    ([ -d $DIR/tmp/ruby-$RUBY_NUM_VER ] || $CURL $RUBY_DWL/ruby-$RUBY_NUM_VER.tar.gz 2>/dev/null | tar xz) && cd ruby-$RUBY_NUM_VER
     cmd="./configure --prefix=$RUBY_DIR" && run_cmd "$cmd" "Configure"
     cmd="$MAKE -j2" && run_cmd "$cmd" "Make"
     cmd="$MAKE install" && run_cmd "$cmd" "Install"
   fi
   cd $DIR
   cmd="$RBENV rehash" && run_cmd "$cmd" "Rbenv rehash"
-  cmd="$RBENV local $RUBY_VER" && run_cmd "$cmd" "Rbenv set ruby"
+  cmd="$RBENV local $RUBY_NUM_VER" && run_cmd "$cmd" "Rbenv set ruby"
 }
 
 
@@ -59,7 +59,7 @@ install_ob_ruby() {
   SRC_DIR=$(dirname $(find $OT_PREFIX -name openbabel-ruby.cpp))
   [ -d "$SRC_DIR" ] || (echo "Sources not found." 1>&2 && exit 1)
   cd $SRC_DIR
-  cmd="$RBENV local $RUBY_VER" && run_cmd "$cmd" "Configure Ruby"
+  cmd="$RBENV local $RUBY_NUM_VER" && run_cmd "$cmd" "Configure Ruby"
   sed -i 's/Init_OpenBabel/Init_openbabel/g' openbabel-ruby.cpp # apply fix
   cmd="ruby extconf.rb --with-openbabel-include=../../include --with-openbabel-lib=../../src/.libs" && run_cmd "$cmd" "Extconf ruby bindings"
   cmd="$MAKE" && run_cmd "$cmd" "Make OB ruby bindings"
