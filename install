@@ -43,7 +43,13 @@ rm -rf $OT_PREFIX/tmp/openbabel* $OT_PREFIX/tmp/kernlab* $OT_PREFIX/tmp/ruby*
 . "./openbabel.sh"
 
 echo
-echo "Installation finished and system configured."
-echo "Destination: '$OT_PREFIX'" 
-echo "IMPORTANT: Include '$OT_UI_CONF' in your shell or system startup to have the system automatically configured."
+echo "Installation finished."
+echo "Destination (OT_PREFIX): '$OT_PREFIX'" 
+echo
+echo "IMPORTANT: How to configure your system:"
+echo "IMPORTANT: a) Include '$OT_UI_CONF' in shell startup (e.g. ~/.bashrc)."
+echo "IMPORTANT: b) Manually source '$OT_UI_CONF' every time."
+echo "IMPORTANT: The command in both cases: '. $OT_UI_CONF'"
+echo
+echo "Thank you for your attention."
 echo
