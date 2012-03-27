@@ -14,7 +14,7 @@ OT_PREFIX="$HOME/opentox-ruby"
 OT_JAVA_HOME="/usr/lib/jvm/java-6-openjdk"
 
 # 3) What versions to install
-RUBY_NUM_VER="1.9.3-p125"
+
 OB_NUM_VER="2.3.1"
 RUBY_DWL="http://ftp.ruby-lang.org/pub/ruby/1.9"
 
