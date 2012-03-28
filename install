@@ -8,15 +8,14 @@ if [ "$(id -u)" = "0" ]; then
 fi
 
 echo
-echo "Warning! Hit <Return> If all services are stoppped, else <Ctrl+C>."
-echo "Note: CONFIG (~/.opentox) will be backupped."
-read help_var
+echo "OpenTox Ruby"
+echo "Hit <Return> If all services are stoppped, else hit <Ctrl+C>."
+read delete_me
 
+echo "Note: CONFIG (~/.opentox) will be backupped."
 mkdir -p $OT_PREFIX/tmp/ >/dev/null 2>&1
 DATE=`date +_%Y%m%d_%H_%M`
-
-echo "Backups (if any)."
-echo
+echo "Backups (if any):"
 backup_targets="$HOME/.opentox $HOME/opentox-ruby"
 for bt in $backup_targets; do
   if [ -f $bt ]; then
@@ -25,29 +24,22 @@ for bt in $backup_targets; do
     mv -v --backup=numbered -T $bt $bt$DATE
   fi
 done
+echo "Backup finished."
 
 . ./utils.sh
-
-
 LOG="$OT_PREFIX/tmp/`basename $0`.log"
 echo
 echo "Welcome to base installation for OpenTox compatible services on Ruby and Debian."
-echo "This will install:"
-echo "- Debian packages"
-echo "- OpenBabel (from source)."
-echo
-echo "IMPORTANT: press Ctrl+C to adjust config.sh first (<Return> to continue)."
+echo "IMPORTANT: Hit <Ctrl+C> to adjust config.sh first (<Return> to continue)."
 read delete_me
 echo 
-echo "You may need to give root password for some privileged actions right now and later:"
-echo
-cmd="sudo echo -n \"\"" && run_cmd "$cmd" "Acquire privileges"
+echo -n "We need to install some packages. "
+sudo echo -n ""
 
 rm -rf $OT_PREFIX/tmp/openbabel* $OT_PREFIX/tmp/ruby*
 cmd="mkdir -p $OT_PREFIX/install && cp utils.sh $OT_PREFIX/install" && run_cmd "$cmd" "Install utils.sh to OT_PREFIX"
 cmd="mkdir -p $HOME/.opentox/config/install && cp config.sh $HOME/.opentox/config/install" && run_cmd "$cmd" "Install config.sh to CONFIG (~/.opentox)"
 . ./base-install.sh
-. ./openbabel.sh
 
 echo
 echo "Installation finished."

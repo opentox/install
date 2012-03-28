@@ -24,7 +24,7 @@ run_cmd ()
     tail -10 "$LOG"
     exit 1
   fi
-  printf "                              [ \033[32m%s\033[m ]\n" "OK"
+  printf "                              [  \033[32m%s\033[m  ]\n" "OK"
 }
 
 
@@ -49,23 +49,6 @@ install_ruby() {
   cd $DIR
   cmd="$RBENV rehash" && run_cmd "$cmd" "Rbenv rehash"
   cmd="$RBENV local $RUBY_NUM_VER" && run_cmd "$cmd" "Rbenv set ruby"
-}
-
-
-install_ob_ruby() {
-  printf "\n%50s\n" "OB RUBY BINDINGS"
-  local DIR=`pwd`
-  check_utils "rbenv make"
-  SRC_DIR=$(dirname $(find $OT_PREFIX -name openbabel-ruby.cpp))
-  [ -d "$SRC_DIR" ] || (echo "Sources not found." 1>&2 && exit 1)
-  cd $SRC_DIR
-  cmd="$RBENV local $RUBY_NUM_VER" && run_cmd "$cmd" "Configure Ruby"
-  sed -i 's/Init_OpenBabel/Init_openbabel/g' openbabel-ruby.cpp # apply fix
-  cmd="ruby extconf.rb --with-openbabel-include=../../include --with-openbabel-lib=../../src/.libs" && run_cmd "$cmd" "Extconf ruby bindings"
-  cmd="$MAKE" && run_cmd "$cmd" "Make OB ruby bindings"
-  cmd="$MAKE install" && run_cmd "$cmd" "Install OB ruby bindings"
-  cd $DIR
-  cmd="$RBENV rehash" && run_cmd "$cmd" "Rbenv rehash"
 }
 
 
