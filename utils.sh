@@ -1,5 +1,11 @@
 #!/bin/sh
 
+# Shell library for service installation and general tools
+# Author: Christoph Helma, Andreas Maunz
+
+# Functions to install ruby and install services with bundler.
+# Ensures presence of ~/.opentox (CONFIG) and OT_PREFIX.
+
 check_dest() 
 {
   [ -d "$OT_PREFIX/tmp" ] || mkdir -p "$OT_PREFIX/tmp"
@@ -69,3 +75,4 @@ fi
 check_dest
 touch "$OT_UI_CONF"
 . "$OT_UI_CONF" 2>/dev/null
+

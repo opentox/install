@@ -1,6 +1,11 @@
 #!/bin/sh
-# Main Opentox-ruby install script
+
+# Main OpenTox installer for user installation
 # Author: Christoph Helma, Andreas Maunz
+
+# Creates OT_PREFIX and ~/.opentox (CONFIG). The latter contains OT_UI_CONF (see README).
+# Installs shell libraries and installer configuration to support installation of services.
+# Installs rbenv to support custom ruby versions for services.
 
 if [ "$(id -u)" = "0" ]; then
   echo "This script must not be run as root" 1>&2
@@ -27,19 +32,33 @@ done
 echo "Backup finished."
 
 . ./utils.sh
+
 LOG="$OT_PREFIX/tmp/`basename $0`.log"
 echo
 echo "Welcome to base installation for OpenTox compatible services on Ruby and Debian."
 echo "IMPORTANT: Hit <Ctrl+C> to adjust config.sh first (<Return> to continue)."
 read delete_me
 echo 
-echo -n "We need to install some packages. "
+echo -n "We need to do some privileged action. "
 sudo echo -n ""
 
-rm -rf $OT_PREFIX/tmp/openbabel* $OT_PREFIX/tmp/ruby*
-cmd="mkdir -p $OT_PREFIX/install && cp utils.sh $OT_PREFIX/install" && run_cmd "$cmd" "Install utils.sh to OT_PREFIX"
-cmd="mkdir -p $HOME/.opentox/config/install && cp config.sh $HOME/.opentox/config/install" && run_cmd "$cmd" "Install config.sh to CONFIG (~/.opentox)"
-. ./base-install.sh
+[ -f $OT_PREFIX/install/utils.sh ] || (cmd="mkdir -p $OT_PREFIX/install && cp utils.sh $OT_PREFIX/install" && run_cmd "$cmd" "Install utils.sh to OT_PREFIX")
+[ -f $HOME/.opentox/config/install/config.sh ] || (cmd="mkdir -p $HOME/.opentox/config/install && cp config.sh $HOME/.opentox/config/install" && run_cmd "$cmd" "Install config.sh to CONFIG (~/.opentox)")
+
+. ./base-install.sh # Debian specific; disable for others.
+
+if [ ! -d ~/.rbenv ]; then
+  cmd="$GIT clone git://github.com/sstephenson/rbenv.git ~/.rbenv" && run_cmd "$cmd" "rbenv"
+else
+  echo "NOTE: 'rbenv' already installed. Leaving untouched."
+fi
+
+if ! grep "rbenv" $OT_UI_CONF >/dev/null 2>&1 ; then
+  echo 'if ! echo "$PATH" | grep "$HOME/.rbenv/bin">/dev/null 2>&1; then export PATH="$HOME/.rbenv/bin:$PATH"; eval "$(rbenv init -)"; fi' >> $OT_UI_CONF
+fi
+
+[ -f $HOME/.opentox/config/ambit_descriptors.yaml ] || (cmd="cp ambit_descriptors.yaml $HOME/.opentox/config/" && run_cmd "$cmd" "Ambit keys file")
+[ -f $HOME/.opentox/config/jl_keys.yaml ] || (cmd="cp jl_keys.yaml $HOME/.opentox/config/" && run_cmd "$cmd" "Joelib keys file")
 
 echo
 echo "Installation finished."
