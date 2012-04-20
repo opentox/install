@@ -52,8 +52,8 @@ otupdate() {
 otstart() {
   otconfig
   otkill
-  sudo bash -c "nohup redis-server $HOME/opentox-ruby/redis-2.2.2/redis.conf >/dev/null 2>&1 &"
-  sudo bash -c "nohup nginx -c $HOME/opentox-ruby/nginx/conf/nginx.conf >/dev/null 2>&1 &"
+  sudo bash -c "source $HOME/.opentox-ui.sh; nohup redis-server $HOME/opentox-ruby/redis-*/redis.conf >/dev/null 2>&1 &"
+  sudo bash -c "source $HOME/.opentox-ui.sh; nohup nginx -c $HOME/opentox-ruby/nginx/conf/nginx.conf >/dev/null 2>&1 &"
   sleep 2
   if ! pgrep -u root nginx>/dev/null 2>&1; then echo "Failed to start nginx."; fi
   if ! pgrep -u root redis-server>/dev/null 2>&1; then echo "Failed to start redis."; fi
@@ -68,14 +68,14 @@ alias ottail='tail -f $HOME/.opentox/log/production.log'
 # Reload the server
 otreload() {
   otconfig
-  sudo bash -c "nginx -s reload"
+  sudo bash -c "source $HOME/.opentox-ui.sh; nginx -s reload"
 }
 
 # Kill the server
 otkill() {
   otconfig
   sudo killall -u root nginx >/dev/null 2>&1
-  sudo bash -c "redis-cli -p $OHM_PORT shutdown >/dev/null 2>&1"
+  sudo bash -c "source $HOME/.opentox-ui.sh; redis-cli -p $OHM_PORT shutdown >/dev/null 2>&1"
   while sudo ps x | grep PassengerWatchdog | grep -v grep >/dev/null 2>&1; do sleep 1; done
   while sudo ps x | grep Rack | grep -v grep >/dev/null 2>&1; do sleep 1; done
   for p in `pgrep -u root R 2>/dev/null`; do sudo kill -9 $p; done
