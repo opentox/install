@@ -52,8 +52,8 @@ otupdate() {
 otstart() {
   otconfig
   otkill
-  bash -c "nohup redis-server $HOME/opentox-ruby/redis-*/redis.conf >/dev/null 2>&1 &"
-  bash -c "nohup nginx -c $HOME/opentox-ruby/nginx/conf/nginx.conf >/dev/null 2>&1 &"
+  nice bash -c "nohup redis-server $HOME/opentox-ruby/redis-*/redis.conf >/dev/null 2>&1 &"
+  nice bash -c "nohup nginx -c $HOME/opentox-ruby/nginx/conf/nginx.conf >/dev/null 2>&1 &"
   sleep 2
   if ! pgrep -u $USER nginx>/dev/null 2>&1; then echo "Failed to start nginx."; fi
   if ! pgrep -u $USER redis-server>/dev/null 2>&1; then echo "Failed to start redis."; fi
@@ -79,5 +79,13 @@ otkill() {
   while ps x | grep PassengerWatchdog | grep -v grep >/dev/null 2>&1; do sleep 1; done
   while ps x | grep Rack | grep -v grep >/dev/null 2>&1; do sleep 1; done
   for p in `pgrep -u $USER R 2>/dev/null`; do kill -9 $p; done
+}
+
+# Check the server
+otcheck() {
+  check_service=`cat $HOME/.opentox/config/production.yaml  | grep opentox-algorithm | sed 's/.*\s//g' | sed 's/"//g'`
+  if [ -z "`curl -v $check_service 2>&1 | grep '200 OK'`" ]; then
+    otstart
+  fi
 }
 
