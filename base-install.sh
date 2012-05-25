@@ -36,18 +36,7 @@ echo
 echo "Updating index"
 sudo $APTITUDE update -y >/dev/null 2>&1
 
-echo
-echo "Checking installation:"
-pack_arr=""
-for p in $packs; do
-  if [ "un" != `$DPKG -l "$p" 2>/dev/null | tail -1 | awk -F " " '{print $1}'` ]; then
-     printf "%50s%30s\n" "'$p'" "Y"
-  else
-     printf "%50s%30s\n" "'$p'" "N"
-    pack_arr="$pack_arr $p"
-  fi
-done
-
+pack_arr=$packs
 if [ -n "$pack_arr" ]; then
   echo 
   echo "Checking availablity:"
@@ -70,12 +59,9 @@ fi
 
 echo
 if [ -n "$pack_arr" ]; then 
-  echo "Installing missing packages:"
+  cmd="sudo $APTITUDE -y install $pack_arr" && run_cmd "$cmd" "Installing packages"
 fi
 
-for p in $pack_arr; do
-  cmd="sudo $APTITUDE -y install $p" && run_cmd "$cmd" "$p"
-done
 
 if [ ! -f $JAVA_CONF ]; then
 
