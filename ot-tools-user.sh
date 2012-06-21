@@ -32,6 +32,12 @@ otupdate() {
     return 1
   fi
   cd -
+  cd $HOME/opentox-ruby/www/opentox/algorithm/bbrc-sample
+  if ! git pull; then
+    echo "Error! Pull for Bbrc-Sample failed."
+    return 1
+  fi
+  cd -
   cd opentox-ruby
   LINK_DIR=`gem which opentox-ruby | sed 's/\/opentox-ruby.rb//'`
   if [ -h $LINK_DIR ]; then 
