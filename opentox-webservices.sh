@@ -60,8 +60,8 @@ done
 # fminer etc
 cmd="test -f $HOME/.opentox/config/production.yaml" && run_cmd "$cmd" "Config present"
 cd "$WWW_DEST/opentox/algorithm" >>$LOG 2>&1
-cmd="$GIT submodule init" && run_cmd "$cmd" "Fminer Init"
-cmd="$GIT submodule update" && run_cmd "$cmd" "Fminer Update"
+cmd="$GIT submodule init" && run_cmd "$cmd" "Submodules init"
+cmd="$GIT submodule update" && run_cmd "$cmd" "Submodules update"
 cd "libfminer/libbbrc">>$LOG 2>&1
 $GIT checkout $OT_BRANCH>>$LOG 2>&1
 $GIT pull >>$LOG 2>&1
@@ -81,6 +81,10 @@ cd "libfminer/liblast">>$LOG 2>&1
 cmd="make ruby" && run_cmd "$cmd" "Make LAST"
 cd - >>$LOG 2>&1
 cd "last-utils">>$LOG 2>&1
+$GIT checkout $OT_BRANCH>>$LOG 2>&1
+$GIT pull >>$LOG 2>&1
+cd - >>$LOG 2>&1
+cd "bbrc-sample">>$LOG 2>&1
 $GIT checkout $OT_BRANCH>>$LOG 2>&1
 $GIT pull >>$LOG 2>&1
 
