@@ -1,11 +1,6 @@
 #!/bin/sh
-
-# Main OpenTox installer for user installation
+# Main Opentox-ruby install script
 # Author: Christoph Helma, Andreas Maunz
-
-# Creates OT_PREFIX and ~/.opentox (CONFIG). The latter contains OT_UI_CONF (see README).
-# Installs shell libraries and installer configuration to support installation of services.
-# Installs rbenv to support custom ruby versions for services.
 
 if [ "$(id -u)" = "0" ]; then
   echo "This script must not be run as root" 1>&2
@@ -41,6 +36,7 @@ read delete_me
 echo 
 echo -n "We need to do some privileged action. "
 sudo echo -n ""
+echo
 
 [ -f $OT_PREFIX/install/utils.sh ] || (cmd="mkdir -p $OT_PREFIX/install && cp utils.sh $OT_PREFIX/install" && run_cmd "$cmd" "Install utils.sh to OT_PREFIX")
 [ -f $HOME/.opentox/config/install/config.sh ] || (cmd="mkdir -p $HOME/.opentox/config/install && cp config.sh $HOME/.opentox/config/install" && run_cmd "$cmd" "Install config.sh to CONFIG (~/.opentox)")
