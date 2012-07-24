@@ -8,59 +8,63 @@ if [ "$(id -u)" = "0" ]; then
 fi
 
 echo
-echo "Warning! If all IST services are stoppped press return, else <Ctrl+C> to stop installation."
-echo "Note: Your data will be backupped."
-read help_var
-echo 
+echo "OpenTox Ruby"
+echo "Hit <Return> If all services are stoppped, else hit <Ctrl+C>."
+read delete_me
 
-mkdir -p $HOME/tmp/ >/dev/null 2>&1
+echo "Note: CONFIG (~/.opentox) will be backupped."
+mkdir -p $OT_PREFIX/tmp/ >/dev/null 2>&1
 DATE=`date +_%Y%m%d_%H_%M`
-if [ -f "$HOME/.opentox-ui.sh" ]
-then
-  mv -v --backup=numbered $HOME/.opentox-ui.sh $HOME/.opentox-ui.sh$DATE
-else
-  echo "$HOME/.opentox-ui.sh not found (nothing to backup)."
-fi
-if [ -d "$HOME/.opentox" ]
-then
-  mv -v --backup=numbered -T $HOME/.opentox $HOME/.opentox$DATE
-else
-  echo "$HOME/.opentox not found (nothing to backup)."
-fi
-if [ -d "$HOME/opentox-ruby" ]
-then
-  mv -v --backup=numbered -T $HOME/opentox-ruby $HOME/opentox-ruby$DATE
-else
-  echo "$HOME/opentox-ruby not found (nothing to backup)."
-fi 
-LOG="$HOME/tmp/`basename $0`-log.txt"
-. "./utils.sh"
+echo "Backups (if any):"
+backup_targets="$HOME/.opentox $HOME/opentox-ruby"
+for bt in $backup_targets; do
+  if [ -f $bt ]; then
+    mv -v --backup=numbered $bt $bt$DATE
+  elif [ -d $bt ]; then
+    mv -v --backup=numbered -T $bt $bt$DATE
+  fi
+done
+echo "Backup finished."
+
+. ./utils.sh
+
+LOG="$OT_PREFIX/tmp/`basename $0`.log"
 echo
-echo "Opentox-ruby installation."
-echo "You may need to give root password for some privileged actions right now and later:"
+echo "Welcome to base installation for OpenTox compatible services on Ruby and Debian."
+echo "IMPORTANT: Hit <Ctrl+C> to adjust config.sh first (<Return> to continue)."
+read delete_me
+echo 
+echo -n "We need to do some privileged action. "
+sudo echo -n ""
 echo
-cmd="sudo echo -n \"\"" && run_cmd "$cmd" "Acquire privileges"
 
-echo "Cleaning up $HOME/tmp files."
-rm -rf $HOME/tmp/openbabel* $HOME/tmp/kernlab* $HOME/tmp/ruby*
+[ -f $OT_PREFIX/install/utils.sh ] || (cmd="mkdir -p $OT_PREFIX/install && cp utils.sh $OT_PREFIX/install" && run_cmd "$cmd" "Install utils.sh to OT_PREFIX")
+[ -f $HOME/.opentox/config/install/config.sh ] || (cmd="mkdir -p $HOME/.opentox/config/install && cp config.sh $HOME/.opentox/config/install" && run_cmd "$cmd" "Install config.sh to CONFIG (~/.opentox)")
 
-. "./base-install.sh"
-. "./ruby.sh"
-. "./openbabel.sh"
-. "./kernlab.sh"
-. "./opentox-ruby.sh"
+. ./base-install.sh # Debian specific; disable for others.
 
-if [ "$install" != "gem" ]
-then
-  . "./nginx.sh"
-  . "./redis.sh"
-  . "./opentox-webservices.sh"
+if [ ! -d ~/.rbenv ]; then
+  cmd="$GIT clone git://github.com/sstephenson/rbenv.git ~/.rbenv" && run_cmd "$cmd" "rbenv"
+else
+  echo "NOTE: 'rbenv' already installed. Leaving untouched."
 fi
 
+if ! grep "rbenv" $OT_UI_CONF >/dev/null 2>&1 ; then
+  echo 'if ! echo "$PATH" | grep "$HOME/.rbenv/bin">/dev/null 2>&1; then export PATH="$HOME/.rbenv/bin:$PATH"; eval "$(rbenv init -)"; fi' >> $OT_UI_CONF
+fi
+
+[ -f $HOME/.opentox/config/ambit_descriptors.yaml ] || (cmd="cp ambit_descriptors.yaml $HOME/.opentox/config/" && run_cmd "$cmd" "Ambit keys file")
+[ -f $HOME/.opentox/config/jl_keys.yaml ] || (cmd="cp jl_keys.yaml $HOME/.opentox/config/" && run_cmd "$cmd" "Joelib keys file")
+
 echo
-echo "Installation finished and system configured."
-echo "Destination: '$OT_PREFIX'" 
-echo "Nginx: '$NGINX_DEST'"
-echo "Redis: '$REDIS_DEST'"
-echo "IMPORTANT: Include the file '$OT_UI_CONF' in your shell or system startup to have the system automatically configured."
+echo "Installation finished."
+echo "Destination (OT_PREFIX): '$OT_PREFIX'" 
+echo
+echo "IMPORTANT: How to configure your system:"
+echo "IMPORTANT: a) Include '$OT_UI_CONF' in shell startup (e.g. ~/.bashrc)."
+echo "IMPORTANT: b) Manually source '$OT_UI_CONF' every time."
+echo "IMPORTANT: The command in both cases: '. $OT_UI_CONF'"
+echo "IMPORTANT: NOW would be the best time to configure!"
+echo
+echo "Thank you for your attention."
 echo

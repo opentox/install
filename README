@@ -1,30 +1,23 @@
 POSIX compatible Installer for OpenTox IST/ALU Services
 =======================================================
 
-A) It is assumed that your system is configured for sudo to gain root privileges.
-B) It is assumed that your system is configured for using non-free packages.
-
-This is a POSIX-compliant  (not limited to a particular shell) Opentox installer. Please report bugs always via GitHub.
+Author: Andreas Maunz
+This is a POSIX-compliant (not limited to a particular shell) OpenTox required packages installer for Debian. It also prepares the base directory (referred to as OT_PREFIX) for OpenTox REST services and provides libraries for the installation and shell integration of those services. 
+Please report bugs via GitHub at http://github.com/opentox/install.
 
 Here are some of my goals when writing the installer:
-- Safe (existence of all the binaries will be checked before running, apart from GNU Core Utils)
-- Idempotent (multiple execution does not change a thing)
-- Atomic (return value of each non-elemtary action is asserted to be TRUE)
-- Encapsulated (everything is installed in a sub-directory in $HOME)
-- Logged (all non-elemtary actions are logged)
+- Safe (existence of all binaries will be checked before running, apart from GNU Core Utils)
+- Idempotent (multiple execution incurs no changes to the system)
+- Atomic (return value of non-elementary actions asserted to be TRUE)
+- Encapsulated (everything installed in OT_PREFIX; applies to services)
+- Logged (all non-elementary actions are logged)
 
+Requirements:
+A) Debian or compatible (tested on Ubuntu 11.10).
+B) Users may gain root privileges using 'sudo'.
 
-Configure your system in config.sh. NOTE for variable NGINX_PORT: leave this empty or set to ":80" to use port 80. If you do this, use the ot-scripts in "ot-tools-root.sh". Otherwise, if NGINX_PORT >1024, use ot-scripts in "ot-tools-user.sh".
+Usage:
+Configure the installer in config.sh, then run 'install'. Then configure your system by adding a line to the startup file of your favorite shell (e.g. BASH with the file '~/.bashrc') to read in '~/.opentox/.opentox-ui.sh' (e.g. with 'source ~/.opentox/.opentox-ui.sh'), so any newly started shell will be completely configured. To uninstall, simply remove the line from the startup file. To save disc space also remove directory OT_PREFIX. To remove also your configuration, remove $HOME/.opentox.
 
-Even if we officially support only *one* distro (currently Debian 6.0.1), I tested the installer successfully on various Ubuntus. In this README at the top are the requirements of the installer. By default, everything is installed to $HOME/opentox-ruby (=OT_PREFIX). The configs go to OT_PREFIX/.sh_<Package>_ot.sh for each package.
-
-After running the installer, configure the system by editing the startup file of your favorite shell (in my case, BASH with the file ~ /. bashrc) to include ~/.opentox-ui.sh (in my case with 'source ...'). This file is the only one that the installer creates outside OT_PREFIX. Thus, the system is fully configured: If you now open a new shell, all environment variables will be adjusted.
-
-To start the system I run the following (but that is not part of the installer):
-nohup $HOME/opentox-ruby/redis-2.2.2/src/redis-server $HOME/opentox-ruby/redis-2.2.2/redis.conf &
-nohup $HOME/opentox-ruby/nginx/sbin/nginx -c $HOME/opentox-ruby/nginx/conf/nginx.conf &
-
-To uninstall the system simply delete the link from the startup file: Done. To save disc space delete directory OT_PREFIX.
-Anyone can run multiple Opentox versions on the same machine: Just install again, but to a different OT_PREFIX. The switch works manually: Include the sh_<Package>_ot.sh files from the desired OT_PREFIX in $HOME/opentox-ui.sh (only one installation may be activated  at any time).
-
+You can run multiple Opentox versions on the same machine: Just install again as a different user.
 

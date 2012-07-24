@@ -1,13 +1,13 @@
 #!/bin/sh
-#
-# Installs base packages for Ubuntu
-# Author: Andreas Maunz
-#
-# Your installed packages are safe and will not be updated.
-# A Java configuration is created and included in your '$OT_UI_CONF'.
 
-. "`pwd`/utils.sh"
-DIR="`pwd`"
+# Installs required packages on Debian and compatible systems.
+# Author: Andreas Maunz
+
+# NOTE: Your installed packages are safe and will not be updated.
+# Java configuration is included in '$OT_UI_CONF'.
+
+. ./utils.sh
+DIR=`pwd`
 
 if [ "$(id -u)" = "0" ]; then
   echo "This script must not be run as root" 1>&2
@@ -15,19 +15,12 @@ if [ "$(id -u)" = "0" ]; then
 fi
 
 # Utils
-APTITUDE="`which aptitude`"
-APT_CACHE="`which apt-cache`"
-DPKG="`which dpkg`"
-
-if [ ! -e "$APTITUDE" ]; then
-  echo "Aptitude missing. Install aptitude first." 1>&2
-  exit 1
-fi
+check_utils "aptitude git apt-cache dpkg"
 
 touch $OT_UI_CONF
 
 # Pkgs
-packs="binutils build-essential git-core gnuplot hostname libcurl4-openssl-dev libgsl0-dev libreadline6-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev libxslt1-dev lsb-release openjdk-6-jdk psmisc pwgen raptor-utils r-base r-base-core r-base-dev sqlite3 wget xsltproc zlib1g-dev"
+packs="binutils build-essential cmake curl gnuplot hostname libcurl4-openssl-dev libgsl0-dev libopenbabel4 libopenbabel-dev libraptor1-dev libreadline6-dev libreadline-dev libsqlite3-dev libssl-dev libyaml-dev libxml2-dev libxslt1-dev lsb-release openjdk-6-jdk psmisc pwgen raptor-utils r-base r-base-core r-base-dev sqlite3 udev wget xsltproc zlib1g-dev"
 
 echo
 echo "Base Packages:"
@@ -42,9 +35,9 @@ if [ -n "$pack_arr" ]; then
   echo "Checking availablity:"
   for p in $pack_arr; do
     if [ -n "`$APT_CACHE search $p`" ] ; then
-       printf "%50s%30s\n" "'$p'" "Y"
+       printf "%30s%50s\n" $p Y
     else
-      printf "%50s%30s\n" "'$p'" "N"
+      printf "%30s%50s\n" $p N
       pack_fail="$pack_fail $p"
     fi
   done
@@ -76,7 +69,7 @@ if [ ! -f $JAVA_CONF ]; then
 
   echo "Java configuration has been stored in '$JAVA_CONF'."
   if ! grep "$JAVA_CONF" $OT_UI_CONF >/dev/null 2>&1; then
-    echo ". \"$JAVA_CONF\"" >> $OT_UI_CONF
+    echo '. '$JAVA_CONF >> $OT_UI_CONF
   fi
 fi
 
