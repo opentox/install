@@ -1,11 +1,9 @@
 #!/bin/sh
+
 # Main Opentox-ruby install script
 # Author: Christoph Helma, Andreas Maunz
 
-if [ "$(id -u)" = "0" ]; then
-  echo "This script must not be run as root" 1>&2
-  exit 1
-fi
+[ "`id -u`" = "0" ] && echo "This script must not be run as root" 1>&2 && exit 1
 
 echo
 echo "OpenTox Ruby"
@@ -41,7 +39,8 @@ echo
 [ -f $OT_PREFIX/install/utils.sh ] || (cmd="mkdir -p $OT_PREFIX/install && cp utils.sh $OT_PREFIX/install" && run_cmd "$cmd" "Install utils.sh to OT_PREFIX")
 [ -f $HOME/.opentox/config/install/config.sh ] || (cmd="mkdir -p $HOME/.opentox/config/install && cp config.sh $HOME/.opentox/config/install" && run_cmd "$cmd" "Install config.sh to CONFIG (~/.opentox)")
 
-. ./base-install.sh # Debian specific; disable for others.
+. ./base-install # Debian specific; disable this for others.
+./4store-install # Download, compile and build 4store. Install to OT_PREFIX.
 
 if [ ! -d ~/.rbenv ]; then
   cmd="$GIT clone git://github.com/sstephenson/rbenv.git ~/.rbenv" && run_cmd "$cmd" "rbenv"
@@ -56,15 +55,5 @@ fi
 [ -f $HOME/.opentox/config/ambit_descriptors.yaml ] || (cmd="cp ambit_descriptors.yaml $HOME/.opentox/config/" && run_cmd "$cmd" "Ambit keys file")
 [ -f $HOME/.opentox/config/jl_keys.yaml ] || (cmd="cp jl_keys.yaml $HOME/.opentox/config/" && run_cmd "$cmd" "Joelib keys file")
 
-echo
-echo "Installation finished."
-echo "Destination (OT_PREFIX): '$OT_PREFIX'" 
-echo
-echo "IMPORTANT: How to configure your system:"
-echo "IMPORTANT: a) Include '$OT_UI_CONF' in shell startup (e.g. ~/.bashrc)."
-echo "IMPORTANT: b) Manually source '$OT_UI_CONF' every time."
-echo "IMPORTANT: The command in both cases: '. $OT_UI_CONF'"
-echo "IMPORTANT: NOW would be the best time to configure!"
-echo
-echo "Thank you for your attention."
-echo
+notify
+

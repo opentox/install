@@ -1,0 +1,43 @@
+#!/bin/sh
+
+# Installs 4store on Debian and compatible systems.
+# Author: Andreas Maunz
+
+DIR=`pwd`
+
+# Boot
+. ./utils.sh || (echo "Utils could not be loaded, check opentox-ui.sh." 1>&2 && exit 1)
+SELF=$(basename $0 -install)
+check_log $SELF
+[ "`id -u`" = "0" ] && echo "This script must not be run as root" 1>&2 && exit 1
+check_utils "git make"
+
+# Build
+cd $OT_PREFIX/tmp/
+([ -d $SELF ] && cd $SELF && cmd="$GIT pull" && run_cmd "$cmd" "Git pull") || (cmd="$GIT clone https://github.com/garlik/$SELF" && run_cmd "$cmd" "Git clone")
+cd $SELF
+cmd="./autogen.sh" && run_cmd "$cmd" "Autogen"
+export FST=$HOME/4S
+cmd="./configure --prefix=$FST --exec-prefix=$FST --with-storage-path=$FST/var/lib --with-config-file=$FST/$SELF.conf -with-http-log=$FST/log" && run_cmd "$cmd" "Configure"
+cmd="make" && run_cmd "$cmd" "Make"
+cmd="make install" && run_cmd "$cmd" "Make Install"
+#cmd="make test" && run_cmd "$cmd" "Make Test"
+
+# Config
+echo "if echo \"\$LD_LIBRARY_PATH\" | grep -v \"$FST/lib\">/dev/null 2>&1; then export LD_LIBRARY_PATH=\"\$LD_LIBRARY_PATH:$FST/lib\"; fi" >> "$FST_CONF"
+echo "$SELF configuration has been stored in '$FST_CONF'."
+if ! grep "$FST_CONF" $OT_UI_CONF >/dev/null 2>&1; then
+  echo '. '$FST_CONF >> $OT_UI_CONF
+fi
+
+# Testing code --- unused
+#export LD_LIBRARY_PATH=$FST/lib
+#cd $FST
+#bin/4s-backend-setup test
+#bin/4s-backend test
+#bin/4s-httpd -D -H localhost -p 8000 test # -D only for testing
+
+notify
+
+# return to wd
+cd $DIR

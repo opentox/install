@@ -23,6 +23,7 @@ RUBY_DWL="http://ftp.ruby-lang.org/pub/ruby/1.9"
 
 ### Nothing to gain from changes below this line.
 JAVA_CONF="$HOME/.opentox/sh_java"
+FST_CONF="$HOME/.opentox/sh_4S"
 OB_CONF="$HOME/.opentox/sh_OB"
 R_CONF="$HOME/.opentox/sh_R"
 OT_UI_CONF="$HOME/.opentox/opentox-ui.sh"

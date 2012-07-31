@@ -6,27 +6,21 @@
 # NOTE: Your installed packages are safe and will not be updated.
 # Java configuration is included in '$OT_UI_CONF'.
 
-. ./utils.sh
 DIR=`pwd`
 
-if [ "$(id -u)" = "0" ]; then
-  echo "This script must not be run as root" 1>&2
-  exit 1
-fi
-
-# Utils
+# Boot
+. ./utils.sh || (echo "Utils could not be loaded, check opentox-ui.sh" 1>&2 && exit 1)
+# Not logged
+# Not logged
+[ "`id -u`" = "0" ] && echo "This script must not be run as root" 1>&2 && exit 1
 check_utils "aptitude git apt-cache dpkg"
 
-touch $OT_UI_CONF
-
 # Pkgs
-packs="binutils build-essential cmake curl gnuplot hostname libcurl4-openssl-dev libgsl0-dev libopenbabel4 libopenbabel-dev libraptor1-dev libreadline6-dev libreadline-dev libsqlite3-dev libssl-dev libyaml-dev libxml2-dev libxslt1-dev lsb-release openjdk-6-jdk psmisc pwgen raptor-utils r-base r-base-core r-base-dev sqlite3 udev wget xsltproc zlib1g-dev"
-
+packs="build-essential cmake libgsl0-dev libopenbabel4 libopenbabel-dev libtool openjdk-6-jdk r-base r-base-dev libpcre3-dev librasqal3-dev libtool libraptor1-dev libglib2.0-dev ncurses-dev libreadline-dev uuid-dev"
 echo
 echo "Base Packages:"
-
 echo
-echo "Updating index"
+echo "Updating index..."
 sudo $APTITUDE update -y >/dev/null 2>&1
 
 pack_arr=$packs
@@ -52,7 +46,9 @@ fi
 
 echo
 if [ -n "$pack_arr" ]; then 
-  cmd="sudo $APTITUDE -y install $pack_arr" && run_cmd "$cmd" "Installing packages"
+  echo
+  echo "Installing packages"
+  sudo $APTITUDE -y install $pack_arr
 fi
 
 

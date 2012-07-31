@@ -6,6 +6,7 @@
 # Functions to install ruby and install services with bundler.
 # Ensures presence of ~/.opentox (CONFIG) and OT_PREFIX.
 
+# create a temporary directory in OT_PREFIX and a log directory in .opentox
 check_dest() 
 {
   [ -d "$OT_PREFIX/tmp" ] || mkdir -p "$OT_PREFIX/tmp"
@@ -20,11 +21,30 @@ check_dest()
   fi
 }
 
+# export a LOG file name
+check_log()
+{
+  local name="$1"
+  if [ -z "$LOG" ]; then
+    LOG="$OT_PREFIX/tmp/$name.log"
+    echo
+    printf "\033[1m%s\033[m\n" "$name ('$LOG'):"
+    echo
+  fi
+}
+
+# run a shell command
+# Signal exit status by formatted string
+# @param cmd command to execute 
+# @param title textual description of command
+# @example {
+#   run_cmd "ls" "list dir"
+# }
 run_cmd ()
 {
   local cmd="$1"; local title="$2"
   printf "%50s" "$title"
-  if ! eval $cmd >>$LOG 2>&1 ; then  
+  if ! eval "$cmd" >>$LOG 2>&1 ; then  
     printf "                              [ \033[31m%s\033[m ]\n" "FAIL"
     echo "Last 10 lines of log:"
     tail -10 "$LOG"
@@ -34,6 +54,11 @@ run_cmd ()
 }
 
 
+# stop if required binaries not in path
+# @param list of binaries
+# @example {
+#   check_utils "git curl"
+# }
 check_utils() {
   for u in $1; do
     eval `echo $u | tr "[:lower:]" "[:upper:]" | tr "-" "_"`=`which $u` || (echo "'$u' missing. Install '$u' first." 1>&2 && exit 1)
@@ -41,6 +66,8 @@ check_utils() {
 }
 
 
+# install ruby using rbenv
+# configure the version in config.sh
 install_ruby() {
   printf "\n%50s\n" "RUBY"
   local DIR=`pwd`
@@ -57,7 +84,7 @@ install_ruby() {
   cmd="$RBENV local $RUBY_NUM_VER" && run_cmd "$cmd" "Rbenv set ruby"
 }
 
-
+# install a ruby gem using bundler
 install_with_bundler() {
   printf "\n%50s\n" "INSTALL"
   check_utils "gem rbenv"
@@ -66,7 +93,25 @@ install_with_bundler() {
   cmd="bundle install" && run_cmd "$cmd" "Install using bundler"
 }
 
+# emit notification if caller was the shell (the user), see http://goo.gl/grCOk
+notify() {
+  echo
+  echo "Installation succesful"
+  echo
+  if ps -o stat= -p $PPID | grep "s" >/dev/null 2>&1; then
+    echo "IMPORTANT: How to configure your system:"
+    echo "IMPORTANT: a) Include '$OT_UI_CONF' in shell startup (e.g. ~/.bashrc)."
+    echo "IMPORTANT: b) Manually source '$OT_UI_CONF' every time."
+    echo "IMPORTANT: The command in both cases: '. $OT_UI_CONF'"
+    echo "IMPORTANT: NOW would be the best time to configure!"
+    echo
+    echo "Thank you for your attention."
+    echo
+  fi
+}
 
+
+# Force loading configuration from local, if we are installing for the first time
 if [ -z "$OT_PREFIX" ]; then
   . ./config.sh
 else
