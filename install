@@ -40,6 +40,7 @@ echo
 [ -f $HOME/.opentox/config/install/config.sh ] || (cmd="mkdir -p $HOME/.opentox/config/install && cp config.sh $HOME/.opentox/config/install" && run_cmd "$cmd" "Install config.sh to CONFIG (~/.opentox)")
 
 . ./base-install # Debian specific; disable this for others.
+./raptor_rasqal.sh
 ./4store-install # Download, compile and build 4store. Install to OT_PREFIX.
 
 if [ ! -d ~/.rbenv ]; then

@@ -1,0 +1,33 @@
+#!/bin/sh
+DIR=`pwd`
+
+# Boot
+. ./utils.sh || (echo "Utils could not be loaded, check opentox-ui.sh." 1>&2 && exit 1)
+SELF=$(basename $0 -install)
+check_log $SELF
+#[ "`id -u`" = "0" ] && echo "This script must not be run as root" 1>&2 && exit 1
+check_utils "wget tar make"
+
+mkdir -p $PREFIX/tmp
+cd $OT_PREFIX/tmp/
+$WGET http://download.librdf.org/source/raptor2-2.0.8.tar.gz
+$TAR xvzf raptor2-2.0.8.tar.gz
+rm raptor2-2.0.8.tar.gz
+cd raptor2-2.0.8
+./configure
+$MAKE
+sudo $MAKE install
+sudo /sbin/ldconfig
+cd ..
+
+$WGET http://download.librdf.org/source/rasqal-0.9.29.tar.gz
+$TAR xvzf tmp/rasqal-0.9.29.tar.gz
+rm rasqal-0.9.29.tar.gz
+cd rasqal-0.9.29
+./configure
+$MAKE
+sudo $MAKE install
+sudo /sbin/ldconfig
+
+cd $DIR
+

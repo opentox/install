@@ -98,7 +98,7 @@ ot_git_download(){
   printf "\n%50s\n" "GIT DOWNLOAD"
   check_utils "git"
   cd $OT_PREFIX
-  cmd="git clone git@github.com:opentox/$SERVICE.git" && run_cmd "$cmd" "Downloading $SERVICE git repository"
+  cmd="$GIT clone git@github.com:opentox/$SERVICE.git" && run_cmd "$cmd" "Downloading $SERVICE git repository"
 }
 
 # install opentox service
@@ -108,7 +108,8 @@ install_ot_service(){
   cd $OT_PREFIX
   ot_git_download
   cd $SERVICE
-  git checkout $OT_BRANCH  
+  $GIT checkout $OT_BRANCH  >>$LOG 2>&1
+  $RBENV local $RUBY_NUM_VER 
   case "$SERVICE" in
     opentox-server) install_with_bundler;;
     opentox-client) install_with_bundler;;

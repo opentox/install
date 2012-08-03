@@ -30,6 +30,8 @@ if ! grep "$FST_CONF" $OT_UI_CONF >/dev/null 2>&1; then
   echo '. '$FST_CONF >> $OT_UI_CONF
 fi
 
+mkdir -p $FST/log
+
 # Testing code --- unused
 #export LD_LIBRARY_PATH=$FST/lib
 #cd $FST
