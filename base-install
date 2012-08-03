@@ -15,42 +15,22 @@ DIR=`pwd`
 [ "`id -u`" = "0" ] && echo "This script must not be run as root" 1>&2 && exit 1
 check_utils "aptitude git apt-cache dpkg"
 
-# Pkgs
-packs="build-essential cmake libgsl0-dev libopenbabel4 libopenbabel-dev libtool openjdk-6-jdk r-base r-base-dev libpcre3-dev librasqal3-dev libtool libraptor1-dev libglib2.0-dev ncurses-dev libreadline-dev uuid-dev"
 echo
 echo "Base Packages:"
 echo
 echo "Updating index..."
 sudo $APTITUDE update -y >/dev/null 2>&1
 
-pack_arr=$packs
-if [ -n "$pack_arr" ]; then
-  echo 
-  echo "Checking availablity:"
-  for p in $pack_arr; do
-    if [ -n "`$APT_CACHE search $p`" ] ; then
-       printf "%30s%50s\n" $p Y
-    else
-      printf "%30s%50s\n" $p N
-      pack_fail="$pack_fail $p"
-    fi
-  done
-fi
+DISTRIB_INFO=$(cat /proc/version)
 
-if [ -n "$pack_fail" ]; then
-  echo 
-  echo "WARNING: At least one missing package has no suitable installation candidate."
-  echo "Press <Ctrl+C> to abort (5 sec)."
-  sleep 5
-fi
+case "$DISTRIB_INFO" in
+  *Debian*) echo "Debian found."; echo "$DIR/debian.list"; PACK_LIST="$DIR/debian.list";;
+  *Ubuntu*) PACK_LIST="ubuntu.list";;
+  *) PACK_LIST="debian.list";;
+esac
 
-echo
-if [ -n "$pack_arr" ]; then 
-  echo
-  echo "Installing packages"
-  sudo $APTITUDE -y install $pack_arr
-fi
-
+sudo dpkg --set-selections < "$PACK_LIST"
+sudo apt-get -y -u dselect-upgrade
 
 if [ ! -f $JAVA_CONF ]; then
 

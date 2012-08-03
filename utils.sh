@@ -93,6 +93,30 @@ install_with_bundler() {
   cmd="bundle install" && run_cmd "$cmd" "Install using bundler"
 }
 
+# download opentox git repo
+ot_git_download(){
+  printf "\n%50s\n" "GIT DOWNLOAD"
+  check_utils "git"
+  cd $OT_PREFIX
+  cmd="git clone git@github.com:opentox/$SERVICE.git" && run_cmd "$cmd" "Downloading $SERVICE git repository"
+}
+
+# install opentox service
+install_ot_service(){
+  printf "\n%50s\n" "$SERVICE"
+  local DIR=`pwd`
+  cd $OT_PREFIX
+  ot_git_download
+  cd $SERVICE
+  git checkout development
+  case "$SERVICE" in
+    opentox-server) install_with_bundler;;
+    opentox-client) install_with_bundler;;
+    *) cd bin; for f in `ls`; do ./$f; done;; 
+  esac
+  cd $DIR
+}
+
 # emit notification if caller was the shell (the user), see http://goo.gl/grCOk
 notify() {
   echo
