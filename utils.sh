@@ -108,7 +108,7 @@ install_ot_service(){
   cd $OT_PREFIX
   ot_git_download
   cd $SERVICE
-  git checkout development
+  git checkout $OT_BRANCH  
   case "$SERVICE" in
     opentox-server) install_with_bundler;;
     opentox-client) install_with_bundler;;
