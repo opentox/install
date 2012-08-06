@@ -1,6 +1,7 @@
 #!/bin/sh
 DIR=`pwd`
-
+RAPTOR2=raptor2-2.0.8
+RASQAL=rasqal-0.9.29
 # Boot
 . ./utils.sh || (echo "Utils could not be loaded, check opentox-ui.sh." 1>&2 && exit 1)
 SELF=$(basename $0 -install)
@@ -8,26 +9,40 @@ check_log $SELF
 #[ "`id -u`" = "0" ] && echo "This script must not be run as root" 1>&2 && exit 1
 check_utils "wget tar make"
 
+# Build
 mkdir -p $PREFIX/tmp
 cd $OT_PREFIX/tmp/
-$WGET http://download.librdf.org/source/raptor2-2.0.8.tar.gz
-$TAR xvzf raptor2-2.0.8.tar.gz
-rm raptor2-2.0.8.tar.gz
-cd raptor2-2.0.8
-./configure
-$MAKE
-sudo $MAKE install
-sudo /sbin/ldconfig
+cmd="$WGET http://download.librdf.org/source/"$RAPTOR2".tar.gz" && run_cmd "$cmd" "Download $RAPTOR2"
+cmd="$WGET http://download.librdf.org/source/"$RASQAL".tar.gz" && run_cmd "$cmd" "Download $RASQAL"
+export RAPTOR2_DIR=$OT_PREFIX/$SELF/$RAPTOR2
+cmd="$TAR xvzf "$RAPTOR2".tar.gz" && run_cmd "$cmd" "Unzip $RAPTOR2" 
+rm $RAPTOR2.tar.gz
+cd $RAPTOR2
+cmd="./configure --prefix=$RAPTOR2_DIR --exec-prefix=$RAPTOR2_DIR --with-storage-path=$RAPTOR2_DIR/var/lib --with-config-file=$RAPTOR2_DIR/$SELF.conf -with-http-log=$RAPTOR2_DIR/log" && run_cmd "$cmd" "Configure"
+cmd="$MAKE" && run_cmd "$cmd" "Make"
+cmd="$MAKE install" && run_cmd "$cmd" "Make Install"
 cd ..
 
-$WGET http://download.librdf.org/source/rasqal-0.9.29.tar.gz
-$TAR xvzf tmp/rasqal-0.9.29.tar.gz
-rm rasqal-0.9.29.tar.gz
-cd rasqal-0.9.29
-./configure
-$MAKE
-sudo $MAKE install
-sudo /sbin/ldconfig
+export RASQAL_DIR=$OT_PREFIX/$SELF/$RASQAL
+cmd="$TAR xvzf "$RASQAL".tar.gz" && run_cmd "$cmd" "Unzip $RASQAL"
+rm $RASQAL.tar.gz
+cd $RASQAL
+cmd="./configure --prefix=$RASQAL_DIR --exec-prefix=$RASQAL_DIR --with-storage-path=$RASQAL_DIR/var/lib --with-config-file=$RASQAL_DIR/$SELF.conf -with-http-log=$RASQAL_DIR/log" && run_cmd "$cmd" "Configure"
+cmd="$MAKE" && run_cmd "$cmd" "Make"
+cmd="$MAKE install" && run_cmd "$cmd" "Make Install"
+cd ..
+
+# Config
+echo "if echo \"\$LD_LIBRARY_PATH\" | grep -v \"$RAPTOR2_DIR/lib\">/dev/null 2>&1; then export LD_LIBRARY_PATH=\"\$LD_LIBRARY_PATH:$RAPTOR2_DIR/lib\"; fi" >> "$RAPTOR2_CONF"
+echo "$SELF configuration has been stored in '$RAPTOR2_CONF'."
+if ! grep "$RAPTOR2_CONF" $OT_UI_CONF >/dev/null 2>&1; then
+  echo '. '$RAPTOR2_CONF >> $OT_UI_CONF
+fi
+
+echo "if echo \"\$LD_LIBRARY_PATH\" | grep -v \"$RASQAL_DIR/lib\">/dev/null 2>&1; then export LD_LIBRARY_PATH=\"\$LD_LIBRARY_PATH:$RASQAL_DIR/lib\"; fi" >> "$RASQAL_CONF"
+echo "$RASQAL configuration has been stored in '$RASQAL_CONF'."
+if ! grep "$RASQAL_CONF" $OT_UI_CONF >/dev/null 2>&1; then
+  echo '. '$RASQAL_CONF >> $OT_UI_CONF
+fi
 
 cd $DIR
-

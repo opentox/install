@@ -26,6 +26,8 @@ JAVA_CONF="$HOME/.opentox/sh_java"
 FST_CONF="$HOME/.opentox/sh_4S"
 OB_CONF="$HOME/.opentox/sh_OB"
 R_CONF="$HOME/.opentox/sh_R"
+RAPTOR2_CONF="$HOME/.opentox/sh_RAPTOR2"
+RASQAL_CONF="$HOME/.opentox/sh_RASQAL"
 OT_UI_CONF="$HOME/.opentox/opentox-ui.sh"
 
 OB_VER="openbabel-$OB_NUM_VER"
