@@ -21,8 +21,16 @@ cd $RAPTOR2
 cmd="./configure --prefix=$RAPTOR2_DIR --exec-prefix=$RAPTOR2_DIR --with-storage-path=$RAPTOR2_DIR/var/lib --with-config-file=$RAPTOR2_DIR/$SELF.conf -with-http-log=$RAPTOR2_DIR/log" && run_cmd "$cmd" "Configure"
 cmd="$MAKE" && run_cmd "$cmd" "Make"
 cmd="$MAKE install" && run_cmd "$cmd" "Make Install"
+# Config
+echo "if echo \"\$LD_LIBRARY_PATH\" | grep -v \"$RAPTOR2_DIR/lib\">/dev/null 2>&1; then export LD_LIBRARY_PATH=\"\$LD_LIBRARY_PATH:$RAPTOR2_DIR/lib\"; fi" >> "$RAPTOR2_CONF"
+echo "$SELF configuration has been stored in '$RAPTOR2_CONF'."
+if ! grep "$RAPTOR2_CONF" $OT_UI_CONF >/dev/null 2>&1; then
+  echo '. '$RAPTOR2_CONF >> $OT_UI_CONF
+fi
 cd ..
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH":"$RAPTOR2_DIR"/lib"
 
+#Build
 export RASQAL_DIR=$OT_PREFIX/$SELF/$RASQAL
 cmd="$TAR xvzf "$RASQAL".tar.gz" && run_cmd "$cmd" "Unzip $RASQAL"
 rm $RASQAL.tar.gz
@@ -30,19 +38,12 @@ cd $RASQAL
 cmd="./configure --prefix=$RASQAL_DIR --exec-prefix=$RASQAL_DIR --with-storage-path=$RASQAL_DIR/var/lib --with-config-file=$RASQAL_DIR/$SELF.conf -with-http-log=$RASQAL_DIR/log" && run_cmd "$cmd" "Configure"
 cmd="$MAKE" && run_cmd "$cmd" "Make"
 cmd="$MAKE install" && run_cmd "$cmd" "Make Install"
-cd ..
-
 # Config
-echo "if echo \"\$LD_LIBRARY_PATH\" | grep -v \"$RAPTOR2_DIR/lib\">/dev/null 2>&1; then export LD_LIBRARY_PATH=\"\$LD_LIBRARY_PATH:$RAPTOR2_DIR/lib\"; fi" >> "$RAPTOR2_CONF"
-echo "$SELF configuration has been stored in '$RAPTOR2_CONF'."
-if ! grep "$RAPTOR2_CONF" $OT_UI_CONF >/dev/null 2>&1; then
-  echo '. '$RAPTOR2_CONF >> $OT_UI_CONF
-fi
-
 echo "if echo \"\$LD_LIBRARY_PATH\" | grep -v \"$RASQAL_DIR/lib\">/dev/null 2>&1; then export LD_LIBRARY_PATH=\"\$LD_LIBRARY_PATH:$RASQAL_DIR/lib\"; fi" >> "$RASQAL_CONF"
 echo "$RASQAL configuration has been stored in '$RASQAL_CONF'."
 if ! grep "$RASQAL_CONF" $OT_UI_CONF >/dev/null 2>&1; then
   echo '. '$RASQAL_CONF >> $OT_UI_CONF
 fi
+cd ..
 
 cd $DIR
