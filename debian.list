@@ -21,3 +21,8 @@ libopenssl-ruby install
 libssl-dev install
 libxml2-dev install
 libssl-dev install
+curl install
+wget install
+tar install
+aptitude install
+find install
