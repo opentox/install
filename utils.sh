@@ -71,10 +71,10 @@ check_utils() {
 install_ruby() {
   printf "\n%50s\n" "RUBY"
   local DIR=`pwd`
-  check_utils "rbenv curl make"
+  check_utils "rbenv curl make tar"
   if ! $RBENV versions $RUBY_NUM_VER | grep $RUBY_NUM_VER>/dev/null 2>&1; then
     [ -d $DIR/tmp ] || mkdir -p $DIR/tmp && cd $DIR/tmp
-    ([ -d $DIR/tmp/ruby-$RUBY_NUM_VER ] || $CURL $RUBY_DWL/ruby-$RUBY_NUM_VER.tar.gz 2>/dev/null | tar xz) && cd ruby-$RUBY_NUM_VER
+    ([ -d $DIR/tmp/ruby-$RUBY_NUM_VER ] || $CURL $RUBY_DWL/ruby-$RUBY_NUM_VER.tar.gz 2>/dev/null | $TAR xz) && cd ruby-$RUBY_NUM_VER
     cmd="./configure --prefix=$RUBY_DIR" && run_cmd "$cmd" "Configure"
     cmd="$MAKE -j2" && run_cmd "$cmd" "Make"
     cmd="$MAKE install" && run_cmd "$cmd" "Install"

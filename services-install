@@ -9,6 +9,9 @@ RUBY_NUM_VER="1.9.3-p194"
 echo
 echo "Welcome to service installation (<Return> to continue)."
 read delete_me
+echo
+echo "Development installation: Have you added public ssh key to GitHub? (<Return> to continue)."
+read delete_me
 
 
 # check wd is root of service
