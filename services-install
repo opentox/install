@@ -39,7 +39,7 @@ echo
 [ "`$RBENV local 2>/dev/null`" = "$RUBY_NUM_VER" ] || install_ruby
 
 
-for SERVICE in opentox-client opentox-server dataset algorithm; do
+for SERVICE in opentox-client opentox-server dataset algorithm task feature opentox-test; do
   install_ot_service
 done
 cd $DIR

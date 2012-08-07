@@ -87,10 +87,10 @@ install_ruby() {
 # install a ruby gem using bundler
 install_with_bundler() {
   printf "\n%50s\n" "INSTALL"
-  check_utils "gem rbenv"
+  check_utils "gem rbenv bundle"
   $GEM list | grep bundler >/dev/null 2>&1 || (cmd="$GEM install bundler" && run_cmd "$cmd" "Install bundler")
   cmd="$RBENV rehash" && run_cmd "$cmd" "Rbenv rehash"
-  cmd="bundle install" && run_cmd "$cmd" "Install using bundler"
+  cmd="$BUNDLE install" && run_cmd "$cmd" "Install using bundler"
 }
 
 # download opentox git repo
@@ -104,6 +104,7 @@ ot_git_download(){
 # install opentox service
 install_ot_service(){
   printf "\n%50s\n" "$SERVICE"
+  check_utils "git rbenv"
   local DIR=`pwd`
   cd $OT_PREFIX
   ot_git_download
@@ -111,8 +112,9 @@ install_ot_service(){
   $GIT checkout $OT_BRANCH  >>$LOG 2>&1
   $RBENV local $RUBY_NUM_VER 
   case "$SERVICE" in
-    opentox-server) install_with_bundler;;
-    opentox-client) install_with_bundler;;
+    opentox-*) install_with_bundler;;
+    feature) install_with_bundler;;
+    task) install_with_bundler;;
     *) cd bin; for f in `ls`; do ./$f; done;; 
   esac
   cd $DIR

@@ -40,7 +40,8 @@ echo
 [ -f $HOME/.opentox/config/install/config.sh ] || (cmd="mkdir -p $HOME/.opentox/config/install && cp config.sh $HOME/.opentox/config/install" && run_cmd "$cmd" "Install config.sh to CONFIG (~/.opentox)")
 
 . ./base-install # Debian specific; disable this for others.
-./raptor_rasqal-install # Download, compile and build raptor2 and rasqal. Install to OT_PREFIX.
+./raptor2-install # Download, compile and build raptor2. Install to OT_PREFIX.
+./rasqal-install # Download, compile and build rasqal. Install to OT_PREFIX.
 ./4store-install # Download, compile and build 4store. Install to OT_PREFIX.
 
 if [ ! -d ~/.rbenv ]; then
@@ -55,7 +56,5 @@ fi
 
 [ -f $HOME/.opentox/config/ambit_descriptors.yaml ] || (cmd="cp ambit_descriptors.yaml $HOME/.opentox/config/" && run_cmd "$cmd" "Ambit keys file")
 [ -f $HOME/.opentox/config/jl_keys.yaml ] || (cmd="cp jl_keys.yaml $HOME/.opentox/config/" && run_cmd "$cmd" "Joelib keys file")
-
-. ./services-install
 
 notify

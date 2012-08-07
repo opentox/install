@@ -1,0 +1,31 @@
+#!/bin/sh
+DIR=`pwd`
+
+# Boot
+. ./utils.sh || (echo "Utils could not be loaded, check opentox-ui.sh." 1>&2 && exit 1)
+SELF=$(basename $0 -install)
+check_log $SELF
+check_utils "wget tar make"
+
+# Build
+mkdir -p $PREFIX/tmp
+cd $OT_PREFIX/tmp/
+cmd="$WGET $RASQAL_DWL" && run_cmd "$cmd" "Download $SELF"
+export RASQAL_DIR=$OT_PREFIX/$SELF
+cmd="$TAR xvzf $SELF*.tar.gz" && run_cmd "$cmd" "Unpack $SELF"
+rm "$SELF*.tar.gz"
+cd "$SELF*"
+cmd="./configure --prefix=$RASQAL_DIR" && run_cmd "$cmd" "Configure"
+cmd="$MAKE" && run_cmd "$cmd" "Make"
+cmd="$MAKE install" && run_cmd "$cmd" "Make Install"
+
+# Config
+echo "if echo \"\$LD_LIBRARY_PATH\" | grep -v \"$RASQAL_DIR/lib\">/dev/null 2>&1; then export LD_LIBRARY_PATH=\"$RASQAL_DIR/lib:\$LD_LIBRARY_PATH\"; fi" >> "$RASQAL_CONF"
+echo "if echo \"\$PKG_CONFIG_PATH\" | grep -v \"$RASQAL_DIR/lib/pkgconfig\">/dev/null 2>&1; then export PKG_CONFIG_PATH=\"$RASQAL_DIR/lib/pkgconfig:\$PKG_CONFIG_PATH\"; fi" >> "$RASQAL_CONF"
+echo "$SELF configuration has been stored in '$RASQAL_CONF'."
+if ! grep "$RASQAL_CONF" $OT_UI_CONF >/dev/null 2>&1; then
+  echo '. '$RASQAL_CONF >> $OT_UI_CONF
+fi
+cd ..
+
+cd $DIR
