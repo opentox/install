@@ -13,7 +13,7 @@ DIR=`pwd`
 # Not logged
 # Not logged
 [ "`id -u`" = "0" ] && echo "This script must not be run as root" 1>&2 && exit 1
-check_utils "aptitude git apt-cache dpkg"
+check_utils "aptitude apt-get git apt-cache dpkg"
 
 echo
 echo "Base Packages:"
@@ -29,8 +29,8 @@ case "$DISTRIB_INFO" in
   *) PACK_LIST="debian.list";;
 esac
 
-sudo dpkg --set-selections < "$PACK_LIST"
-sudo apt-get -y -u dselect-upgrade
+sudo $DPKG --set-selections < "$PACK_LIST"
+sudo $APT_GET -y -u dselect-upgrade
 
 if [ ! -f $JAVA_CONF ]; then
 
