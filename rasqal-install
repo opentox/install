@@ -8,13 +8,13 @@ check_log $SELF
 check_utils "wget tar make"
 
 # Build
-mkdir -p $PREFIX/tmp
+mkdir -p $OT_PREFIX/tmp
 cd $OT_PREFIX/tmp/
 cmd="$WGET $RASQAL_DWL" && run_cmd "$cmd" "Download $SELF"
 export RASQAL_DIR=$OT_PREFIX/$SELF
 cmd="$TAR xvzf $SELF*.tar.gz" && run_cmd "$cmd" "Unpack $SELF"
-rm "$SELF*.tar.gz"
-cd "$SELF*"
+rm $SELF*.tar.gz
+cd $SELF*
 cmd="./configure --prefix=$RASQAL_DIR" && run_cmd "$cmd" "Configure"
 cmd="$MAKE" && run_cmd "$cmd" "Make"
 cmd="$MAKE install" && run_cmd "$cmd" "Make Install"
