@@ -1,4 +1,4 @@
-ld-essential install
+build-essential install
 cmake install
 libgsl0-dev install
 libtool install
