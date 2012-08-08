@@ -10,9 +10,9 @@ check_utils "wget tar make"
 # Build
 mkdir -p $OT_PREFIX/tmp
 cd $OT_PREFIX/tmp/
-cmd="$WGET $RAPTOR2_DWL" && run_cmd "$cmd" "Download $SELF"
-export RAPTOR2_DIR=$OT_PREFIX/$SELF/
-cmd="$TAR xvzf $SELF*.tar.gz" && run_cmd "$cmd" "Unpack $SELF" 
+cmd="$WGET $RAPTOR2_DWL" && run_cmd "$cmd" "Download"
+export RAPTOR2_DIR=$OT_PREFIX/$SELF
+cmd="$TAR xvzf $SELF*.tar.gz" && run_cmd "$cmd" "Unpack" 
 rm $SELF*.tar.gz
 cd $SELF*
 cmd="./configure --prefix=$RAPTOR2_DIR" && run_cmd "$cmd" "Configure"
