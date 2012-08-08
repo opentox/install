@@ -17,7 +17,7 @@ $four_store = {
 }
 
 $aa = {
-  :uri => '' #'https://opensso.in-silico.ch',
+  :uri => nil #'https://opensso.in-silico.ch',
   #:user => 'guest',
   #:password => 'guest',
   #:free_request => [:HEAD],
