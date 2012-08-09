@@ -31,6 +31,7 @@ R_CONF="$HOME/.opentox/sh_R"
 RAPTOR2_CONF="$HOME/.opentox/sh_RAPTOR2"
 RASQAL_CONF="$HOME/.opentox/sh_RASQAL"
 OT_UI_CONF="$HOME/.opentox/opentox-ui.sh"
+OT_DEFAULT_CONFIG="$HOME/.opentox/config/default.rb"
 
 OB_VER="openbabel-$OB_NUM_VER"
 OB_DEST="$OT_PREFIX/$OB_VER"
