@@ -45,3 +45,5 @@ notify
 
 # return to wd
 cd $DIR
+. ./utils.sh
+cmd="$HOME/opentox-ruby/4S/bin/4s-backend-setup opentox" && run_cmd "$cmd" "Create 'opentox' 4store backend"
