@@ -12,9 +12,9 @@ mkdir -p $OT_PREFIX/tmp
 cd $OT_PREFIX/tmp/
 cmd="$WGET $RASQAL_DWL" && run_cmd "$cmd" "Download"
 export RASQAL_DIR=$OT_PREFIX/$SELF
-cmd="$TAR xvzf $SELF-$RASQAL_VER.tar.gz" && run_cmd "$cmd" "Unpack"
-rm $SELF-$RASQAL_VER.tar.gz
-cd $SELF-$RASQAL_VER
+cmd="$TAR xvzf $RASQAL_VER.tar.gz" && run_cmd "$cmd" "Unpack"
+rm $RASQAL_VER.tar.gz
+cd $RASQAL_VER
 cmd="./configure --prefix=$RASQAL_DIR" && run_cmd "$cmd" "Configure"
 cmd="$MAKE" && run_cmd "$cmd" "Make"
 cmd="$MAKE install" && run_cmd "$cmd" "Make Install"

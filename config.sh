@@ -16,11 +16,9 @@ OT_JAVA_HOME="/usr/lib/jvm/java-6-openjdk"
 # 3) What versions to install
 
 OB_NUM_VER="2.3.1"
+RAPTOR2_NUM_VER="2.0.8"
+RASQAL_NUM_VER="0.9.29"
 RUBY_DWL="http://ftp.ruby-lang.org/pub/ruby/1.9"
-RAPTOR2_VER="2.0.8"
-RAPTOR2_DWL="http://download.librdf.org/source/raptor2-$RAPTOR2_VER.tar.gz"
-RASQAL_VER="0.9.29"
-RASQAL_DWL="http://download.librdf.org/source/rasqal-$RASQAL_VER.tar.gz"
 
 # Done.
 
@@ -36,6 +34,11 @@ OT_UI_CONF="$HOME/.opentox/opentox-ui.sh"
 OT_DEFAULT_CONFIG="$HOME/.opentox/config/default.rb"
 
 OB_VER="openbabel-$OB_NUM_VER"
+RAPTOR2_VER="raptor2-$RAPTOR2_NUM_VER"
+RASQAL_VER="rasqal-$RASQAL_NUM_VER"
 OB_DEST="$OT_PREFIX/$OB_VER"
 OB_DEST_BINDINGS="$OT_PREFIX/openbabel-ruby-install"
+
+RAPTOR2_DWL="http://download.librdf.org/source/$RAPTOR2_VER.tar.gz"
+RASQAL_DWL="http://download.librdf.org/source/$RASQAL_VER.tar.gz"
 

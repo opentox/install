@@ -12,9 +12,9 @@ mkdir -p $OT_PREFIX/tmp
 cd $OT_PREFIX/tmp/
 cmd="$WGET $RAPTOR2_DWL" && run_cmd "$cmd" "Download"
 export RAPTOR2_DIR=$OT_PREFIX/$SELF
-cmd="$TAR xvzf $SELF-$RAPTOR2_VER.tar.gz" && run_cmd "$cmd" "Unpack" 
-rm $SELF-$RAPTOR2_VER.tar.gz
-cd $SELF-$RAPTOR2_VER
+cmd="$TAR xvzf $RAPTOR2_VER.tar.gz" && run_cmd "$cmd" "Unpack" 
+rm $RAPTOR2_VER.tar.gz
+cd $RAPTOR2_VER
 cmd="./configure --prefix=$RAPTOR2_DIR" && run_cmd "$cmd" "Configure"
 cmd="$MAKE" && run_cmd "$cmd" "Make"
 cmd="$MAKE install" && run_cmd "$cmd" "Make Install"
