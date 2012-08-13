@@ -26,6 +26,5 @@ echo "$SELF configuration has been stored in '$RASQAL_CONF'."
 if ! $GREP "$RASQAL_CONF" $OT_UI_CONF >/dev/null 2>&1; then
   echo '. '$RASQAL_CONF >> $OT_UI_CONF
 fi
-cd ..
 
 cd $DIR

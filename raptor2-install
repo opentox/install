@@ -26,7 +26,6 @@ echo "$SELF configuration has been stored in '$RAPTOR2_CONF'."
 if ! $GREP "$RAPTOR2_CONF" $OT_UI_CONF >/dev/null 2>&1; then
   echo '. '$RAPTOR2_CONF >> $OT_UI_CONF
 fi
-cd ..
 export LD_LIBRARY_PATH=$RAPTOR2_DIR"/lib:"$LD_LIBRARY_PATH
 export PATH=$RAPTOR2_DIR"/bin:"$PATH
 export PKG_CONFIG_PATH=$RAPTOR2_DIR"/lib/pkgconfig:"$PKG_CONFIG_PATH
