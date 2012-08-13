@@ -58,5 +58,6 @@ fi
 
 [ -f $HOME/.opentox/config/ambit_descriptors.yaml ] || (cmd="cp ambit_descriptors.yaml $HOME/.opentox/config/" && run_cmd "$cmd" "Ambit keys file")
 [ -f $HOME/.opentox/config/jl_keys.yaml ] || (cmd="cp jl_keys.yaml $HOME/.opentox/config/" && run_cmd "$cmd" "Joelib keys file")
+[ -f $OT_TOOLS_CONFIG ] || (cmd="cp ot-tools-user.sh $OT_TOOLS_CONFIG" && run_cmd "$cmd" "Install ot-tools.sh to CONFIG (~/.opentox/config)")
 
 notify

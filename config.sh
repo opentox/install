@@ -24,13 +24,14 @@ RUBY_DWL="http://ftp.ruby-lang.org/pub/ruby/1.9"
 
 
 ### Nothing to gain from changes below this line.
-JAVA_CONF="$HOME/.opentox/sh_java"
-FST_CONF="$HOME/.opentox/sh_4S"
-OB_CONF="$HOME/.opentox/sh_OB"
-R_CONF="$HOME/.opentox/sh_R"
-RAPTOR2_CONF="$HOME/.opentox/sh_RAPTOR2"
-RASQAL_CONF="$HOME/.opentox/sh_RASQAL"
+JAVA_CONF="$HOME/.opentox/java.sh"
+FST_CONF="$HOME/.opentox/4S.sh"
+OB_CONF="$HOME/.opentox/OB.sh"
+R_CONF="$HOME/.opentox/R.sh"
+RAPTOR2_CONF="$HOME/.opentox/RAPTOR2.sh"
+RASQAL_CONF="$HOME/.opentox/RASQAL.sh"
 OT_UI_CONF="$HOME/.opentox/opentox-ui.sh"
+OT_TOOLS_CONF="$HOME/.opentox/ot-tools.sh"
 OT_DEFAULT_CONFIG="$HOME/.opentox/config/default.rb"
 
 OB_VER="openbabel-$OB_NUM_VER"
