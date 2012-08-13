@@ -17,8 +17,10 @@ OT_JAVA_HOME="/usr/lib/jvm/java-6-openjdk"
 
 OB_NUM_VER="2.3.1"
 RUBY_DWL="http://ftp.ruby-lang.org/pub/ruby/1.9"
-RAPTOR2_DWL="http://download.librdf.org/source/raptor2-2.0.8.tar.gz"
-RASQAL_DWL="http://download.librdf.org/source/rasqal-0.9.29.tar.gz"
+RAPTOR2_VER="2.0.8"
+RAPTOR2_DWL="http://download.librdf.org/source/raptor2-$RAPTOR2_VER.tar.gz"
+RASQAL_VER="0.9.29"
+RASQAL_DWL="http://download.librdf.org/source/rasqal-$RASQAL_VER.tar.gz"
 
 # Done.
 

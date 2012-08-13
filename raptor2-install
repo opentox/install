@@ -5,25 +5,25 @@ DIR=`pwd`
 . ./utils.sh || (echo "Utils could not be loaded, check opentox-ui.sh." 1>&2 && exit 1)
 SELF=$(basename $0 -install)
 check_log $SELF
-check_utils "wget tar make"
+check_utils "wget tar make grep"
 
 # Build
 mkdir -p $OT_PREFIX/tmp
 cd $OT_PREFIX/tmp/
 cmd="$WGET $RAPTOR2_DWL" && run_cmd "$cmd" "Download"
 export RAPTOR2_DIR=$OT_PREFIX/$SELF
-cmd="$TAR xvzf $SELF*.tar.gz" && run_cmd "$cmd" "Unpack" 
-rm $SELF*.tar.gz
-cd $SELF*
+cmd="$TAR xvzf $SELF-$RAPTOR2_VER.tar.gz" && run_cmd "$cmd" "Unpack" 
+rm $SELF-$RAPTOR2_VER.tar.gz
+cd $SELF-$RAPTOR2_VER
 cmd="./configure --prefix=$RAPTOR2_DIR" && run_cmd "$cmd" "Configure"
 cmd="$MAKE" && run_cmd "$cmd" "Make"
 cmd="$MAKE install" && run_cmd "$cmd" "Make Install"
 
 # Config
-echo "if echo \"\$LD_LIBRARY_PATH\" | grep -v \"$RAPTOR2_DIR/lib\">/dev/null 2>&1; then export LD_LIBRARY_PATH=\"$RAPTOR2_DIR/lib:\$LD_LIBRARY_PATH\"; fi" >> "$RAPTOR2_CONF"
-echo "if echo \"\$PKG_CONFIG_PATH\" | grep -v \"$RAPTOR2_DIR/lib/pkgconfig\">/dev/null 2>&1; then export PKG_CONFIG_PATH=\"$RAPTOR2_DIR/lib/pkgconfig:\$PKG_CONFIG_PATH\"; fi" >> "$RAPTOR2_CONF"
+echo "if echo \"\$LD_LIBRARY_PATH\" | $GREP -v \"$RAPTOR2_DIR/lib\">/dev/null 2>&1; then export LD_LIBRARY_PATH=\"$RAPTOR2_DIR/lib:\$LD_LIBRARY_PATH\"; fi" >> "$RAPTOR2_CONF"
+echo "if echo \"\$PKG_CONFIG_PATH\" | $GREP -v \"$RAPTOR2_DIR/lib/pkgconfig\">/dev/null 2>&1; then export PKG_CONFIG_PATH=\"$RAPTOR2_DIR/lib/pkgconfig:\$PKG_CONFIG_PATH\"; fi" >> "$RAPTOR2_CONF"
 echo "$SELF configuration has been stored in '$RAPTOR2_CONF'."
-if ! grep "$RAPTOR2_CONF" $OT_UI_CONF >/dev/null 2>&1; then
+if ! $GREP "$RAPTOR2_CONF" $OT_UI_CONF >/dev/null 2>&1; then
   echo '. '$RAPTOR2_CONF >> $OT_UI_CONF
 fi
 cd ..
