@@ -5,7 +5,7 @@
 
 
 # 1) Base setup
-OT_DIST="debian"            # Linux distribution    (debian)
+OT_DIST="debian"            # Linux distribution    (debian, ubuntu)
 OT_INSTALL="local"          # Type                  (gem, local, server)
 OT_BRANCH="development"     # Maturity              (development -need SSH key at Github-, master)
 
@@ -19,9 +19,10 @@ OB_NUM_VER="2.3.1"
 RAPTOR2_NUM_VER="2.0.8"
 RASQAL_NUM_VER="0.9.29"
 RUBY_DWL="http://ftp.ruby-lang.org/pub/ruby/1.9"
+REDLAND_DWL="http://download.librdf.org"
+REDLAND_APT_KEY="http://purl.org/net/dajobe/gnupg.asc"
 
 # Done.
-
 
 ### Nothing to gain from changes below this line.
 JAVA_CONF="$HOME/.opentox/java.sh"
@@ -40,6 +41,6 @@ RASQAL_VER="rasqal-$RASQAL_NUM_VER"
 OB_DEST="$OT_PREFIX/$OB_VER"
 OB_DEST_BINDINGS="$OT_PREFIX/openbabel-ruby-install"
 
-RAPTOR2_DWL="http://download.librdf.org/source/$RAPTOR2_VER.tar.gz"
-RASQAL_DWL="http://download.librdf.org/source/$RASQAL_VER.tar.gz"
-
+RAPTOR2_DWL="$REDLAND_DWL/source/$RAPTOR2_VER.tar.gz"
+RASQAL_DWL="$REDLAND_DWL/source/$RASQAL_VER.tar.gz"
+REDLAND_DEB="$REDLAND_DWL/binaries/$OT_DIST/unstable"
