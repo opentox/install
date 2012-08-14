@@ -32,7 +32,7 @@ RAPTOR2_CONF="$HOME/.opentox/RAPTOR2.sh"
 RASQAL_CONF="$HOME/.opentox/RASQAL.sh"
 OT_UI_CONF="$HOME/.opentox/opentox-ui.sh"
 OT_TOOLS_CONF="$HOME/.opentox/ot-tools.sh"
-OT_DEFAULT_CONFIG="$HOME/.opentox/config/default.rb"
+OT_DEFAULT_CONF="$HOME/.opentox/config/default.rb"
 
 OB_VER="openbabel-$OB_NUM_VER"
 RAPTOR2_VER="raptor2-$RAPTOR2_NUM_VER"

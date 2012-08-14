@@ -38,7 +38,7 @@ echo
 
 [ -f $OT_PREFIX/install/utils.sh ] || (cmd="mkdir -p $OT_PREFIX/install && cp utils.sh $OT_PREFIX/install" && run_cmd "$cmd" "Install utils.sh to OT_PREFIX")
 [ -f $HOME/.opentox/config/install/config.sh ] || (cmd="mkdir -p $HOME/.opentox/config/install && cp config.sh $HOME/.opentox/config/install" && run_cmd "$cmd" "Install config.sh to CONFIG (~/.opentox/config)")
-[ -f $OT_DEFAULT_CONFIG ] || (cmd="echo '\$aa = { :uri => nil }' > $OT_DEFAULT_CONFIG" && run_cmd "$cmd" "Install default.rb to CONFIG (~/.opentox/config)")
+[ -f $OT_DEFAULT_CONF ] || (cmd="echo '\$aa = { :uri => nil }' > $OT_DEFAULT_CONF" && run_cmd "$cmd" "Install default.rb to CONFIG (~/.opentox/config)")
 
 
 . ./base-install # Debian specific; disable this for others.
@@ -58,6 +58,6 @@ fi
 
 [ -f $HOME/.opentox/config/ambit_descriptors.yaml ] || (cmd="cp ambit_descriptors.yaml $HOME/.opentox/config/" && run_cmd "$cmd" "Ambit keys file")
 [ -f $HOME/.opentox/config/jl_keys.yaml ] || (cmd="cp jl_keys.yaml $HOME/.opentox/config/" && run_cmd "$cmd" "Joelib keys file")
-[ -f $OT_TOOLS_CONFIG ] || (cmd="cp ot-tools-user.sh $OT_TOOLS_CONFIG" && run_cmd "$cmd" "Install ot-tools.sh to CONFIG (~/.opentox/config)")
+[ -f $OT_TOOLS_CONF ] || (cmd="cp ot-tools-user.sh $OT_TOOLS_CONFIG" && run_cmd "$cmd" "Install ot-tools.sh to CONFIG (~/.opentox/config)")
 
 notify
