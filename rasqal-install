@@ -15,7 +15,6 @@ export RASQAL_DIR=$OT_PREFIX/$SELF
 cmd="$TAR xvzf $RASQAL_VER.tar.gz" && run_cmd "$cmd" "Unpack"
 rm $RASQAL_VER.tar.gz
 cd $RASQAL_VER
-cmd="sudo $APT_GET -y build-dep $SELF" && run_cmd "$cmd" "Build dependencies"
 cmd="./configure --prefix=$RASQAL_DIR" && run_cmd "$cmd" "Configure"
 cmd="$MAKE" && run_cmd "$cmd" "Make"
 cmd="$MAKE install" && run_cmd "$cmd" "Make Install"
