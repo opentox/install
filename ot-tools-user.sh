@@ -61,6 +61,7 @@ otstart() {
                   echo "usage: otstart [all|algorithm|compound|dataset|feature|model|task|validation|4store]";
                   return 1;;
   esac
+  sleep 1
   cd $DIR
 }
 
@@ -118,6 +119,7 @@ otreload() {
                   echo "usage: otreload [all|algorithm|compound|dataset|feature|model|task|validation|4store]";
                   return 1;;
   esac
+  sleep 1
 }
 
 # kill unicorn
@@ -162,6 +164,7 @@ otkill() {
                   echo "usage: otkill [all|algorithm|compound|dataset|feature|model|task|validation|4store]";
                   return 1;;
   esac
+  sleep 1
 }
 
 # get service uri
