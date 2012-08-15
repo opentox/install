@@ -7,8 +7,10 @@ libglib2.0-dev install
 libgsl0-dev install
 libopenbabel4 install
 libopenbabel-dev install
+libopenssl-ruby install
 libpcre3-dev install
 libreadline-dev install
+libssl-dev install
 libtool install
 libtool install
 libyaml-dev install
