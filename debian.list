@@ -12,7 +12,6 @@ libpcre3-dev install
 libreadline-dev install
 libssl-dev install
 libtool install
-libtool install
 libyaml-dev install
 ncurses-dev install
 openjdk-6-jdk install
