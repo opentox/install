@@ -1,8 +1,11 @@
 aptitude install
 automake install
+avahi-daemon install
 build-essential install
 cmake install
 curl install
+libavahi-glib-dev install
+libavahi-client-dev install
 libglib2.0-dev install
 libgsl0-dev install
 libopenbabel4 install

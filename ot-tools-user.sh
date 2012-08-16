@@ -20,6 +20,18 @@ start_unicorn() {
   nice bash -c "nohup unicorn -p $2 >/dev/null 2>&1 &"
 }
 
+# Start unicorn
+# @param1 [backend_name] 
+# @param2 integer Port
+# @example start_unicorn algorithm 8081
+start_4s() {
+  nice bash -c "nohup $OT_PREFIX/4S/bin/4s-backend $1 >/dev/null 2>&1 &";
+  sleep 0.5;
+  nice bash -c "nohup $OT_PREFIX/4S/bin/4s-httpd -H localhost -p $2 -s -1 $1 >/dev/null 2>&1 &"; #-D for testing        
+  sleep 0.5;
+
+}
+
 # Start the server
 otstart() {
   if [ $# != 1 ]
@@ -33,22 +45,26 @@ otstart() {
   otkill $1
   DIR=`pwd`
   case "$1" in
-    "algorithm")  start_unicorn $1 8081;;
-    "compound")   #start_unicorn $1 8082;;
+    "algorithm")  start_4s $1 9081;
+                  start_unicorn $1 8081;;
+    "compound")   #start_4s $1 9082;
+                  #start_unicorn $1 8082;;
                   echo "$1 not available yet.";;
-    "dataset")    start_unicorn $1 8083;;
-    "feature")    start_unicorn $1 8084;;
-    "model")      #start_unicorn $1 8085;;
+    "dataset")    start_4s $1 9083;
+                  start_unicorn $1 8083;;
+    "feature")    start_4s $1 9084;
+                  start_unicorn $1 8084;;
+    "model")      #start_4s $1 9085;
+                  #start_unicorn $1 8085;;
                   echo "$1 not available yet.";;
-    "task")       start_unicorn $1 8086;;
-    "validation") #start_unicorn $1 8087;;
+    "task")       start_4s $1 9086;
+                  start_unicorn $1 8086;;
+    "validation") #start_4s $1 9087;
+                  #start_unicorn $1 8087;;
                   echo "$1 not available yet.";;
-    "4store")     nice bash -c "nohup $HOME/opentox-ruby/4S/bin/4s-backend opentox >/dev/null 2>&1 &"; 
-                  sleep 1; 
-                  nice bash -c "nohup $HOME/opentox-ruby/4S/bin/4s-httpd -D -H localhost -p 8088 opentox >/dev/null 2>&1 &"; 
-                  sleep 1; 
-                  if ! pgrep -u $USER 4s-backend>/dev/null 2>&1; then echo "Failed to start 4s-backend."; fi
-                  if ! pgrep -u $USER 4s-httpd>/dev/null 2>&1; then echo "Failed to start 4s-httpd."; fi;;
+    "4store")     start_4s opentox 9088;; 
+                  #if ! pgrep -u $USER 4s-backend>/dev/null 2>&1; then echo "Failed to start 4s-backend."; fi
+                  #if ! pgrep -u $USER 4s-httpd>/dev/null 2>&1; then echo "Failed to start 4s-httpd."; fi;;
     "all")        otstart 4store;
                   otstart algorithm;
                   #otstart compound;

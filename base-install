@@ -38,7 +38,7 @@ case "$DISTRIB_INFO" in
 esac
 
 sudo $DPKG --set-selections < "$PACK_LIST"
-sudo $APT_GET -y -u dselect-upgrade
+sudo $APT_GET -y --force-yes -u dselect-upgrade
 
 if [ ! -f $JAVA_CONF ]; then
 
