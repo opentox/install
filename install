@@ -59,6 +59,6 @@ fi
 [ -f $HOME/.opentox/config/ambit_descriptors.yaml ] || (cmd="cp ambit_descriptors.yaml $HOME/.opentox/config/" && run_cmd "$cmd" "Ambit keys file")
 [ -f $HOME/.opentox/config/jl_keys.yaml ] || (cmd="cp jl_keys.yaml $HOME/.opentox/config/" && run_cmd "$cmd" "Joelib keys file")
 [ -f $OT_TOOLS_CONF ] || (cmd="cp ot-tools-user.sh $OT_TOOLS_CONF" && run_cmd "$cmd" "Created ot-tools (stored in ~/.opentox)")
-if ! cat "$OT_TOOLS_CONF" | grep "OT_PREFIX=">/dev/null 2>&1; then echo "OT_PREFIX=$OT_PREFIX" >> $OT_DEFAULT_CONF; fi
+if ! cat "$OT_TOOLS_CONF" | grep "OT_PREFIX=">/dev/null 2>&1; then echo "OT_PREFIX=$OT_PREFIX" >> $OT_TOOLS_CONF; fi
 
 notify
