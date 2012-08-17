@@ -39,6 +39,8 @@ echo
 [ -f $OT_PREFIX/install/utils.sh ] || (cmd="mkdir -p $OT_PREFIX/install && cp utils.sh $OT_PREFIX/install" && run_cmd "$cmd" "Install utils.sh to OT_PREFIX")
 [ -f $HOME/.opentox/config/install/config.sh ] || (cmd="mkdir -p $HOME/.opentox/config/install && cp config.sh $HOME/.opentox/config/install" && run_cmd "$cmd" "Install config.sh to CONFIG (~/.opentox/config)")
 [ -f $OT_DEFAULT_CONF ] || (cmd="echo '\$aa = { :uri => nil }' > $OT_DEFAULT_CONF" && run_cmd "$cmd" "Install default.rb to CONFIG (~/.opentox/conf)")
+# Added external compound service uri (only till it is available for the new architecture).
+if ! cat "$OT_DEFAULT_CONF" | grep "compound" | grep ":uri=">/dev/null 2>&1; then echo '$compound = { :uri => "http://webservices.in-silico.ch/compound" }' >> $OT_DEFAULT_CONF; fi
 
 
 . ./base-install # Debian specific; disable this for others.
