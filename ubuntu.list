@@ -1,8 +1,11 @@
 aptitude install
 automake install
+avahi-daemon install
 build-essential install
 cmake install
 curl install
+libavahi-glib-dev install
+libavahi-client-dev install
 libglib2.0-dev install
 libgsl0-dev install
 libopenbabel4 install
@@ -10,7 +13,6 @@ libopenbabel-dev install
 libopenssl-ruby install
 libpcre3-dev install
 libraptor1-dev install
-librasqal3-dev install
 libreadline-dev install
 libssl-dev install
 libtool install
