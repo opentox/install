@@ -26,6 +26,7 @@ echo "Backup finished."
 
 . ./utils.sh
 
+LOG="$OT_PREFIX/tmp/`basename $0`.log"
 echo
 echo "Welcome to base installation for OpenTox compatible services on Ruby and Debian."
 echo "IMPORTANT: Hit <Ctrl+C> to adjust config.sh first (<Return> to continue)."
