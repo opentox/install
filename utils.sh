@@ -113,25 +113,6 @@ ot_git_download(){
   cmd="$GIT clone git@github.com:opentox/$SERVICE.git" && run_cmd "$cmd" "Downloading $SERVICE git repository"
 }
 
-# install opentox service
-install_ot_service(){
-  printf "\n%50s\n" "$SERVICE"
-  check_utils "git rbenv"
-  local DIR=`pwd`
-  cd $OT_PREFIX
-  ot_git_download
-  cd $SERVICE
-  $GIT checkout $OT_BRANCH  >>$LOG 2>&1
-  $RBENV local $RUBY_NUM_VER 
-  case "$SERVICE" in
-    opentox-*) install_with_bundler;;
-    feature) install_with_bundler;;
-    task) install_with_bundler;;
-    *) cd bin; for f in `ls`; do ./$f; done;; 
-  esac
-  cd $DIR
-}
-
 # emit notification if caller was the shell (the user), see http://goo.gl/grCOk
 notify() {
   echo
@@ -139,11 +120,13 @@ notify() {
   echo
   if ps -o stat= -p $PPID | grep "s" >/dev/null 2>&1; then
     echo "IMPORTANT: How to configure your system if everything went fine:"
+    echo "IMPORTANT: ot-tools are supported for bash shell."
     echo "IMPORTANT: a) Include '$OT_TOOLS_CONF' in shell startup (e.g. ~/.bashrc)."
     echo "IMPORTANT: b) Manually source '$OT_TOOLS_CONF' every time."
     echo "IMPORTANT: The command in both cases: '. $OT_TOOLS_CONF'"
+    echo "IMPORTANT: If you are using another shell please source '$OT_UI_CONF'"
     echo "IMPORTANT: NOW would be the best time to configure!"
-    echo "Visit 'http://opentox.github.com/General/2012/08/09/install-opentox-development-environment/' for further information about the usage of ot-tools."
+    echo "Visit 'http://opentox.github.com/General/2012/08/09/install-opentox-development-environment/' for further information (e.g. the usage of ot-tools)."
     echo
     echo "Thank you for your attention."
     echo
