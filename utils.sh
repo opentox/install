@@ -61,8 +61,11 @@ run_cmd ()
 # }
 check_utils() {
   for u in $1; do
-    (uPath=`which $u`) || (echo "'$u' missing. Install '$u' first." 1>&2 && exit 1)
-    eval `echo $u | tr "[:lower:]" "[:upper:]" | tr "-" "_"`="$uPath"
+    UPATH=`which $u`
+    if [ "$?" -eq 1 ]; then 
+      echo "'$u' missing. Install '$u' first." 1>&2 && exit 1
+    fi
+    eval `echo $u | tr "[:lower:]" "[:upper:]" | tr "-" "_"`=$UPATH
   done
 }
 
@@ -130,10 +133,10 @@ install_ot_service(){
 # emit notification if caller was the shell (the user), see http://goo.gl/grCOk
 notify() {
   echo
-  echo "Installation succesful"
+  echo "Installation finished (check above for errors)"
   echo
   if ps -o stat= -p $PPID | grep "s" >/dev/null 2>&1; then
-    echo "IMPORTANT: How to configure your system:"
+    echo "IMPORTANT: How to configure your system if everything went fine:"
     echo "IMPORTANT: a) Include '$OT_UI_CONF' in shell startup (e.g. ~/.bashrc)."
     echo "IMPORTANT: b) Manually source '$OT_UI_CONF' every time."
     echo "IMPORTANT: The command in both cases: '. $OT_UI_CONF'"

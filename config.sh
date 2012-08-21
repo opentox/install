@@ -18,7 +18,7 @@ OT_JAVA_HOME="/usr/lib/jvm/java-6-openjdk"
 OB_NUM_VER="2.3.1"
 RAPTOR2_NUM_VER="2.0.8"
 RASQAL_NUM_VER="0.9.29"
-RUBY_DWL="http://ftp.ruby-lang.org/pub/ruby/1.9"
+RUBY_NUM_VER="1.9.3-p194"
 
 # Done.
 
@@ -42,4 +42,6 @@ OB_DEST_BINDINGS="$OT_PREFIX/openbabel-ruby-install"
 
 RAPTOR2_DWL="http://download.librdf.org/source/$RAPTOR2_VER.tar.gz"
 RASQAL_DWL="http://download.librdf.org/source/$RASQAL_VER.tar.gz"
+RUBY_DWL="http://ftp.ruby-lang.org/pub/ruby/1.9"
+RUBY_DIR="$HOME/.rbenv/versions/$RUBY_NUM_VER"
 

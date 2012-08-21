@@ -26,7 +26,7 @@ echo "Backup finished."
 
 . ./utils.sh
 
-LOG="$OT_PREFIX/tmp/`basename $0`.log"
+check_log `basename $0`
 echo
 echo "Welcome to base installation for OpenTox compatible services on Ruby and Debian."
 echo "IMPORTANT: Hit <Ctrl+C> to adjust config.sh first (<Return> to continue)."
@@ -41,10 +41,10 @@ echo
 [ -f $OT_DEFAULT_CONF ] || (cmd="echo '\$aa = { :uri => nil }' > $OT_DEFAULT_CONF" && run_cmd "$cmd" "Install default.rb to CONFIG (~/.opentox/config)")
 
 
-. ./base-install # Debian specific; disable this for others.
-./raptor2-install # Download, compile and build raptor2. Install to OT_PREFIX.
-./rasqal-install # Download, compile and build rasqal. Install to OT_PREFIX.
-./4store-install # Download, compile and build 4store. Install to OT_PREFIX.
+#. ./base-install # Debian specific; disable this for others.
+#./raptor2-install # Download, compile and build raptor2. Install to OT_PREFIX.
+#./rasqal-install # Download, compile and build rasqal. Install to OT_PREFIX.
+#./4store-install # Download, compile and build 4store. Install to OT_PREFIX.
 
 check_utils "git"
 if [ ! -d ~/.rbenv ]; then
@@ -63,11 +63,8 @@ fi
 
 
 # Install global ruby version
-. $OT_UI_CONF
+. "$OT_UI_CONF"
 check_utils "rbenv"
-SELF=$(basename $0)
-check_log $SELF
-export RUBY_NUM_VER="1.9.3-p194"
 [ "`$RBENV global 2>/dev/null`" = "$RUBY_NUM_VER" ] || (install_ruby global)
 
 notify
