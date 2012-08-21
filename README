@@ -13,11 +13,13 @@ Here are some of my goals when writing the installer:
 - Logged (all non-elementary actions are logged)
 
 Requirements:
-A) Debian or compatible (tested on Ubuntu 11.10).
+A) Debian or compatible (tested on Debian 6.0.5).
 B) Users may gain root privileges using 'sudo'.
 
 Usage:
-Configure the installer in config.sh, then run 'install'. Then configure your system by adding a line to the startup file of your favorite shell (e.g. BASH with the file '~/.bashrc') to read in '~/.opentox/.opentox-ui.sh' (e.g. with 'source ~/.opentox/.opentox-ui.sh'), so any newly started shell will be completely configured. To uninstall, simply remove the line from the startup file. To save disc space also remove directory OT_PREFIX. To remove also your configuration, remove $HOME/.opentox.
+Configure the installer in config.sh, then run 'install'. Then configure your system by adding a line to the startup file of your favorite shell (e.g. BASH with the file '~/.bashrc') to read in '~/.opentox/opentox-ui.sh' (e.g. with 'source ~/.opentox/opentox-ui.sh'), so any newly started shell will be completely configured. To uninstall, simply remove the line from the startup file. To save disc space also remove directory OT_PREFIX. To remove also your configuration, remove $HOME/.opentox.
+
+Detailed installation instructions for developer found here: http://opentox.github.com/development/2012/08/09/install-opentox-development-environment/
 
 You can run multiple Opentox versions on the same machine: Just install again as a different user.
 
