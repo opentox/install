@@ -26,7 +26,6 @@ echo "Backup finished."
 
 . ./utils.sh
 
-LOG="$OT_PREFIX/tmp/`basename $0`.log"
 echo
 echo "Welcome to base installation for OpenTox compatible services on Ruby and Debian."
 echo "IMPORTANT: Hit <Ctrl+C> to adjust config.sh first (<Return> to continue)."
@@ -46,6 +45,7 @@ echo
 ./rasqal-install # Download, compile and build rasqal. Install to OT_PREFIX.
 ./4store-install # Download, compile and build 4store. Install to OT_PREFIX.
 
+check_utils "git"
 if [ ! -d ~/.rbenv ]; then
   cmd="$GIT clone git://github.com/sstephenson/rbenv.git ~/.rbenv" && run_cmd "$cmd" "rbenv"
 else
@@ -56,8 +56,17 @@ if ! grep "rbenv" $OT_UI_CONF >/dev/null 2>&1 ; then
   echo 'if ! echo "$PATH" | grep "$HOME/.rbenv/bin">/dev/null 2>&1; then export PATH="$HOME/.rbenv/bin:$PATH"; eval "$(rbenv init -)"; fi' >> $OT_UI_CONF
 fi
 
-[ -f $HOME/.opentox/config/ambit_descriptors.yaml ] || (cmd="cp ambit_descriptors.yaml $HOME/.opentox/config/" && run_cmd "$cmd" "Ambit keys file")
-[ -f $HOME/.opentox/config/jl_keys.yaml ] || (cmd="cp jl_keys.yaml $HOME/.opentox/config/" && run_cmd "$cmd" "Joelib keys file")
-[ -f $OT_TOOLS_CONF ] || (cmd="cp ot-tools-user.sh $OT_TOOLS_CONF" && run_cmd "$cmd" "Install ot-tools.sh to CONFIG (~/.opentox/config)")
+#[ -f $HOME/.opentox/config/ambit_descriptors.yaml ] || (cmd="cp ambit_descriptors.yaml $HOME/.opentox/config/" && run_cmd "$cmd" "Ambit keys file")
+#[ -f $HOME/.opentox/config/jl_keys.yaml ] || (cmd="cp jl_keys.yaml $HOME/.opentox/config/" && run_cmd "$cmd" "Joelib keys file")
+#[ -f $OT_TOOLS_CONF ] || (cmd="cp ot-tools-user.sh $OT_TOOLS_CONF" && run_cmd "$cmd" "Install ot-tools.sh to CONFIG (~/.opentox/config)")
+
+
+# Install global ruby version
+. $OT_UI_CONF
+check_utils "rbenv"
+SELF=$(basename $0)
+check_log $SELF
+export RUBY_NUM_VER="1.9.3-p194"
+[ "`$RBENV global 2>/dev/null`" = "$RUBY_NUM_VER" ] || (install_ruby global)
 
 notify

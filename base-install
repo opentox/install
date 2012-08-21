@@ -13,7 +13,7 @@ DIR=`pwd`
 # Not logged
 # Not logged
 [ "`id -u`" = "0" ] && echo "This script must not be run as root" 1>&2 && exit 1
-check_utils "aptitude apt-get git apt-cache dpkg"
+check_utils "aptitude apt-get apt-cache dpkg"
 
 echo
 echo "Base Packages:"

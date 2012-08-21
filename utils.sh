@@ -61,7 +61,8 @@ run_cmd ()
 # }
 check_utils() {
   for u in $1; do
-    eval `echo $u | tr "[:lower:]" "[:upper:]" | tr "-" "_"`=`which $u` || (echo "'$u' missing. Install '$u' first." 1>&2 && exit 1)
+    (uPath=`which $u`) || (echo "'$u' missing. Install '$u' first." 1>&2 && exit 1)
+    eval `echo $u | tr "[:lower:]" "[:upper:]" | tr "-" "_"`="$uPath"
   done
 }
 
@@ -69,7 +70,7 @@ check_utils() {
 # install ruby using rbenv
 # configure the version in config.sh
 install_ruby() {
-  printf "\n%50s\n" "RUBY"
+  printf "\n%50s\n" "RUBY (v. '$RUBY_NUM_VER')"
   local DIR=`pwd`
   check_utils "rbenv curl make tar"
   if ! $RBENV versions $RUBY_NUM_VER | grep $RUBY_NUM_VER>/dev/null 2>&1; then
@@ -81,7 +82,13 @@ install_ruby() {
   fi
   cd $DIR
   cmd="$RBENV rehash" && run_cmd "$cmd" "Rbenv rehash"
-  cmd="$RBENV local $RUBY_NUM_VER" && run_cmd "$cmd" "Rbenv set ruby"
+  if [ "$1" = "global" ]; then
+    cmd="$RBENV global $RUBY_NUM_VER" && run_cmd "$cmd" "Rbenv set ruby global"
+  else
+    if ! $RBENV global | grep $RUBY_NUM_VER>/dev/null 2>&1; then
+      cmd="$RBENV local $RUBY_NUM_VER" && run_cmd "$cmd" "Rbenv set ruby local"
+    fi
+  fi
 }
 
 # install a ruby gem using bundler
