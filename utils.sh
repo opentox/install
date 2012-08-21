@@ -77,8 +77,8 @@ install_ruby() {
   local DIR=`pwd`
   check_utils "rbenv curl make tar"
   if ! $RBENV versions $RUBY_NUM_VER | grep $RUBY_NUM_VER>/dev/null 2>&1; then
-    [ -d $DIR/tmp ] || mkdir -p $DIR/tmp && cd $DIR/tmp
-    ([ -d $DIR/tmp/ruby-$RUBY_NUM_VER ] || $CURL $RUBY_DWL/ruby-$RUBY_NUM_VER.tar.gz 2>/dev/null | $TAR xz) && cd ruby-$RUBY_NUM_VER
+    [ -d $OT_PREFIX/tmp ] || mkdir -p $OT_PREFIX/tmp && cd $OT_PREFIX/tmp
+    ([ -d $OT_PREFIX/tmp/ruby-$RUBY_NUM_VER ] || $CURL $RUBY_DWL/ruby-$RUBY_NUM_VER.tar.gz 2>/dev/null | $TAR xz) && cd ruby-$RUBY_NUM_VER
     cmd="./configure --prefix=$RUBY_DIR" && run_cmd "$cmd" "Configure"
     cmd="$MAKE -j2" && run_cmd "$cmd" "Make"
     cmd="$MAKE install" && run_cmd "$cmd" "Install"
@@ -139,10 +139,11 @@ notify() {
   echo
   if ps -o stat= -p $PPID | grep "s" >/dev/null 2>&1; then
     echo "IMPORTANT: How to configure your system if everything went fine:"
-    echo "IMPORTANT: a) Include '$OT_UI_CONF' in shell startup (e.g. ~/.bashrc)."
-    echo "IMPORTANT: b) Manually source '$OT_UI_CONF' every time."
-    echo "IMPORTANT: The command in both cases: '. $OT_UI_CONF'"
+    echo "IMPORTANT: a) Include '$OT_TOOLS_CONF' in shell startup (e.g. ~/.bashrc)."
+    echo "IMPORTANT: b) Manually source '$OT_TOOLS_CONF' every time."
+    echo "IMPORTANT: The command in both cases: '. $OT_TOOLS_CONF'"
     echo "IMPORTANT: NOW would be the best time to configure!"
+    echo "Visit 'http://opentox.github.com/General/2012/08/09/install-opentox-development-environment/' for further information about the usage of ot-tools."
     echo
     echo "Thank you for your attention."
     echo

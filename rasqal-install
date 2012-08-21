@@ -5,7 +5,7 @@ DIR=`pwd`
 . ./utils.sh || (echo "Utils could not be loaded, check opentox-ui.sh." 1>&2 && exit 1)
 SELF=$(basename $0 -install)
 check_log $SELF
-check_utils "wget tar make grep"
+check_utils "apt-get wget tar make grep"
 
 # Build
 mkdir -p $OT_PREFIX/tmp
