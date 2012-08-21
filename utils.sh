@@ -97,10 +97,12 @@ install_ruby() {
 # install a ruby gem using bundler
 install_with_bundler() {
   printf "\n%50s\n" "INSTALL"
-  check_utils "gem rbenv bundle"
+  check_utils "gem rbenv"
   $GEM list | grep bundler >/dev/null 2>&1 || (cmd="$GEM install bundler" && run_cmd "$cmd" "Install bundler")
   cmd="$RBENV rehash" && run_cmd "$cmd" "Rbenv rehash"
+  check_utils "gem rbenv bundle"
   cmd="$BUNDLE install" && run_cmd "$cmd" "Install using bundler"
+  cmd="$RBENV rehash" && run_cmd "$cmd" "Rbenv rehash"
 }
 
 # download opentox git repo
