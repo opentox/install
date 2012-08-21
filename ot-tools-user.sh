@@ -47,9 +47,8 @@ otstart() {
   case "$1" in
     "algorithm")  start_4s $1 9081;
                   start_unicorn $1 8081;;
-    "compound")   #start_4s $1 9082;
-                  #start_unicorn $1 8082;;
-                  echo "$1 not available yet.";;
+    "compound")   start_4s $1 9082;
+                  start_unicorn $1 8082;;
     "dataset")    start_4s $1 9083;
                   start_unicorn $1 8083;;
     "feature")    start_4s $1 9084;
@@ -67,7 +66,7 @@ otstart() {
                   #if ! pgrep -u $USER 4s-httpd>/dev/null 2>&1; then echo "Failed to start 4s-httpd."; fi;;
     "all")        otstart 4store;
                   otstart algorithm;
-                  #otstart compound;
+                  otstart compound;
                   otstart dataset;
                   otstart feature;
                   #otstart model;
@@ -111,8 +110,7 @@ otreload() {
   otconfig
   case "$1" in
     "algorithm")  reload_unicorn 8081;;
-    "compound")   #reload_unicorn 8082;;
-                  echo "$1 not available yet.";;
+    "compound")   reload_unicorn 8082;;
     "dataset")    reload_unicorn 8083;;
     "feature")    reload_unicorn 8084;;
     "model")      #reload_unicorn 8085;;
@@ -124,7 +122,7 @@ otreload() {
                   #killall 4s-backend >/dev/null 2>&1;;
                   echo "$1 reload not available yet.";;
     "all")        otreload algorithm;
-                  #otreload compound;
+                  otreload compound;
                   otreload dataset;
                   otreload feature;
                   #otreload model;
@@ -157,8 +155,7 @@ otkill() {
   otconfig
   case "$1" in
     "algorithm")  kill_unicorn 8081;;
-    "compound")   #kill_unicorn 8082;;
-                  echo "$1 not available yet.";;
+    "compound")   kill_unicorn 8082;;
     "dataset")    kill_unicorn 8083;;
     "feature")    kill_unicorn 8084;;
     "model")      #kill_unicorn 8085;;
@@ -169,7 +166,7 @@ otkill() {
     "4store")     killall 4s-httpd >/dev/null 2>&1;
                   killall 4s-backend >/dev/null 2>&1;;
     "all")        otkill algorithm;
-                  #otkill compound;
+                  otkill compound;
                   otkill dataset;
                   otkill feature;
                   #otkill model;
@@ -251,8 +248,7 @@ otcheck() {
   otconfig
   case "$1" in
     "algorithm")  check_service "algorithm";;
-    "compound")   #check_service "compound";;
-                  echo "$1 not available yet.";;
+    "compound")   check_service "compound";;
     "dataset")    check_service "dataset";;
     "feature")    check_service "feature";;
     "model")      #check_service "model";;
@@ -263,7 +259,7 @@ otcheck() {
     "4store")     check_service "four_store";; 
                   #killall 4s-backend >/dev/null 2>&1;;
     "all")        otcheck "algorithm";
-                  #otcheck "compound";
+                  otcheck "compound";
                   otcheck "dataset";
                   otcheck "feature";
                   #otcheck "model";
@@ -275,3 +271,4 @@ otcheck() {
                   return 1;;
   esac
 }
+OT_PREFIX=/home/ist/opentox-ruby
