@@ -37,8 +37,8 @@ sudo echo -n ""
 echo
 
 [ -f $OT_PREFIX/install/utils.sh ] || (cmd="mkdir -p $OT_PREFIX/install && cp utils.sh $OT_PREFIX/install" && run_cmd "$cmd" "Install utils.sh to OT_PREFIX")
-[ -f $HOME/.opentox/config/install/config.sh ] || (cmd="mkdir -p $HOME/.opentox/config/install && cp config.sh $HOME/.opentox/config/install" && run_cmd "$cmd" "Install config.sh to CONFIG (~/.opentox/config)")
-[ -f $OT_DEFAULT_CONF ] || (cmd="echo '\$aa = { :uri => nil }' > $OT_DEFAULT_CONF" && run_cmd "$cmd" "Install default.rb to CONFIG (~/.opentox/conf)")
+[ -f $HOME/.opentox/config/install/config.sh ] || (cmd="mkdir -p $HOME/.opentox/config/install && cp config.sh $HOME/.opentox/config/install" && run_cmd "$cmd" "Install config.sh to CONFIG (~/.opentox/config/install)")
+[ -f $OT_DEFAULT_CONF ] || (cmd="echo '\$aa = { :uri => nil }' > $OT_DEFAULT_CONF" && run_cmd "$cmd" "Created default.rb service settings (stored in ~/.opentox/config)")
 
 . ./base-install # Debian specific; disable this for others.
 ./raptor2-install # Download, compile and build raptor2. Install to OT_PREFIX.
