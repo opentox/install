@@ -3,6 +3,7 @@
 # Load server config
 otconfig() {
   source $HOME/.opentox/opentox-ui.sh
+  source $HOME/.opentox/config/install/config.sh
 }
 
 # Display log
@@ -257,7 +258,6 @@ otcheck() {
     "validation") #check_service "validation";;
                   echo "$1 not available yet.";;
     "4store")     check_service "four_store";; 
-                  #killall 4s-backend >/dev/null 2>&1;;
     "all")        otcheck "algorithm";
                   otcheck "compound";
                   otcheck "dataset";
@@ -271,4 +271,3 @@ otcheck() {
                   return 1;;
   esac
 }
-OT_PREFIX=/home/ist/opentox-ruby
