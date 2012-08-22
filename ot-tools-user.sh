@@ -46,25 +46,18 @@ otstart() {
   otkill $1
   DIR=`pwd`
   case "$1" in
-    "algorithm")  start_4s $1 9081;
-                  start_unicorn $1 8081;;
-    "compound")   start_4s $1 9082;
-                  start_unicorn $1 8082;;
-    "dataset")    start_4s $1 9083;
-                  start_unicorn $1 8083;;
-    "feature")    start_4s $1 9084;
-                  start_unicorn $1 8084;;
-    "model")      #start_4s $1 9085;
-                  #start_unicorn $1 8085;;
+    "algorithm")  start_unicorn $1 8081;;
+    "compound")   start_unicorn $1 8082;;
+    "dataset")    start_unicorn $1 8083;;
+    "feature")    start_unicorn $1 8084;;
+    "model")      #start_unicorn $1 8085;;
                   echo "$1 not available yet.";;
-    "task")       start_4s $1 9086;
-                  start_unicorn $1 8086;;
-    "validation") #start_4s $1 9087;
-                  #start_unicorn $1 8087;;
+    "task")       start_unicorn $1 8086;;
+    "validation") #start_unicorn $1 8087;;
                   echo "$1 not available yet.";;
     "4store")     start_4s opentox 9088;; 
-                  #if ! pgrep -u $USER 4s-backend>/dev/null 2>&1; then echo "Failed to start 4s-backend."; fi
-                  #if ! pgrep -u $USER 4s-httpd>/dev/null 2>&1; then echo "Failed to start 4s-httpd."; fi;;
+                  if ! pgrep -u $USER 4s-backend>/dev/null 2>&1; then echo "Failed to start 4s-backend."; fi
+                  if ! pgrep -u $USER 4s-httpd>/dev/null 2>&1; then echo "Failed to start 4s-httpd."; fi;;
     "all")        otstart 4store;
                   otstart algorithm;
                   otstart compound;

@@ -36,7 +36,7 @@ echo -n "We need to do some privileged action. "
 sudo echo -n ""
 echo
 
-[ -f $OT_PREFIX/install/utils.sh ] || (cmd="mkdir -p $OT_PREFIX/install && cp utils.sh $OT_PREFIX/install" && run_cmd "$cmd" "utils.sh => OT_PREFIX/install")
+[ -f $OT_PREFIX/install/utils.sh ] || (cmd="mkdir -p $OT_PREFIX/install && cp utils.sh $OT_PREFIX/install" && run_cmd "$cmd" "utils.sh => $OT_PREFIX/install")
 [ -f $HOME/.opentox/config/install/config.sh ] || (cmd="mkdir -p $HOME/.opentox/config/install && cp config.sh $HOME/.opentox/config/install" && run_cmd "$cmd" "config.sh => $HOME/.opentox/config/install")
 [ -f $OT_DEFAULT_CONF ] || (cmd="echo '\$aa = { :uri => nil }' > $OT_DEFAULT_CONF" && run_cmd "$cmd" "default.rb => $HOME/.opentox/config")
 
@@ -58,7 +58,7 @@ fi
 
 [ -f $HOME/.opentox/config/ambit_descriptors.yaml ] || (cmd="cp ambit_descriptors.yaml $HOME/.opentox/config/" && run_cmd "$cmd" "Ambit keys file")
 [ -f $HOME/.opentox/config/jl_keys.yaml ] || (cmd="cp jl_keys.yaml $HOME/.opentox/config/" && run_cmd "$cmd" "Joelib keys file")
-[ -f $OT_TOOLS_CONF ] || (cmd="cp ot-tools-user.sh $OT_TOOLS_CONF" && run_cmd "$cmd" "Created ot-tools (stored in ~/.opentox)")
+[ -f $OT_TOOLS_CONF ] || (cmd="cp ot-tools-user.sh $OT_TOOLS_CONF" && run_cmd "$cmd" "ot-tools.sh => $HOME/.opentox)")
 
 
 # Install global ruby version
