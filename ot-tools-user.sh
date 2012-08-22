@@ -55,7 +55,7 @@ otstart() {
     "task")       start_unicorn $1 8086;;
     "validation") #start_unicorn $1 8087;;
                   echo "$1 not available yet.";;
-    "4store")     start_4s opentox 9088;; 
+    "4store")     start_4s opentox 9088; 
                   if ! pgrep -u $USER 4s-backend>/dev/null 2>&1; then echo "Failed to start 4s-backend."; fi
                   if ! pgrep -u $USER 4s-httpd>/dev/null 2>&1; then echo "Failed to start 4s-httpd."; fi;;
     "all")        otstart 4store;
