@@ -120,19 +120,12 @@ notify() {
   echo
   if ps -o stat= -p $PPID | grep "s" >/dev/null 2>&1; then
     echo "IMPORTANT: How to configure your system if everything went fine:"
-    echo "IMPORTANT: ot-tools are supported for bash shell."
-    echo "IMPORTANT: a) Include '$OT_TOOLS_CONF' in shell startup (e.g. ~/.bashrc)."
-    echo "IMPORTANT: b) Manually source '$OT_TOOLS_CONF' every time."
-    echo "IMPORTANT: The command in both cases: '. $OT_TOOLS_CONF'"
-    echo "IMPORTANT: If you are using another shell please source '$OT_UI_CONF'"
-    echo "IMPORTANT: NOW would be the best time to configure!"
-    echo "Visit 'http://opentox.github.com/General/2012/08/09/install-opentox-development-environment/' for further information (e.g. the usage of ot-tools)."
-    echo
-    echo "Thank you for your attention."
-    echo
+    echo "IMPORTANT: bash shell only: '. $OT_TOOLS_CONF'" (convenient ot-tools)
+    echo "IMPORTANT: other shells: '. $OT_UI_CONF' (no ot-tools available)"
+    echo "IMPORTANT: More information: 'http://opentox.github.com/General/2012/08/09/install-opentox-development-environment'"
+    echo "IMPORTANT: Thank you for your attention."
   fi
 }
-
 
 # Force loading configuration from local, if we are installing for the first time
 if [ -z "$OT_PREFIX" ]; then
