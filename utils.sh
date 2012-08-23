@@ -120,7 +120,7 @@ notify() {
   echo
   if ps -o stat= -p $PPID | grep "s" >/dev/null 2>&1; then
     echo "IMPORTANT: How to configure your system if everything went fine:"
-    echo "IMPORTANT: bash shell only: '. $OT_TOOLS_CONF'" (convenient ot-tools)
+    echo "IMPORTANT: bash shell only: '. $OT_TOOLS_CONF' (convenient ot-tools)"
     echo "IMPORTANT: other shells: '. $OT_UI_CONF' (no ot-tools available)"
     echo "IMPORTANT: More information: 'http://opentox.github.com/General/2012/08/09/install-opentox-development-environment'"
     echo "IMPORTANT: Thank you for your attention."
