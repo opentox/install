@@ -79,7 +79,7 @@ install_ruby() {
   if ! $RBENV versions $RUBY_NUM_VER | grep $RUBY_NUM_VER>/dev/null 2>&1; then
     [ -d $OT_PREFIX/tmp ] || mkdir -p $OT_PREFIX/tmp && cd $OT_PREFIX/tmp
     ([ -d $OT_PREFIX/tmp/ruby-$RUBY_NUM_VER ] || $CURL $RUBY_DWL/ruby-$RUBY_NUM_VER.tar.gz 2>/dev/null | $TAR xz) && cd ruby-$RUBY_NUM_VER
-    cmd="./configure --prefix=$RUBY_DIR" && run_cmd "$cmd" "Configure"
+    cmd="./configure --prefix=$HOME/.rbenv/versions/$RUBY_NUM_VER" && run_cmd "$cmd" "Configure"
     cmd="$MAKE -j2" && run_cmd "$cmd" "Make"
     cmd="$MAKE install" && run_cmd "$cmd" "Install"
   fi
