@@ -9,8 +9,6 @@ libavahi-client-dev install
 libcairo2-dev install
 libglib2.0-dev install
 libgsl0-dev install
-libopenbabel4 install
-libopenbabel-dev install
 libopenssl-ruby install
 libpcre3-dev install
 libraptor1-dev install

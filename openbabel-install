@@ -1,0 +1,45 @@
+#!/bin/sh
+
+# Installs 4store on Debian and compatible systems.
+# Author: Andreas Maunz
+
+DIR=`pwd`
+
+# Boot
+. ./utils.sh || (echo "Utils could not be loaded, check opentox-ui.sh." 1>&2 && exit 1)
+SELF=$(basename $0 -install)
+check_log $SELF
+[ "`id -u`" = "0" ] && echo "This script must not be run as root" 1>&2 && exit 1
+check_utils "wget cmake tar"
+
+# Build
+cd $OT_PREFIX/tmp/
+mkdir $SELF 2>/dev/null
+cd $SELF
+cmd="$WGET http://downloads.sourceforge.net/project/openbabel/openbabel/$OB_NUM_VER/openbabel-$OB_NUM_VER.tar.gz" && run_cmd "$cmd" "Download"
+cmd="$TAR zxf $OB_VER.tar.gz $OB_VER"  && run_cmd "$cmd" "Unpack"
+mkdir build 2>/dev/null 
+cd build
+cmd="$CMAKE ../$OB_VER -DCMAKE_INSTALL_PREFIX=$OB_DEST" && run_cmd "$cmd" "Cmake"
+cmd="make -j2" && run_cmd "$cmd" "Make"
+cmd="make install" && run_cmd "$cmd" "Make Install"
+
+# Config
+if [ ! -f "$OB_CONF" ]; then
+  echo "if echo \"\$PATH\" | grep -v \"$OB_DEST\">/dev/null 2>&1; then export PATH=\"$OB_DEST/bin:\$PATH\"; fi" >> "$OB_CONF"
+  echo "if echo \"\$LD_LIBRARY_PATH\" | grep -v \"$OB_DEST\">/dev/null 2>&1; then export LD_LIBRARY_PATH=\"$OB_DEST/lib:\$LD_LIBRARY_PATH\"; fi" >> "$OB_CONF"
+  echo "if ! [ -d \"$OB_DEST\" ]; then echo \"\$0: '$OB_DEST' is not a directory!\"; fi" >> "$OB_CONF"
+  echo "if [ -z \"\$BABEL_LIBDIR\" ]; then export BABEL_LIBDIR=\"$OB_DEST/lib/openbabel/$OB_NUM_VER\"; fi" >> "$OB_CONF"
+  echo "if ! [ -d \"\$BABEL_LIBDIR\" ]; then echo \"\$0: '\$BABEL_LIBDIR' is not a directory!\"; fi" >> "$OB_CONF"
+  echo "if [ -z \"\$BABEL_DATADIR\" ]; then export BABEL_DATADIR=\"$OB_DEST/share/openbabel/$OB_NUM_VER\"; fi" >> "$OB_CONF"
+  echo "if ! [ -d \"\$BABEL_DATADIR\" ]; then echo \"\$0: '\$BABEL_DATADIR' is not a directory!\"; fi" >> "$OB_CONF"
+  echo "Openbabel configuration has been stored in '$OB_CONF'."
+  if ! grep "$OB_CONF" $OT_UI_CONF >/dev/null 2>&1 ; then
+    echo ". \"$OB_CONF\"" >> $OT_UI_CONF
+  fi
+fi
+
+notify
+
+# return to wd
+cd $DIR
