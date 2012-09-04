@@ -27,12 +27,14 @@ cmd="make install" && run_cmd "$cmd" "Make Install"
 # Config
 if [ ! -f "$OB_CONF" ]; then
   echo "if echo \"\$PATH\" | grep -v \"$OB_DEST\">/dev/null 2>&1; then export PATH=\"$OB_DEST/bin:\$PATH\"; fi" >> "$OB_CONF"
+  echo "if echo \"\$PKG_CONFIG_PATH\" | grep -v \"$OB_DEST/lib/pkgconfig\">/dev/null 2>&1; then export PKG_CONFIG_PATH=\"$OB_DEST/lib/pkgconfig:\$PKG_CONFIG_PATH\"; fi" >> "$OB_CONF"
   echo "if echo \"\$LD_LIBRARY_PATH\" | grep -v \"$OB_DEST\">/dev/null 2>&1; then export LD_LIBRARY_PATH=\"$OB_DEST/lib:\$LD_LIBRARY_PATH\"; fi" >> "$OB_CONF"
   echo "if ! [ -d \"$OB_DEST\" ]; then echo \"\$0: '$OB_DEST' is not a directory!\"; fi" >> "$OB_CONF"
   echo "if [ -z \"\$BABEL_LIBDIR\" ]; then export BABEL_LIBDIR=\"$OB_DEST/lib/openbabel/$OB_NUM_VER\"; fi" >> "$OB_CONF"
   echo "if ! [ -d \"\$BABEL_LIBDIR\" ]; then echo \"\$0: '\$BABEL_LIBDIR' is not a directory!\"; fi" >> "$OB_CONF"
   echo "if [ -z \"\$BABEL_DATADIR\" ]; then export BABEL_DATADIR=\"$OB_DEST/share/openbabel/$OB_NUM_VER\"; fi" >> "$OB_CONF"
   echo "if ! [ -d \"\$BABEL_DATADIR\" ]; then echo \"\$0: '\$BABEL_DATADIR' is not a directory!\"; fi" >> "$OB_CONF"
+
   echo "Openbabel configuration has been stored in '$OB_CONF'."
   if ! grep "$OB_CONF" $OT_UI_CONF >/dev/null 2>&1 ; then
     echo ". \"$OB_CONF\"" >> $OT_UI_CONF
