@@ -44,8 +44,6 @@ if [ ! $RUBY_DONE ]; then
     cmd="$WGET $URI" && run_cmd "$cmd" "Download"
     cmd="tar xzf $RUBY_VER.tar.gz" && run_cmd "$cmd" "Unpack"
   fi
-  # Fix Bug
-  sed -i '1672s/__memalign/\ volatile\ __memalign/g' $HOME/tmp/$RUBY_VER/source/distro/google-perftools-1.7/src/tcmalloc.cc
   cmd="sh $HOME/tmp/$RUBY_VER/installer  --dont-install-useful-gems --no-dev-docs --auto=$RUBY_DEST" && run_cmd "$cmd" "Install"
 fi
 
