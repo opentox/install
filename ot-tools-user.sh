@@ -50,8 +50,7 @@ otstart() {
     "compound")   start_unicorn $1 8082;;
     "dataset")    start_unicorn $1 8083;;
     "feature")    start_unicorn $1 8084;;
-    "model")      #start_unicorn $1 8085;;
-                  echo "$1 not available yet.";;
+    "model")      start_unicorn $1 8085;;
     "task")       start_unicorn $1 8086;;
     "validation") #start_unicorn $1 8087;;
                   echo "$1 not available yet.";;
@@ -63,7 +62,7 @@ otstart() {
                   otstart compound;
                   otstart dataset;
                   otstart feature;
-                  #otstart model;
+                  otstart model;
                   otstart task;;
                   #otstart validation;;
     *)            echo "One argument required: [service_name] or 'all'";
@@ -106,8 +105,7 @@ otreload() {
     "compound")   reload_unicorn 8082;;
     "dataset")    reload_unicorn 8083;;
     "feature")    reload_unicorn 8084;;
-    "model")      #reload_unicorn 8085;;
-                  echo "$1 not available yet.";;
+    "model")      reload_unicorn 8085;;
     "task")       reload_unicorn 8086;;
     "validation") #reload_unicorn 8087;;
                   echo "$1 not available yet.";;
@@ -118,7 +116,7 @@ otreload() {
                   otreload compound;
                   otreload dataset;
                   otreload feature;
-                  #otreload model;
+                  otreload model;
                   otreload task;
                   #otrelaod validation;
                   otreload 4store;;
@@ -150,7 +148,7 @@ otkill() {
     "compound")   kill_unicorn 8082;;
     "dataset")    kill_unicorn 8083;;
     "feature")    kill_unicorn 8084;;
-    "model")      #kill_unicorn 8085;;
+    "model")      kill_unicorn 8085;;
                   echo "$1 not available yet.";;
     "task")       kill_unicorn 8086;;
     "validation") #kill_unicorn 8087;;
@@ -161,7 +159,7 @@ otkill() {
                   otkill compound;
                   otkill dataset;
                   otkill feature;
-                  #otkill model;
+                  otkill model;
                   otkill task;
                   #otkill validation;
                   otkill 4store;;
@@ -242,8 +240,7 @@ otcheck() {
     "compound")   check_service "compound";;
     "dataset")    check_service "dataset";;
     "feature")    check_service "feature";;
-    "model")      #check_service "model";;
-                  echo "$1 not available yet.";;
+    "model")      check_service "model";;
     "task")       check_service "task";;
     "validation") #check_service "validation";;
                   echo "$1 not available yet.";;
@@ -252,7 +249,7 @@ otcheck() {
                   otcheck "compound";
                   otcheck "dataset";
                   otcheck "feature";
-                  #otcheck "model";
+                  otcheck "model";
                   otcheck "task";
                   #otcheck "validation";
                   otcheck 4store;;
