@@ -35,7 +35,7 @@ if [ ! -f "$OB_CONF" ]; then
   echo "if [ -z \"\$BABEL_DATADIR\" ]; then export BABEL_DATADIR=\"$OB_DEST/share/openbabel/$OB_NUM_VER\"; fi" >> "$OB_CONF"
   echo "if ! [ -d \"\$BABEL_DATADIR\" ]; then echo \"\$0: '\$BABEL_DATADIR' is not a directory!\"; fi" >> "$OB_CONF"
 
-  echo "Openbabel configuration has been stored in '$OB_CONF'."
+  echo "Openbabel configuration stored in '$OB_CONF'."
   if ! grep "$OB_CONF" $OT_UI_CONF >/dev/null 2>&1 ; then
     echo ". \"$OB_CONF\"" >> $OT_UI_CONF
   fi

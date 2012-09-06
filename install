@@ -59,7 +59,7 @@ fi
 
 [ -f $HOME/.opentox/config/pc_descriptors.yaml ] || (cmd="cp pc_descriptors.yaml $HOME/.opentox/config/" && run_cmd "$cmd" "Pc descriptor file")
 [ -f $HOME/.opentox/config/jl_keys.yaml ] || (cmd="cp jl_keys.yaml $HOME/.opentox/config/" && run_cmd "$cmd" "Joelib keys file")
-[ -f $OT_TOOLS_CONF ] || (cmd="cp ot-tools-user.sh $OT_TOOLS_CONF" && run_cmd "$cmd" "ot-tools.sh => $HOME/.opentox)")
+[ -f $OT_TOOLS_CONF ] || (cmd="cp ot-tools-user.sh $OT_TOOLS_CONF" && run_cmd "$cmd" "ot-tools.sh => $HOME/.opentox")
 
 
 # Install global ruby version

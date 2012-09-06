@@ -23,7 +23,7 @@ cmd="$MAKE install" && run_cmd "$cmd" "Make Install"
 # Config
 echo "if echo \"\$LD_LIBRARY_PATH\" | $GREP -v \"$RAPTOR2_DIR/lib\">/dev/null 2>&1; then export LD_LIBRARY_PATH=\"$RAPTOR2_DIR/lib:\$LD_LIBRARY_PATH\"; fi" >> "$RAPTOR2_CONF"
 echo "if echo \"\$PKG_CONFIG_PATH\" | $GREP -v \"$RAPTOR2_DIR/lib/pkgconfig\">/dev/null 2>&1; then export PKG_CONFIG_PATH=\"$RAPTOR2_DIR/lib/pkgconfig:\$PKG_CONFIG_PATH\"; fi" >> "$RAPTOR2_CONF"
-echo "$SELF configuration has been stored in '$RAPTOR2_CONF'."
+echo "$SELF configuration stored in '$RAPTOR2_CONF'."
 if ! $GREP "$RAPTOR2_CONF" $OT_UI_CONF >/dev/null 2>&1; then
   echo '. '$RAPTOR2_CONF >> $OT_UI_CONF
 fi

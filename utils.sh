@@ -122,7 +122,7 @@ notify() {
     echo "IMPORTANT: How to configure your system if everything went fine:"
     echo "IMPORTANT: bash shell only: '. $OT_TOOLS_CONF; otconfig' (convenient ot-tools)"
     echo "IMPORTANT: other shells: '. $OT_UI_CONF' (no ot-tools available)"
-    echo "IMPORTANT: More information: 'http://opentox.github.com/General/2012/08/09/install-opentox-development-environment'"
+    echo "IMPORTANT: More information on setup: 'http://opentox.github.com/categories.html'"
     echo "IMPORTANT: Thank you for your attention."
   fi
 }

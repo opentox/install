@@ -22,7 +22,7 @@ cmd="$MAKE install" && run_cmd "$cmd" "Make Install"
 # Config
 echo "if echo \"\$LD_LIBRARY_PATH\" | $GREP -v \"$RASQAL_DIR/lib\">/dev/null 2>&1; then export LD_LIBRARY_PATH=\"$RASQAL_DIR/lib:\$LD_LIBRARY_PATH\"; fi" >> "$RASQAL_CONF"
 echo "if echo \"\$PKG_CONFIG_PATH\" | $GREP -v \"$RASQAL_DIR/lib/pkgconfig\">/dev/null 2>&1; then export PKG_CONFIG_PATH=\"$RASQAL_DIR/lib/pkgconfig:\$PKG_CONFIG_PATH\"; fi" >> "$RASQAL_CONF"
-echo "$SELF configuration has been stored in '$RASQAL_CONF'."
+echo "$SELF configuration stored in '$RASQAL_CONF'."
 if ! $GREP "$RASQAL_CONF" $OT_UI_CONF >/dev/null 2>&1; then
   echo '. '$RASQAL_CONF >> $OT_UI_CONF
 fi
