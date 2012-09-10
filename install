@@ -14,10 +14,12 @@ then
     fi
 fi
 
-echo
-echo "OpenTox Ruby"
-echo "Hit <Return> If all services are stoppped, else hit <Ctrl+C>."
-[ $SILENT = false ] && read delete_me
+if [ $SILENT = false ]; then
+  echo
+  echo "OpenTox Ruby"
+  echo "Hit <Return> If all services are stoppped, else hit <Ctrl+C>."
+  read delete_me
+fi
 
 echo "Note: CONFIG (~/.opentox) will be backupped."
 mkdir -p $OT_PREFIX/tmp/ >/dev/null 2>&1
@@ -36,10 +38,13 @@ echo "Backup finished."
 . ./utils.sh
 
 check_log `basename $0`
-echo
-echo "Welcome to base installation for OpenTox compatible services on Ruby and Debian."
-echo "IMPORTANT: Hit <Ctrl+C> to adjust config.sh first (<Return> to continue)."
-[ $SILENT = false ] && read delete_me
+if [ $SILENT = false ]; then
+  echo
+  echo "Welcome to base installation for OpenTox compatible services on Ruby and Debian."
+  echo "IMPORTANT: Hit <Ctrl+C> to adjust config.sh first (<Return> to continue)."
+  read delete_me
+fi
+
 echo 
 echo -n "We need to do some privileged action. "
 sudo echo -n ""
