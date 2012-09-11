@@ -5,10 +5,21 @@
 
 [ "`id -u`" = "0" ] && echo "This script must not be run as root" 1>&2 && exit 1
 
-echo
-echo "OpenTox Ruby"
-echo "Hit <Return> If all services are stoppped, else hit <Ctrl+C>."
-read delete_me
+SILENT=false
+if [ -n "$1" ]
+then
+    if [ "$1" = "silent" ]
+    then
+        SILENT=true
+    fi
+fi
+
+if [ $SILENT = false ]; then
+  echo
+  echo "OpenTox Ruby"
+  echo "Hit <Return> If all services are stoppped, else hit <Ctrl+C>."
+  read delete_me
+fi
 
 echo "Note: CONFIG (~/.opentox) will be backupped."
 mkdir -p $OT_PREFIX/tmp/ >/dev/null 2>&1
@@ -27,10 +38,13 @@ echo "Backup finished."
 . ./utils.sh
 
 check_log `basename $0`
-echo
-echo "Welcome to base installation for OpenTox compatible services on Ruby and Debian."
-echo "IMPORTANT: Hit <Ctrl+C> to adjust config.sh first (<Return> to continue)."
-read delete_me
+if [ $SILENT = false ]; then
+  echo
+  echo "Welcome to base installation for OpenTox compatible services on Ruby and Debian."
+  echo "IMPORTANT: Hit <Ctrl+C> to adjust config.sh first (<Return> to continue)."
+  read delete_me
+fi
+
 echo 
 echo -n "We need to do some privileged action. "
 sudo echo -n ""
