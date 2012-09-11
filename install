@@ -80,4 +80,6 @@ fi
 . ./utils.sh
 install_ruby global
 
-notify
+if [ $SILENT = false ]; then
+  notify
+fi
