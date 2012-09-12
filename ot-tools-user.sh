@@ -33,10 +33,30 @@ start_4s() {
 
 }
 
+# configure tab completion for ottools
+_ottoolcompletion()
+{
+  word="${COMP_WORDS[COMP_CWORD]}"
+  COMPREPLY=(${COMPREPLY[@]:-} $(compgen -W '
+    all
+    algorithm
+    compound
+    dataset
+    feature
+    model
+    task
+    validation
+    4store
+    ' "$word")) ;
+}
+complete -o default -F _ottoolcompletion otstart
+complete -o default -F _ottoolcompletion otreload
+complete -o default -F _ottoolcompletion otkill
+complete -o default -F _ottoolcompletion otcheck
+
 # Start the server
 otstart() {
-  if [ $# != 1 ]
-  then
+  if [ $# != 1 ]; then
     echo "One argument required: [service_name] or 'all'"
     echo "usage: otstart [all|algorithm|compound|dataset|feature|model|task|validation|4store]"
     return 1
@@ -92,8 +112,7 @@ reload_unicorn() {
 
 # Reload the server
 otreload() {
-  if [ $# != 1 ]
-  then
+  if [ $# != 1 ]; then
     echo "One argument required: [service_name] or 'all'"
     echo "usage: otreload [all|algorithm|compound|dataset|feature|model|task|validation|4store]"
     return 1
@@ -101,25 +120,33 @@ otreload() {
 
   otconfig
   case "$1" in
-    "algorithm")  reload_unicorn 8081;;
-    "compound")   reload_unicorn 8082;;
-    "dataset")    reload_unicorn 8083;;
-    "feature")    reload_unicorn 8084;;
-    "model")      reload_unicorn 8085;;
-    "task")       reload_unicorn 8086;;
+    "algorithm")  reload_unicorn 8081;
+                  check_service "algorithm";;
+    "compound")   reload_unicorn 8082;
+                  check_service "compound";;
+    "dataset")    reload_unicorn 8083;
+                  check_service "dataset";;
+    "feature")    reload_unicorn 8084;
+                  check_service "feature";;
+    "model")      reload_unicorn 8085;
+                  check_service "model";;
+    "task")       reload_unicorn 8086;
+                  check_service "task";;
     "validation") #reload_unicorn 8087;;
+                  #check_service "validation";
                   echo "$1 not available yet.";;
     "4store")     #killall 4s-httpd >/dev/null 2>&1;
-                  #killall 4s-backend >/dev/null 2>&1;;
+                  #killall 4s-backend >/dev/null 2>&1;
+                  #check_service "four_store";;
                   echo "$1 reload not available yet.";;
     "all")        otreload algorithm;
                   otreload compound;
                   otreload dataset;
                   otreload feature;
                   otreload model;
-                  otreload task;
+                  otreload task;;
                   #otrelaod validation;
-                  otreload 4store;;
+                  #otreload 4store;;
     *)            echo "One argument required: [service_name] or 'all'";
                   echo "usage: otreload [all|algorithm|compound|dataset|feature|model|task|validation|4store]";
                   return 1;;
@@ -135,8 +162,7 @@ kill_unicorn() {
 
 # Kill the server
 otkill() {
-  if [ $# != 1 ]
-  then
+  if [ $# != 1 ]; then
     echo "One argument required: [service_name] or 'all'"
     echo "usage: otkill [all|algorithm|compound|dataset|feature|model|task|validation|4store]"
     return 1
@@ -173,26 +199,22 @@ otkill() {
 # @param1 string [service_name]
 # @example get_service_uri algorithm
 get_service_uri() {
-  if [ $# != 1 ]
-  then
+  if [ $# != 1 ]; then
     echo "One argument required: [service_name]"
     echo "usage: get_service_uri [algorithm|compound|dataset|feature|model|task|validation|four_store]"
     return 1
   fi
   SERVICE_URI=""
 
-  if [ -f $HOME/.opentox/config/$1.rb ]
-  then
+  if [ -f $HOME/.opentox/config/$1.rb ]; then
     SERVICE_URI=`cat $HOME/.opentox/config/$1.rb | grep $1 | grep "uri" | awk -F":uri => " '{print $2}' | awk -F" " '{print $1}' | awk -F"," '{print $1}' |  sed "s/'//g" | sed 's/"//g'`
   fi
 
-  if [ -f $HOME/.opentox/config/default.rb ]
-  then
+  if [ -f $HOME/.opentox/config/default.rb ]; then
     [ -n "$SERVICE_URI" ] || SERVICE_URI=`cat $HOME/.opentox/config/default.rb | grep $1 | grep "uri" | awk -F":uri => " '{print $2}' | awk -F" " '{print $1}' | awk -F"," '{print $1}' |  sed "s/'//g" | sed 's/"//g'`
   fi
   
-  if [ -z "$SERVICE_URI" ] 
-  then 
+  if [ -z "$SERVICE_URI" ]; then 
     echo "Cannot find service uri for $1 in config files."
     return 1
   else
@@ -204,19 +226,22 @@ get_service_uri() {
 # @param1 string [service_name]
 # @example check_service algorithm
 check_service() {
-  if [ $# != 1 ]
-  then
+  check_utils "curl"
+  if [ $# != 1 ]; then
     echo "One argument required: [service_name]"
     echo "usage: get_service_uri [algorithm|compound|dataset|feature|model|task|validation|four_store]"
     return 1
   fi
   get_service_uri $1
-  if [ $1 == "four_store" ]
-  then
+  HEADER="Accept: */*"
+  if [ $1 == "four_store" ]; then
     SERVICE_URI="$SERVICE_URI""/status/"
   fi
-  if [ -n "`curl -v $SERVICE_URI 2>&1 | grep '200 OK'`" ]
-  then
+  if [ $1 == "compound" ]; then
+    SERVICE_URI="$SERVICE_URI""/InChI=1S/BF4.Na/c2-1(3,4)5;/q-1;+1"
+    HEADER="Accept: chemical/x-inchi"
+  fi
+  if [ -n "`$CURL -v -H "$HEADER" $SERVICE_URI 2>&1 | grep '200 OK'`" ]; then
     return 0 
   else
     echo "$1 is not available at $SERVICE_URI."
@@ -226,8 +251,7 @@ check_service() {
 
 # Check the server
 otcheck() {
-  if [ $# != 1 ]
-  then
+  if [ $# != 1 ]; then
     echo "One argument required: [service_name] or 'all'"
     echo "usage: otcheck [all|algorithm|compound|dataset|feature|model|task|validation|4store]"
     return 1
