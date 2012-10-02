@@ -75,7 +75,7 @@ cmd="sed -e \"s,SERVERNAME,$servername,;s,ESCAPEDSERVER,$escapedserver,;s,LOGGER
 cmd="sed -e \"s,SERVERNAME,$servername,;s,ESCAPEDSERVER,$escapedserver,;s,LOGGER,$logger,;s,AA,$aa,;s,WWW_DEST,$WWW_DEST,;s,NGINX_PORT,$NGINX_PORT,;s,OHM_PORT,$OHM_PORT,\" aa-$OT_INSTALL.yaml >> $HOME/.opentox/config/production.yaml" && run_cmd "$cmd" "Config 2"
 cmd="cp pc_descriptors.yaml $HOME/.opentox/config/" && run_cmd "$cmd" "Ambit"
 
-if [ "$OT_BRANCH" = "development" ] || expr match "$OT_BRANCH" "release"; then
+#if [ "$OT_BRANCH" = "development" ] || expr match "$OT_BRANCH" "release"; then
   mkdir -p $WWW_DEST/opentox >>$LOG 2>&1
   cd $WWW_DEST/opentox >>$LOG 2>&1
   rm -rf opentox-ruby >>$LOG 2>&1
@@ -87,6 +87,6 @@ if [ "$OT_BRANCH" = "development" ] || expr match "$OT_BRANCH" "release"; then
   rm -rf "$GEM_LIB~" >>$LOG 2>&1
   mv "$GEM_LIB" "$GEM_LIB~" >>$LOG 2>&1
   cmd="ln -sf $WWW_DEST/opentox/opentox-ruby/lib $GEM_LIB" && run_cmd "$cmd" "Linking back"
-fi
+#fi
 
 cd "$DIR"
