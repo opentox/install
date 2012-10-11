@@ -418,14 +418,14 @@ nF:
   :pc_type: "constitutional"
   :lib: "openbabel"
   :name: "Number of fluorine atoms"
-nHal:           
-  :pc_type: "constitutional"
-  :lib: "openbabel"
-  :name: "Number of halogen atoms"
-spinMult:       
-  :pc_type: "electronic"
-  :lib: "openbabel"
-  :name: "Total spin multiplicity"
+#nHal:           
+#  :pc_type: "constitutional"
+#  :lib: "openbabel"
+#  :name: "Number of halogen atoms"
+#spinMult:       
+#  :pc_type: "electronic"
+#  :lib: "openbabel"
+#  :name: "Total spin multiplicity"
 TPSA:           
   :pc_type: "topological"
   :lib: "openbabel"
