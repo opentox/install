@@ -23,7 +23,7 @@ REDIS_NUM_VER="2.4.4"
 # 4) Server settings.
 NGINX_SERVERNAME="toxcreate3.in-silico.ch"
 WWW_DEST="$OT_PREFIX/www"
-NGINX_PORT="" # set to empty string ("") for port 80 otherwise set to port *using colon* e.g. ":8080"
+NGINX_PORT=":8080" # set to empty string ("") for port 80 otherwise set to port *using colon* e.g. ":8080"
 OHM_PORT="6379" # set to port (no colon)
 
 # Done.
