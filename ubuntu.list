@@ -6,6 +6,7 @@ cmake install
 curl install
 libavahi-glib-dev install
 libavahi-client-dev install
+libcairo2-dev install
 libglib2.0-dev install
 libgsl0-dev install
 libopenssl-ruby install
