@@ -9,8 +9,9 @@ POSIX-compliant (not limited to a particular shell) installer. Report bugs via G
 - Encapsulated (everything is installed in a sub-directory in $HOME)
 - Logged (all non-elemtary actions are logged)
 
-A) sudo configuration to gain root privileges assumed (needed only for installation).
-B) configuration for non-free packages assumed.
+Assumptions:
+A) Checked out this installer via 'cd && git clone git://github.com/opentox/install && cd install && git checkout oldarch', preferably in Debian 6.x
+B) 'sudo' configuration to gain root privileges assumed (needed only for installation).
 
 Configure in config.sh, see comments there.
 By default, everything is installed to $HOME/opentox-ruby (=OT_PREFIX). 
