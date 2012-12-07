@@ -19,10 +19,10 @@ OB_NUM_VER="2.3.1"
 RAPTOR2_NUM_VER="2.0.8"
 RASQAL_NUM_VER="0.9.29"
 RUBY_NUM_VER="1.9.3-p194"
-4STORE_NUM_VER="v1.1.5"
+FOUR_STORE_VER="4store-v1.1.5"
 REDLAND_DWL="http://download.librdf.org"
 REDLAND_APT_KEY="http://purl.org/net/dajobe/gnupg.asc"
-4STORE_URL="http://4store.org/download"
+FOUR_STORE_URL="http://4store.org/download"
 
 # Done.
 
@@ -47,4 +47,4 @@ RUBY_DWL="http://ftp.ruby-lang.org/pub/ruby/1.9"
 RAPTOR2_DWL="$REDLAND_DWL/source/$RAPTOR2_VER.tar.gz"
 RASQAL_DWL="$REDLAND_DWL/source/$RASQAL_VER.tar.gz"
 REDLAND_DEB="$REDLAND_DWL/binaries/$OT_DIST/unstable"
-4STORE_DWL="$4STORE_URL/4store-$4STORE_NUM_VER.tar.gz"
+FOUR_STORE_DWL="$FOUR_STORE_URL/$FOUR_STORE_VER.tar.gz"

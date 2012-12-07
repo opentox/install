@@ -28,6 +28,7 @@ if ! cat "/etc/apt/sources.list" | grep "$REDLAND_DEB">/dev/null 2>&1; then
 fi
 
 sudo $APTITUDE update -y >/dev/null 2>&1
+sudo $APTITUDE upgrade -y >/dev/null 2>&1
 
 DISTRIB_INFO=$(cat /proc/version)
 
@@ -37,6 +38,7 @@ case "$DISTRIB_INFO" in
   *) PACK_LIST="debian.list";;
 esac
 
+sudo $APTITUDE update -y >/dev/null 2>&1
 sudo $DPKG --set-selections < "$PACK_LIST"
 sudo $APT_GET -y --force-yes -u dselect-upgrade
 

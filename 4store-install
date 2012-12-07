@@ -10,11 +10,13 @@ DIR=`pwd`
 SELF=$(basename $0 -install)
 check_log $SELF
 [ "`id -u`" = "0" ] && echo "This script must not be run as root" 1>&2 && exit 1
-check_utils "git make"
+check_utils "git make tar wget"
 
 # Build
 cd $OT_PREFIX/tmp/
-([ -d $SELF ] && cd $SELF && cmd="$GIT pull" && run_cmd "$cmd" "Git pull") || (cmd="$GIT clone https://github.com/garlik/$SELF" && run_cmd "$cmd" "Git clone")
+cmd="$WGET $FOUR_STORE_DWL" && run_cmd "$cmd" "Download"
+cmd="$TAR -xzvf $FOUR_STORE_VER.tar.gz" && run_cmd "$cmd" "Unzip"
+mv $OT_PREFIX/tmp/$FOUR_STORE_VER $OT_PREFIX/tmp/$SELF
 cd $SELF
 cmd="./autogen.sh" && run_cmd "$cmd" "Autogen"
 export FST=$OT_PREFIX/4S
