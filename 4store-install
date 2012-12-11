@@ -15,8 +15,8 @@ check_utils "git make tar wget"
 # Build
 cd $OT_PREFIX/tmp/
 ([ -d $SELF ] && cd $SELF && cmd="$GIT pull" && run_cmd "$cmd" "Git pull") || (cmd="$GIT clone https://github.com/garlik/$SELF" && run_cmd "$cmd" "Git clone")
-cmd="$GIT checkout -b ist c3d8593c39dc04a39e272f729e486c1576f6aeba" && run_cmd "$cmd" "checkout to particular commit"
 cd $SELF
+cmd="$GIT checkout -b ist c3d8593c39dc04a39e272f729e486c1576f6aeba" && run_cmd "$cmd" "checkout to particular commit"
 cmd="./autogen.sh" && run_cmd "$cmd" "Autogen"
 export FST=$OT_PREFIX/4S
 cmd="./configure --prefix=$FST --exec-prefix=$FST --with-storage-path=$FST/var/lib --with-config-file=$FST/$SELF.conf -with-http-log=$FST/log" && run_cmd "$cmd" "Configure"
