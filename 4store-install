@@ -26,7 +26,7 @@ cmd="make install" && run_cmd "$cmd" "Make Install"
 
 # Config
 echo "if echo \"\$LD_LIBRARY_PATH\" | grep -v \"$FST/lib\">/dev/null 2>&1; then export LD_LIBRARY_PATH=\"\$LD_LIBRARY_PATH:$FST/lib\"; fi" >> "$FST_CONF"
-if ! cat "$OT_DEFAULT_CONF" | grep "four_store">/dev/null 2>&1; then echo '$four_store = { :uri => "http://localhost:9088", :user => "", :password => "" }' >> $OT_DEFAULT_CONF; fi
+if ! cat "$OT_DEFAULT_CONF" | grep "four_store">/dev/null 2>&1; then echo '$four_store = { :uri => "http://localhost:9088", :user => "user", :password => "pw" }' >> $OT_DEFAULT_CONF; fi
 
 echo "$SELF configuration stored in '$FST_CONF'."
 if ! grep "$FST_CONF" $OT_UI_CONF >/dev/null 2>&1; then
