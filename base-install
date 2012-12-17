@@ -46,6 +46,8 @@ if [ ! -f $JAVA_CONF ]; then
 
   if [ ! -d "$OT_JAVA_HOME" ]; then
     echo "Directory '$OT_JAVA_HOME' does not exist! Aborting..."
+    echo "Please check if openjdk-6-jdk has been installed properly."
+    echo "You may need to set the OT_JAVA_HOME variable in config.sh to the correct path on your system."
     exit 1
   fi
 
