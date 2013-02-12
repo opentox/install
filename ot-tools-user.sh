@@ -73,7 +73,7 @@ otstart() {
     "model")      start_unicorn $1 8085;;
     "task")       start_unicorn $1 8086;;
     "validation") start_unicorn $1 8087;
-                  nice bash -c "nohup redis-server $HOME/opentox-ruby/redis-*/redis.conf >/dev/null 2>&1 &";;
+                  nice bash -c "nohup redis-server $OT_PREFIX/validation/redis-*/redis.conf >/dev/null 2>&1 &";;
     "4store")     start_4s opentox 9088; 
                   if ! pgrep -u $USER 4s-backend>/dev/null 2>&1; then echo "Failed to start 4s-backend."; fi
                   if ! pgrep -u $USER 4s-httpd>/dev/null 2>&1; then echo "Failed to start 4s-httpd."; fi;;
