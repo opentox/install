@@ -4,8 +4,10 @@ avahi-daemon install
 build-essential install
 cmake install
 curl install
+gnuplot install
 libavahi-glib-dev install
 libavahi-client-dev install
+libcairo2-dev install
 libglib2.0-dev install
 libgsl0-dev install
 libopenssl-ruby install
@@ -21,3 +23,4 @@ openjdk-6-jdk install
 r-base-dev install
 r-base install
 uuid-dev install
+xsltproc install

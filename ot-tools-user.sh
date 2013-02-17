@@ -27,9 +27,9 @@ start_unicorn() {
 # @example start_unicorn algorithm 8081
 start_4s() {
   nice bash -c "nohup $OT_PREFIX/4S/bin/4s-backend $1 >/dev/null 2>&1 &";
-  sleep 0.5;
+  sleep 2;
   nice bash -c "nohup $OT_PREFIX/4S/bin/4s-httpd -H localhost -p $2 -s -1 $1 >/dev/null 2>&1 &"; #-D for testing        
-  sleep 0.5;
+  sleep 1;
 
 }
 
@@ -72,8 +72,8 @@ otstart() {
     "feature")    start_unicorn $1 8084;;
     "model")      start_unicorn $1 8085;;
     "task")       start_unicorn $1 8086;;
-    "validation") #start_unicorn $1 8087;;
-                  echo "$1 not available yet.";;
+    "validation") start_unicorn $1 8087;
+                  nice bash -c "nohup redis-server $OT_PREFIX/validation/redis-*/redis.conf >/dev/null 2>&1 &";;
     "4store")     start_4s opentox 9088; 
                   if ! pgrep -u $USER 4s-backend>/dev/null 2>&1; then echo "Failed to start 4s-backend."; fi
                   if ! pgrep -u $USER 4s-httpd>/dev/null 2>&1; then echo "Failed to start 4s-httpd."; fi;;
@@ -83,8 +83,8 @@ otstart() {
                   otstart dataset;
                   otstart feature;
                   otstart model;
-                  otstart task;;
-                  #otstart validation;;
+                  otstart task;
+                  otstart validation;;
     *)            echo "One argument required: [service_name] or 'all'";
                   echo "usage: otstart [all|algorithm|compound|dataset|feature|model|task|validation|4store]";
                   return 1;;
@@ -132,9 +132,8 @@ otreload() {
                   check_service "model";;
     "task")       reload_unicorn 8086;
                   check_service "task";;
-    "validation") #reload_unicorn 8087;;
-                  #check_service "validation";
-                  echo "$1 not available yet.";;
+    "validation") reload_unicorn 8087;
+                  check_service "validation";;
     "4store")     #killall 4s-httpd >/dev/null 2>&1;
                   #killall 4s-backend >/dev/null 2>&1;
                   #check_service "four_store";;
@@ -144,8 +143,8 @@ otreload() {
                   otreload dataset;
                   otreload feature;
                   otreload model;
-                  otreload task;;
-                  #otrelaod validation;
+                  otreload task;
+                  otrelaod validation;;
                   #otreload 4store;;
     *)            echo "One argument required: [service_name] or 'all'";
                   echo "usage: otreload [all|algorithm|compound|dataset|feature|model|task|validation|4store]";
@@ -176,8 +175,8 @@ otkill() {
     "feature")    kill_unicorn 8084;;
     "model")      kill_unicorn 8085;;
     "task")       kill_unicorn 8086;;
-    "validation") #kill_unicorn 8087;;
-                  echo "$1 not available yet.";;
+    "validation") kill_unicorn 8087;
+                  bash -c "redis-cli -p $OHM_PORT shutdown >/dev/null 2>&1";;
     "4store")     killall 4s-httpd >/dev/null 2>&1;
                   killall 4s-backend >/dev/null 2>&1;;
     "all")        otkill algorithm;
@@ -186,7 +185,7 @@ otkill() {
                   otkill feature;
                   otkill model;
                   otkill task;
-                  #otkill validation;
+                  otkill validation;
                   otkill 4store;;
     *)            echo "One argument required: [service_name] or 'all'";
                   echo "usage: otkill [all|algorithm|compound|dataset|feature|model|task|validation|4store]";
@@ -265,8 +264,7 @@ otcheck() {
     "feature")    check_service "feature";;
     "model")      check_service "model";;
     "task")       check_service "task";;
-    "validation") #check_service "validation";;
-                  echo "$1 not available yet.";;
+    "validation") check_service "validation";;
     "4store")     check_service "four_store";; 
     "all")        otcheck "algorithm";
                   otcheck "compound";
@@ -274,7 +272,7 @@ otcheck() {
                   otcheck "feature";
                   otcheck "model";
                   otcheck "task";
-                  #otcheck "validation";
+                  otcheck "validation";
                   otcheck 4store;;
     *)            echo "One argument required: [service_name] or 'all'";
                   echo "usage: otcheck [all|algorithm|compound|dataset|feature|model|task|validation|4store]";

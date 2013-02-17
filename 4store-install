@@ -10,12 +10,13 @@ DIR=`pwd`
 SELF=$(basename $0 -install)
 check_log $SELF
 [ "`id -u`" = "0" ] && echo "This script must not be run as root" 1>&2 && exit 1
-check_utils "git make"
+check_utils "git make tar wget"
 
 # Build
 cd $OT_PREFIX/tmp/
 ([ -d $SELF ] && cd $SELF && cmd="$GIT pull" && run_cmd "$cmd" "Git pull") || (cmd="$GIT clone https://github.com/garlik/$SELF" && run_cmd "$cmd" "Git clone")
 cd $SELF
+cmd="$GIT checkout -b ist c3d8593c39dc04a39e272f729e486c1576f6aeba" && run_cmd "$cmd" "checkout to particular commit"
 cmd="./autogen.sh" && run_cmd "$cmd" "Autogen"
 export FST=$OT_PREFIX/4S
 cmd="./configure --prefix=$FST --exec-prefix=$FST --with-storage-path=$FST/var/lib --with-config-file=$FST/$SELF.conf -with-http-log=$FST/log CFLAGS=-O2 CPPFLAGS=-O3" && run_cmd "$cmd" "Configure"
@@ -25,7 +26,7 @@ cmd="make install" && run_cmd "$cmd" "Make Install"
 
 # Config
 echo "if echo \"\$LD_LIBRARY_PATH\" | grep -v \"$FST/lib\">/dev/null 2>&1; then export LD_LIBRARY_PATH=\"\$LD_LIBRARY_PATH:$FST/lib\"; fi" >> "$FST_CONF"
-if ! cat "$OT_DEFAULT_CONF" | grep "four_store">/dev/null 2>&1; then echo '$four_store = { :uri => "http://localhost:9088", :user => "", :password => "" }' >> $OT_DEFAULT_CONF; fi
+if ! cat "$OT_DEFAULT_CONF" | grep "four_store">/dev/null 2>&1; then echo '$four_store = { :uri => "http://localhost:9088", :user => "user", :password => "pw" }' >> $OT_DEFAULT_CONF; fi
 
 echo "$SELF configuration stored in '$FST_CONF'."
 if ! grep "$FST_CONF" $OT_UI_CONF >/dev/null 2>&1; then

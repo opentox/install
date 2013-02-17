@@ -28,6 +28,7 @@ if ! cat "/etc/apt/sources.list" | grep "$REDLAND_DEB">/dev/null 2>&1; then
 fi
 
 sudo $APTITUDE update -y >/dev/null 2>&1
+sudo $APTITUDE upgrade -y >/dev/null 2>&1
 
 DISTRIB_INFO=$(cat /proc/version)
 
@@ -37,6 +38,7 @@ case "$DISTRIB_INFO" in
   *) PACK_LIST="debian.list";;
 esac
 
+sudo $APTITUDE update -y >/dev/null 2>&1
 sudo $DPKG --set-selections < "$PACK_LIST"
 sudo $APT_GET -y --force-yes -u dselect-upgrade
 
@@ -44,6 +46,8 @@ if [ ! -f $JAVA_CONF ]; then
 
   if [ ! -d "$OT_JAVA_HOME" ]; then
     echo "Directory '$OT_JAVA_HOME' does not exist! Aborting..."
+    echo "Please check if openjdk-6-jdk has been installed properly."
+    echo "You may need to set the OT_JAVA_HOME variable in config.sh to the correct path on your system."
     exit 1
   fi
 
