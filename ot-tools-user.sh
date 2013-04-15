@@ -28,7 +28,7 @@ start_unicorn() {
 start_4s() {
   nice bash -c "nohup $OT_PREFIX/4S/bin/4s-backend $1 >/dev/null 2>&1 &";
   sleep 4;
-  nice bash -c "nohup $OT_PREFIX/4S/bin/4s-httpd -H localhost -p $2 -s -1 $1 >/dev/null 2>&1 &"; #-D for testing        
+  nice bash -c "nohup $OT_PREFIX/4S/bin/4s-httpd -p $2 -s -1 $1 >/dev/null 2>&1 &"; #-D for testing        
   sleep 1;
 
 }
