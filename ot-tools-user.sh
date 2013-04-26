@@ -66,7 +66,11 @@ otstart() {
   otkill $1
   DIR=`pwd`
   case "$1" in
-    "algorithm")  start_unicorn $1 8081;;
+    "algorithm")  otkill compound;
+                  otkill feature;
+                  otstart compound;
+                  otstart feature;
+                  start_unicorn $1 8081;;
     "compound")   start_unicorn $1 8082;;
     "dataset")    start_unicorn $1 8083;;
     "feature")    start_unicorn $1 8084;;
@@ -78,12 +82,12 @@ otstart() {
                   if ! pgrep -u $USER 4s-backend>/dev/null 2>&1; then echo "Failed to start 4s-backend."; fi
                   if ! pgrep -u $USER 4s-httpd>/dev/null 2>&1; then echo "Failed to start 4s-httpd."; fi;;
     "all")        otstart 4store;
-                  otstart algorithm;
                   otstart compound;
                   otstart dataset;
                   otstart feature;
                   otstart model;
                   otstart task;
+                  otstart algorithm;
                   otstart validation;;
     *)            echo "One argument required: [service_name] or 'all'";
                   echo "usage: otstart [all|algorithm|compound|dataset|feature|model|task|validation|4store]";
