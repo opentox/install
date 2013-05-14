@@ -19,7 +19,7 @@ cd $SELF
 cmd="$GIT checkout -b ist c3d8593c39dc04a39e272f729e486c1576f6aeba" && run_cmd "$cmd" "checkout to particular commit"
 cmd="./autogen.sh" && run_cmd "$cmd" "Autogen"
 export FST=$OT_PREFIX/4S
-cmd="./configure --prefix=$FST --exec-prefix=$FST --with-storage-path=$FST/var/lib --with-config-file=$FST/$SELF.conf -with-http-log=$FST/log CFLAGS=-O2 CPPFLAGS=-O3" && run_cmd "$cmd" "Configure"
+cmd="./configure --enable-dedup-insert --prefix=$FST --exec-prefix=$FST --with-storage-path=$FST/var/lib --with-config-file=$FST/$SELF.conf -with-http-log=$FST/log CFLAGS=-O2 CPPFLAGS=-O3" && run_cmd "$cmd" "Configure"
 cmd="make" && run_cmd "$cmd" "Make"
 cmd="make install" && run_cmd "$cmd" "Make Install"
 #cmd="make test" && run_cmd "$cmd" "Make Test"
