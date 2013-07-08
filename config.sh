@@ -11,7 +11,7 @@ OT_BRANCH="development"     # Maturity              (development -need SSH key a
 
 # 2) Where binaries are installed
 OT_PREFIX="$HOME/opentox-ruby"
-OT_JAVA_HOME="/usr/lib/jvm/java-6-openjdk"
+OT_JAVA_HOME="/usr/lib/jvm/java-6-openjdk" # use "/usr/lib/jvm/java-6-openjdk-amd64" for 64bit system architecture
 
 # 3) What versions to install
 

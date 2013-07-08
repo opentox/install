@@ -45,7 +45,7 @@ if [ $SILENT = false ]; then
   read delete_me
 fi
 
-echo 
+echo
 echo -n "We need to do some privileged action. "
 sudo echo -n ""
 echo
@@ -55,7 +55,7 @@ echo
 [ -f $OT_DEFAULT_CONF ] || (cmd="echo '\$aa = { :uri => nil }' > $OT_DEFAULT_CONF" && run_cmd "$cmd" "default.rb => $HOME/.opentox/config")
 
 . ./base-install # Debian specific; disable this for others.
-./openbabel-install # Download, compile and build openbabel. Install to OT_PREFIX
+#./openbabel-install # Download, compile and build openbabel. Install to OT_PREFIX
 ./raptor2-install # Download, compile and build raptor2. Install to OT_PREFIX.
 ./rasqal-install # Download, compile and build rasqal. Install to OT_PREFIX.
 ./4store-install # Download, compile and build 4store. Install to OT_PREFIX.

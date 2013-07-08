@@ -23,8 +23,8 @@ echo "Updating index..."
 cmd="$WGET -O redland_key.asc $REDLAND_APT_KEY  >/dev/null 2>&1" && run_cmd "$cmd" "Download redland apt-key"
 cmd="$APT_KEY add redland_key.asc >/dev/null 2>&1; rm redland_key.asc" && run_cmd "$cmd" "Adding redland apt-key"
 if ! cat "/etc/apt/sources.list" | grep "$REDLAND_DEB">/dev/null 2>&1; then
-  echo "deb $REDLAND_DEB ./" | sudo $TEE -a /etc/apt/sources.list >/dev/null 
-  echo "deb-src $REDLAND_DEB ./" | sudo $TEE -a /etc/apt/sources.list >/dev/null 
+  echo "deb $REDLAND_DEB ./" | sudo $TEE -a /etc/apt/sources.list >/dev/null
+  echo "deb-src $REDLAND_DEB ./" | sudo $TEE -a /etc/apt/sources.list >/dev/null
 fi
 
 sudo $APTITUDE update -y >/dev/null 2>&1
@@ -39,16 +39,22 @@ case "$DISTRIB_INFO" in
 esac
 
 sudo $APTITUDE update -y >/dev/null 2>&1
+sudo $APT_GET install dselect
+sudo dselect update
 sudo $DPKG --set-selections < "$PACK_LIST"
 sudo $APT_GET -y --force-yes -u dselect-upgrade
 
 if [ ! -f $JAVA_CONF ]; then
 
   if [ ! -d "$OT_JAVA_HOME" ]; then
-    echo "Directory '$OT_JAVA_HOME' does not exist! Aborting..."
-    echo "Please check if openjdk-6-jdk has been installed properly."
-    echo "You may need to set the OT_JAVA_HOME variable in config.sh to the correct path on your system."
-    exit 1
+    if [ -d "$OT_JAVA_HOME-amd64" ]; then
+      OT_JAVA_HOME="$OT_JAVA_HOME-amd64"
+    else
+      echo "Directory '$OT_JAVA_HOME' does not exist! Aborting..."
+      echo "Please check if openjdk-6-jdk has been installed properly."
+      echo "You may need to set the OT_JAVA_HOME variable in config.sh to the correct path on your system."
+      exit 1
+    fi
   fi
 
   echo "if echo \"\$JAVA_HOME\" | grep -v \"$OT_JAVA_HOME\">/dev/null 2>&1; then export JAVA_HOME=\"$OT_JAVA_HOME\"; fi" >> "$JAVA_CONF"
