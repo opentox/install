@@ -13,7 +13,7 @@ alias otless='less $HOME/.opentox/log/development.log'
 alias ottail='tail -f $HOME/.opentox/log/development.log'
 
 # Start unicorn
-# @param1 [service_name] 
+# @param1 [service_name]
 # @param2 integer Port
 # @example start_unicorn algorithm 8081
 start_unicorn() {
@@ -22,13 +22,13 @@ start_unicorn() {
 }
 
 # Start unicorn
-# @param1 [backend_name] 
+# @param1 [backend_name]
 # @param2 integer Port
 # @example start_unicorn algorithm 8081
 start_4s() {
   nice bash -c "nohup $OT_PREFIX/4S/bin/4s-backend $1 >/dev/null 2>&1 &";
   sleep 4;
-  nice bash -c "nohup $OT_PREFIX/4S/bin/4s-httpd -p $2 -s -1 $1 >/dev/null 2>&1 &"; #-D for testing        
+  nice bash -c "nohup $OT_PREFIX/4S/bin/4s-httpd -p $2 -s -1 $1 >/dev/null 2>&1 &"; #-D for testing
   sleep 1;
 
 }
@@ -60,7 +60,7 @@ otstart() {
     echo "One argument required: [service_name] or 'all'"
     echo "usage: otstart [all|algorithm|compound|dataset|feature|model|task|validation|4store]"
     return 1
-  fi 
+  fi
 
   otconfig
   otkill $1
@@ -78,7 +78,7 @@ otstart() {
     "task")       start_unicorn $1 8086;;
     "validation") start_unicorn $1 8087;
                   nice bash -c "nohup redis-server $OT_PREFIX/validation/redis-*/redis.conf >/dev/null 2>&1 &";;
-    "4store")     start_4s opentox 9088; 
+    "4store")     start_4s opentox 9088;
                   if ! pgrep -u $USER 4s-backend>/dev/null 2>&1; then echo "Failed to start 4s-backend."; fi
                   if ! pgrep -u $USER 4s-httpd>/dev/null 2>&1; then echo "Failed to start 4s-httpd."; fi;;
     "all")        otstart 4store;
@@ -100,11 +100,11 @@ otstart() {
 # @param1 integer Port
 # @example reload_unicorn 8081
 #reload_unicorn() {
-#  for p in `ps x | grep 'unicorn master' | grep $1 | grep -v grep | awk '{print $1}'`; do 
-#    kill -12 $p 
+#  for p in `ps x | grep 'unicorn master' | grep $1 | grep -v grep | awk '{print $1}'`; do
+#    kill -12 $p
 #  done
 #  sleep 0.5
-#  for p in `ps x | grep 'unicorn master (old)' | grep $1 | grep -v grep | awk '{print $1}'`; do 
+#  for p in `ps x | grep 'unicorn master (old)' | grep $1 | grep -v grep | awk '{print $1}'`; do
 #    kill -28 $p
 #  done
 #  sleep 0.5
@@ -120,7 +120,7 @@ otstart() {
 #    echo "One argument required: [service_name] or 'all'"
 #    echo "usage: otreload [all|algorithm|compound|dataset|feature|model|task|validation|4store]"
 #    return 1
-#  fi 
+#  fi
 #
 #  otconfig
 #  case "$1" in
@@ -160,7 +160,7 @@ otstart() {
 # @param1 integer Port
 # @example kill_unicorn 8081
 kill_unicorn() {
-  for p in `ps x | grep 'unicorn' | grep $1 | grep -v grep | awk '{print $1}'`; do kill -3 $p; done;  
+  for p in `ps x | grep 'unicorn' | grep $1 | grep -v grep | awk '{print $1}'`; do kill -3 $p; done;
 }
 
 # Kill the server
@@ -169,7 +169,7 @@ otkill() {
     echo "One argument required: [service_name] or 'all'"
     echo "usage: otkill [all|algorithm|compound|dataset|feature|model|task|validation|4store]"
     return 1
-  fi 
+  fi
 
   otconfig
   case "$1" in
@@ -216,8 +216,8 @@ otkill() {
 #  if [ -f $HOME/.opentox/config/default.rb ]; then
 #    [ -n "$SERVICE_URI" ] || SERVICE_URI=`cat $HOME/.opentox/config/default.rb | grep $1 | grep "uri" | awk -F":uri => " '{print $2}' | awk -F" " '{print $1}' | awk -F"," '{print $1}' |  sed "s/'//g" | sed 's/"//g'`
 #  fi
-#  
-#  if [ -z "$SERVICE_URI" ]; then 
+#
+#  if [ -z "$SERVICE_URI" ]; then
 #    echo "Cannot find service uri for $1 in config files."
 #    return 1
 #  else
@@ -245,7 +245,7 @@ otkill() {
 #    HEADER="Accept: chemical/x-inchi"
 #  fi
 #  if [ -n "`$CURL -v -H "$HEADER" $SERVICE_URI 2>&1 | grep '200 OK'`" ]; then
-#    return 0 
+#    return 0
 #  else
 #    echo "$1 is not available at $SERVICE_URI."
 #    return 1
@@ -269,7 +269,7 @@ otkill() {
 #    "model")      check_service "model";;
 #    "task")       check_service "task";;
 #    "validation") check_service "validation";;
-#    "4store")     check_service "four_store";; 
+#    "4store")     check_service "four_store";;
 #    "all")        otcheck "algorithm";
 #                  otcheck "compound";
 #                  otcheck "dataset";
@@ -278,8 +278,54 @@ otkill() {
 #                  otcheck "task";
 #                  otcheck "validation";
 #                  otcheck 4store;;
-#    *)            echo "One argument required: [service_name] or 'all'";
+#    *)            echo "O argument required: [service_name] or 'all'";
 #                  echo "usage: otcheck [all|algorithm|compound|dataset|feature|model|task|validation|4store]";
 #                  return 1;;
 #  esac
 #}
+
+# pull repository
+# @param1  service
+# @example pull_repo algorithm
+pull_repo() {
+  otconfig
+  cd $OT_PREFIX/$1
+  if OUTPUT=`git pull 2>&1`; then echo "Pulled $1."; else echo -e "Pulling $1 failed.\nMessage: $OUTPUT\n";  fi
+}
+
+# pulls recent git repoitory of the service
+otupdate_repo() {
+  if [ $# != 1 ]; then
+    echo "One argument required: [service_name] or 'all'"
+    echo "usage: otupdate_repo [all|algorithm|compound|dataset|feature|model|opentox-client|opentox-server|opentox-test|task|validation]"
+    return 1
+  fi
+  DIR=`pwd`
+  otconfig
+  case "$1" in
+    "algorithm")       pull_repo algorithm;;
+    "compound")        pull_repo compound;;
+    "dataset")         pull_repo dataset;;
+    "feature")         pull_repo feature;;
+    "model")           pull_repo model;;
+    "opentox-client")  pull_repo opentox-client;;
+    "opentox-server")  pull_repo opentox-server;;
+    "opentox-test")    pull_repo opentox-test;;
+    "task")            pull_repo task;;
+    "validation")      pull_repo validation;;
+    "all")             otupdate_repo algorithm;
+                       otupdate_repo compound;
+                       otupdate_repo dataset;
+                       otupdate_repo feature;
+                       otupdate_repo model;
+                       otupdate_repo opentox-client;
+                       otupdate_repo opentox-server;
+                       otupdate_repo opentox-test;
+                       otupdate_repo task;
+                       otupdate_repo validation;;
+    *)                 echo "One argument required: [service_name] or 'all'";
+                       echo "usage: otupdate_repo [all|algorithm|compound|dataset|feature|model|opentox-client|opentox-server|opentox-test|task|validation]";
+                       return 1;;
+  esac
+  cd $DIR
+}
