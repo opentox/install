@@ -278,7 +278,7 @@ otkill() {
 #                  otcheck "task";
 #                  otcheck "validation";
 #                  otcheck 4store;;
-#    *)            echo "O argument required: [service_name] or 'all'";
+#    *)            echo "One argument required: [service_name] or 'all'";
 #                  echo "usage: otcheck [all|algorithm|compound|dataset|feature|model|task|validation|4store]";
 #                  return 1;;
 #  esac
