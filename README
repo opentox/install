@@ -14,17 +14,17 @@ A) Checked out this installer via 'cd && git clone git://github.com/opentox/inst
 B) 'sudo' configuration to gain root privileges assumed (needed only for installation).
 
 Configure in config.sh, see comments there.
-By default, everything is installed to $HOME/opentox-ruby (=OT_PREFIX). 
+By default, everything is installed to $HOME/opentox-ruby (=OT_PREFIX).
 The configs go to OT_PREFIX/.sh_<Package>_ot.sh for each package.
 
-After installation, configure the system by editing the startup file of your favorite shell (in BASH 
+After installation, configure the system by editing the startup file of your favorite shell (in BASH
 the file '~/.bashrc') to include '~/install/ot-tools-user.sh' (in BASH with 'source ~/install/ot-tools-user.sh').
 If you now open a new shell and type otconfig, all environment variables are adjusted automatically.
 
 IMPORTANT workaround: before using the system for the first time:
-Open a shell, otconfig, otkill, gem uninstall rack, and uninstall the latest version (1.4.1), otstart.
+Open a shell, otconfig, otkill, gem uninstall rack, and uninstall the latest version, otstart.
 
-To uninstall the system simply delete the link from the startup file (e.g. '~/.bashrc'). 
+To uninstall the system simply delete the link from the startup file (e.g. '~/.bashrc').
 To save disk space delete directory OT_PREFIX.
 Anyone can run multiple Opentox versions on the same machine: Install again as a different user.
 
