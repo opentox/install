@@ -21,7 +21,7 @@ echo
 echo "Updating index..."
 
 cmd="$WGET -O redland_key.asc $REDLAND_APT_KEY  >/dev/null 2>&1" && run_cmd "$cmd" "Download redland apt-key"
-cmd="$APT_KEY add redland_key.asc >/dev/null 2>&1; rm redland_key.asc" && run_cmd "$cmd" "Adding redland apt-key"
+cmd="sudo $APT_KEY add redland_key.asc >/dev/null 2>&1; rm redland_key.asc" && run_cmd "$cmd" "Adding redland apt-key"
 if ! cat "/etc/apt/sources.list" | grep "$REDLAND_DEB">/dev/null 2>&1; then
   echo "deb $REDLAND_DEB ./" | sudo $TEE -a /etc/apt/sources.list >/dev/null
   echo "deb-src $REDLAND_DEB ./" | sudo $TEE -a /etc/apt/sources.list >/dev/null
