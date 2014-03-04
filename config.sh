@@ -29,6 +29,9 @@ FOUR_STORE_URL="http://4store.org/download"
 # 4) Server settings.
 #OHM_PORT="6379" # set to port (no colon)
 
+# 5) Backend name.
+BACKEND_NAME="opentox"
+
 # Done.
 
 ### Nothing to gain from changes below this line.
