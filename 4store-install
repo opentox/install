@@ -47,4 +47,4 @@ notify
 # return to wd
 cd $DIR
 . ./utils.sh
-cmd="$FST/bin/4s-backend-setup opentox" && run_cmd "$cmd" "Create 'opentox' 4store backend"
+cmd="$FST/bin/4s-backend-setup $BACKEND_NAME" && run_cmd "$cmd" "Create '$BACKEND_NAME' 4store backend"
