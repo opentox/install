@@ -16,7 +16,7 @@ check_utils "git make tar wget"
 cd $OT_PREFIX/tmp/
 ([ -d $SELF ] && cd $SELF && cmd="$GIT pull" && run_cmd "$cmd" "Git pull") || (cmd="$GIT clone https://github.com/garlik/$SELF" && run_cmd "$cmd" "Git clone")
 cd $SELF
-#cmd="$GIT checkout -b ist c3d8593c39dc04a39e272f729e486c1576f6aeba" && run_cmd "$cmd" "checkout to particular commit"
+cmd="$GIT checkout -b ist 7d44d803a51834f1ce9eeb489562f39f0abc18d6" && run_cmd "$cmd" "checkout to particular commit"
 cmd="./autogen.sh" && run_cmd "$cmd" "Autogen"
 export FST=$OT_PREFIX/4S
 cmd="./configure --enable-dedup-insert --prefix=$FST --exec-prefix=$FST --with-storage-path=$FST/var/lib --with-config-file=$FST/$SELF.conf -with-http-log=$FST/log CFLAGS=-O2 CPPFLAGS=-O3" && run_cmd "$cmd" "Configure"
