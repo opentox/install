@@ -13,7 +13,7 @@ DIR=`pwd`
 # Not logged
 # Not logged
 [ "`id -u`" = "0" ] && echo "This script must not be run as root" 1>&2 && exit 1
-check_utils "aptitude apt-get apt-key apt-cache dpkg tee wget"
+check_utils "aptitude apt-get apt-key apt-cache dpkg gpq tee wget"
 
 echo
 echo "Base Packages:"
@@ -22,10 +22,18 @@ echo "Updating index..."
 
 cmd="$WGET -O redland_key.asc $REDLAND_APT_KEY  >/dev/null 2>&1" && run_cmd "$cmd" "Download redland apt-key"
 cmd="sudo $APT_KEY add redland_key.asc >/dev/null 2>&1; rm redland_key.asc" && run_cmd "$cmd" "Adding redland apt-key"
-if ! cat "/etc/apt/sources.list" | grep "$REDLAND_DEB">/dev/null 2>&1; then
+if ! cat "/etc/apt/souraes.list" | grep "$REDLAND_DEB">/dev/null 2>&1; then
   echo "deb $REDLAND_DEB ./" | sudo $TEE -a /etc/apt/sources.list >/dev/null
   echo "deb-src $REDLAND_DEB ./" | sudo $TEE -a /etc/apt/sources.list >/dev/null
 fi
+
+cmd="$GPQ --keyserver pgp.mit.edu --recv-key 381BA480  >/dev/null 2>&1; gpg -a --export 381BA480 > jranke_cran.asc" && run_cmd "$cmd" "Create CRAN apt-key"
+cmd="sudo $APT_KEY add jranke_cran.asc >/dev/null 2>&1; rm jranke_cran.asc" && run_cmd "$cmd" "Adding CRAN apt-key"
+if ! cat "/etc/apt/souraes.list" | grep "$CRAN_DEB">/dev/null 2>&1; then
+  echo "deb $CRAN_DEB wheezy-cran3/" | sudo $TEE -a /etc/apt/sources.list >/dev/null
+fi
+
+
 
 #Only for ist nightly test server (3)
 case "`hostname`" in
