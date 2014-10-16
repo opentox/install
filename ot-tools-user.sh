@@ -40,8 +40,8 @@ alias ottail='tail -f $HOME/.opentox/log/development.log'
 start_unicorn() {
   cd $HOME/opentox-ruby/$1
   nice bash -c "nohup unicorn -p $2 >/dev/null 2>&1 &"
-  sleep 0.5
-  check_service $1 online
+#  sleep 0.5
+#  check_service $1 online
 }
 
 # Start 4Store
@@ -52,8 +52,8 @@ start_4s() {
   nice bash -c "nohup $OT_PREFIX/4S/bin/4s-backend $1 >/dev/null 2>&1 &";
   sleep 4;
   nice bash -c "nohup $OT_PREFIX/4S/bin/4s-httpd -p $2 -s -1 $1 >/dev/null 2>&1 &"; #-D for testing
-  sleep 1;
-  check_service four_store online
+#  sleep 1;
+#  check_service four_store online
 }
 
 # Start the server
@@ -82,16 +82,16 @@ otstart() {
                   nice bash -c "nohup redis-server $OT_PREFIX/validation/redis-*/redis.conf >/dev/null 2>&1 &";;
     "4store")     start_4s opentox 9088;
                   if ! pgrep -u $USER 4s-backend>/dev/null 2>&1; then echo "Failed to start 4s-backend."; fi
-                  if ! pgrep -u $USER 4s-httpd>/dev/null 2>&1; then echo "Failed to start 4s-httpd."; fi;
-                  otcheck 4store;;
+                  if ! pgrep -u $USER 4s-httpd>/dev/null 2>&1; then echo "Failed to start 4s-httpd."; fi;;
+                  #otcheck 4store;;
     "all")        otstart 4store;
                   otstart dataset;
                   otstart model;
                   otstart task;
                   otstart algorithm; #compound and feature is included
-                  otstart validation;
-                  sleep 1;
-                  otcheck all;;
+                  otstart validation;;
+                  #sleep 1;
+                  #otcheck all;;
     *)            echo "One argument required: [service_name] or 'all'";
                   echo "usage: otstart [all|algorithm|compound|dataset|feature|model|task|validation|4store]";
                   return 1;;
