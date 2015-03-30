@@ -16,8 +16,8 @@ OT_JAVA_HOME="/usr/lib/jvm/java-6-openjdk" # use "/usr/lib/jvm/java-6-openjdk-am
 # 3) What versions to install
 
 OB_NUM_VER="2.3.2"
-RAPTOR2_NUM_VER="2.0.8"
-RASQAL_NUM_VER="0.9.29"
+RAPTOR2_NUM_VER="2.0.15"
+RASQAL_NUM_VER="0.9.33"
 REDIS_NUM_VER="2.4.4"
 RUBY_NUM_VER="2.0.0-p481"
 #RUBY_NUM_VER="2.1.2"
