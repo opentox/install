@@ -3,7 +3,6 @@ automake install
 avahi-daemon install
 build-essential install
 cmake install
-curl install
 gnuplot install
 libavahi-glib-dev install
 libavahi-client-dev install

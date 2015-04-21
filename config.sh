@@ -24,7 +24,7 @@ RUBY_NUM_VER="2.0.0-p481"
 FOUR_STORE_VER="4store-v1.1.5"
 REDIS_URL="http://redis.googlecode.com/files"
 REDLAND_DWL="http://download.librdf.org"
-REDLAND_APT_KEY="http://www.dajobe.org/gnupg.asc"
+REDLAND_APT_KEY="https://www.dajobe.org/gnupg.asc"
 FOUR_STORE_URL="http://4store.org/download"
 
 # 4) Server settings.
