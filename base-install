@@ -20,7 +20,7 @@ echo "Base Packages:"
 echo
 echo "Updating index..."
 
-sudo $APT_GET install curl 
+sudo $APT_GET install -y curl 
 check_utils "curl"
 cmd="$CURL $REDLAND_APT_KEY > redland_key.asc >/dev/null 2>&1" && run_cmd "$cmd" "Download redland apt-key"
 cmd="sudo $APT_KEY add redland_key.asc >/dev/null 2>&1; rm redland_key.asc" && run_cmd "$cmd" "Adding redland apt-key"
@@ -62,7 +62,7 @@ case "$DISTRIB_INFO" in
 esac
 
 sudo $APTITUDE update -y >/dev/null 2>&1
-sudo $APT_GET install dselect
+sudo $APT_GET install -y dselect
 sudo dselect update
 sudo $DPKG --set-selections < "$PACK_LIST"
 sudo $APT_GET -y --force-yes -u dselect-upgrade
