@@ -12,7 +12,7 @@ cd $OT_PREFIX/opentox-client/bin
 cd $OT_PREFIX/opentox-server/bin
 ./opentox-server-install silent
 
-for f in algorithm compound dataset feature model validation task opentox-test; do
+for f in task; do
   git clone "https://github.com/opentox/$f.git" $OT_PREFIX/$f
   cd $OT_PREFIX/$f
   git checkout development 2>/dev/null
