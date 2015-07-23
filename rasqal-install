@@ -10,7 +10,7 @@ check_utils "apt-get wget tar make grep"
 # Build
 mkdir -p $OT_PREFIX/tmp
 cd $OT_PREFIX/tmp/
-cmd="$WGET $RASQAL_DWL" && run_cmd "$cmd" "Download"
+cmd="$WGET $RASQAL_DWL -O $RASQAL_VER.tar.gz" && run_cmd "$cmd" "Download"
 export RASQAL_DIR=$OT_PREFIX/$SELF
 cmd="$TAR xvzf $RASQAL_VER.tar.gz" && run_cmd "$cmd" "Unpack"
 rm $RASQAL_VER.tar.gz

@@ -17,10 +17,8 @@ libssl-dev install
 libtool install
 libxml2-dev install
 libyaml-dev install
-libqtwebkit-dev install
-openjdk-6-jdk install
+openjdk-7-jdk install
 r-base-dev install
 r-base install
 uuid-dev install
 xsltproc install
-xvfb install

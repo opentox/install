@@ -29,26 +29,6 @@ if ! cat "/etc/apt/sources.list" | grep "$REDLAND_DEB">/dev/null 2>&1; then
   echo "deb-src $REDLAND_DEB ./" | sudo $TEE -a /etc/apt/sources.list >/dev/null
 fi
 
-cmd="$GPG --keyserver pgp.mit.edu --recv-key 381BA480  >/dev/null 2>&1; gpg -a --export 381BA480 > jranke_cran.asc" && run_cmd "$cmd" "Create CRAN apt-key"
-cmd="sudo $APT_KEY add jranke_cran.asc >/dev/null 2>&1; rm jranke_cran.asc" && run_cmd "$cmd" "Adding CRAN apt-key"
-if ! cat "/etc/apt/sources.list" | grep "$CRAN_DEB">/dev/null 2>&1; then
-  echo "deb $CRAN_DEB wheezy-cran3/" | sudo $TEE -a /etc/apt/sources.list >/dev/null
-fi
-
-
-
-#Only for ist nightly test server (3)
-case "`hostname`" in
-"istnightly3" )
-  FTP_DEB="http://ftp.de.debian.org/debian/"
-  if ! cat "/etc/apt/sources.list" | grep "$FTP_DEB">/dev/null 2>&1; then
-    echo "deb $FTP_DEB wheezy main" | sudo $TEE -a /etc/apt/sources.list >/dev/null
-    echo "deb-src $FTP_DEB wheezy main" | sudo $TEE -a /etc/apt/sources.list >/dev/null
-  fi
-  sudo sed -i "s;deb http://http.debian.net/debian wheezy-updates main;#deb http://http.debian.net/debian wheezy-updates main;" /etc/apt/sources.list
-  sudo sed -i "s;deb-src http://http.debian.net/debian wheezy-updates main;#deb-src http://http.debian.net/debian wheezy-updates main;" /etc/apt/sources.list;;
-*) ;;
-esac
 
 sudo $APTITUDE update -y >/dev/null 2>&1
 sudo $APTITUDE upgrade -y >/dev/null 2>&1

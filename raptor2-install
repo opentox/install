@@ -10,7 +10,7 @@ check_utils "apt-get wget tar make grep"
 # Build
 mkdir -p $OT_PREFIX/tmp
 cd $OT_PREFIX/tmp/
-cmd="$WGET $RAPTOR2_DWL" && run_cmd "$cmd" "Download"
+cmd="$WGET $RAPTOR2_DWL -O $RAPTOR2_VER.tar.gz" && run_cmd "$cmd" "Download"
 export RAPTOR2_DIR=$OT_PREFIX/$SELF
 cmd="$TAR xvzf $RAPTOR2_VER.tar.gz" && run_cmd "$cmd" "Unpack" 
 rm $RAPTOR2_VER.tar.gz
