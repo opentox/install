@@ -22,3 +22,5 @@ r-base-dev install
 r-base install
 uuid-dev install
 xsltproc install
+zip install
+unzip install
