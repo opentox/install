@@ -16,8 +16,8 @@ OT_PREFIX="$HOME/opentox-ruby"
 # 3) What versions to install
 
 #OB_NUM_VER="2.3.1"
-RAPTOR2_NUM_VER="2.0.15"
-RASQAL_NUM_VER="0.9.33"
+RAPTOR2_NUM_VER="2.0.6"
+RASQAL_NUM_VER="0.9.28"
 #REDIS_NUM_VER="2.4.4"
 #RUBY_NUM_VER="2.0.0-p247"
 FOUR_STORE_VER="4store-v1.1.5"
